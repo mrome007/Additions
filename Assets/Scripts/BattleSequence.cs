@@ -16,9 +16,12 @@ public class BattleSequence : MonoBehaviour
     private List<Selectable> battleSequenceMenuButtons;
 
     private Player currentPlayer;
+    private Player targetPlayer;
 
     private void Awake()
     {
+        currentPlayer = null;
+        targetPlayer = null;
         ShowBattleSequenceMenu(false);
     }
 
@@ -31,7 +34,7 @@ public class BattleSequence : MonoBehaviour
     {
         ShowBattleSequenceMenu(true);
         currentPlayer = darts.GetNextPlayer();
-        currentPlayer.ActionEnd += HandleActionEnd;
+        currentPlayer.ActionEnd += HandleDartsActionEnd;
         Debug.Log("Start");
     }
 
@@ -47,13 +50,23 @@ public class BattleSequence : MonoBehaviour
         battleSequenceMenuButtons.ForEach(button => button.gameObject.SetActive(show));
     }
 
-    private void HandleActionEnd(object sender, EventArgs e)
+    private void HandleDartsActionEnd(object sender, EventArgs e)
     {
-        currentPlayer.ActionEnd -= HandleActionEnd;
+        currentPlayer.ActionEnd -= HandleDartsActionEnd;
+        ShowBattleSequenceMenu(false);
+        currentPlayer = enemies.GetNextPlayer();
+        currentPlayer.ActionEnd += HandleEnemiesActionEnd;
+        currentPlayer.PlayerAttack();
+        Debug.Log("Next Enemy");
+    }
+
+    private void HandleEnemiesActionEnd(object sender, EventArgs e)
+    {
+        currentPlayer.ActionEnd -= HandleEnemiesActionEnd;
         ShowBattleSequenceMenu(true);
         currentPlayer = darts.GetNextPlayer();
-        currentPlayer.ActionEnd += HandleActionEnd;
-        Debug.Log("Next");
+        currentPlayer.ActionEnd += HandleDartsActionEnd;
+        Debug.Log("Next Dart");
     }
 }
 

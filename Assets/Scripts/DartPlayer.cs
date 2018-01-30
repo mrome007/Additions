@@ -17,7 +17,7 @@ public class DartPlayer : Player
             return;
         }
 
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             ready = false;
             EndAction();

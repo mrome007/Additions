@@ -53,6 +53,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\BattleSequence.cs" />
      <Compile Include="Assets\Scripts\DartPlayer.cs" />
+     <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\Party.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
  <Reference Include="UnityEngine.UI">
