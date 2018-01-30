@@ -26,7 +26,7 @@ public abstract class Player : MonoBehaviour
         }
     }
 
-    public virtual void PlayerAttack()
+    public virtual void PlayerAttack(Player target)
     {
         StartAction();
     }

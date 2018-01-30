@@ -42,7 +42,7 @@ public class BattleSequence : MonoBehaviour
     {
         Debug.Log("Battle Attack");
         ShowBattleSequenceMenu(false);
-        currentPlayer.PlayerAttack();
+        currentPlayer.PlayerAttack(targetPlayer);
     }
 
     private void ShowBattleSequenceMenu(bool show)
@@ -56,12 +56,14 @@ public class BattleSequence : MonoBehaviour
         ShowBattleSequenceMenu(false);
         currentPlayer = enemies.GetNextPlayer();
         currentPlayer.ActionEnd += HandleEnemiesActionEnd;
-        currentPlayer.PlayerAttack();
+        currentPlayer.PlayerAttack(darts.GetRandomPlayer());
         Debug.Log("Next Enemy");
     }
 
     private void HandleEnemiesActionEnd(object sender, EventArgs e)
     {
+        //TODO create a way to cycle between enemies.
+        targetPlayer = enemies.GetRandomPlayer();
         currentPlayer.ActionEnd -= HandleEnemiesActionEnd;
         ShowBattleSequenceMenu(true);
         currentPlayer = darts.GetNextPlayer();

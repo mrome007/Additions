@@ -24,10 +24,10 @@ public class DartPlayer : Player
         }
     }
 
-    public override void PlayerAttack()
+    public override void PlayerAttack(Player target)
     {
         ready = true;
-        base.PlayerAttack();
+        base.PlayerAttack(target);
     }
 }
 

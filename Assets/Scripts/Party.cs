@@ -26,6 +26,12 @@ public class Party
         currentPlayer %= players.Count;
         return player;
     }
+
+    public Player GetRandomPlayer()
+    {
+        var player = players[UnityEngine.Random.Range(0, players.Count)];
+        return player;
+    }
     
     public void Reset()
     {

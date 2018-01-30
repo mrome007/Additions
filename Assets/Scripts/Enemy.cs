@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Enemy : Player
 {
-    public override void PlayerAttack()
+    public override void PlayerAttack(Player target)
     {
-        base.PlayerAttack();
+        base.PlayerAttack(target);
         EndAction();
     }
 }
