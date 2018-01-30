@@ -7,6 +7,28 @@ public class DartPlayer : Player
 {
     [SerializeField]
     private List<Additions> additions;
+
+    private bool ready = false;
+
+    private void Update()
+    {
+        if(!ready)
+        {
+            return;
+        }
+
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            ready = false;
+            EndAction();
+        }
+    }
+
+    public override void PlayerAttack()
+    {
+        ready = true;
+        base.PlayerAttack();
+    }
 }
 
 [Serializable]
