@@ -11,12 +11,18 @@ public class DartPlayer : Player
     private Additions currentAdditions;
     private const int additionExecuteOffset = 20;
 
+    //TODO will make this part separate
+    [SerializeField]
+    private GameObject additionBoxPresentation;
+    private float originalScale = 10f;
+
     private void Start()
     {
         //TODO temporary and will be able to cycle different additions attack.
         currentAdditions = additions[0];
+        additionBoxPresentation.SetActive(false);                  
     }
-
+    
     public override void PlayerAttack(Player target)
     {
         base.PlayerAttack(target);
@@ -27,6 +33,8 @@ public class DartPlayer : Player
     {
         var damage = 0f;
         var index = 0;
+        additionBoxPresentation.SetActive(true);                  
+
         for(; index < currentAdditions.Addition.Count; index++)
         {
             var addition = currentAdditions.Addition[index];
@@ -35,6 +43,12 @@ public class DartPlayer : Player
             var numFrameUpperLimit = numFrames;
             var additionSuccess = true;
             var frameCount = 0;
+
+            //TODO will make this separate as well.
+            var boxScale = originalScale;
+            var boxScaleRate = (originalScale - 1f) / numFrames;
+            var boxScaleVector = Vector3.one;
+
             while(frameCount < numFrames)
             {
                 if(Input.GetKeyDown(KeyCode.Space))
@@ -54,6 +68,10 @@ public class DartPlayer : Player
                 }
                 Debug.Log("Frame Count " + frameCount);
                 frameCount++;
+                boxScale -= boxScaleRate;
+                boxScaleVector.x = boxScale;
+                boxScaleVector.y = boxScale;
+                additionBoxPresentation.transform.localScale = boxScaleVector;
                 yield return null;
             }
 
@@ -69,13 +87,21 @@ public class DartPlayer : Player
             {
                 break;
             }
-            yield return null;
+
+            additionBoxPresentation.SetActive(false);
+            boxScaleVector.x = originalScale;
+            boxScaleVector.y = originalScale;
+            additionBoxPresentation.transform.localScale = boxScaleVector;
+            yield return new WaitForSeconds(0.25f);
+            additionBoxPresentation.SetActive(true);                  
         }
 
         if(index == currentAdditions.Addition.Count)
         {
             //Do final attack here.
         }
+
+        additionBoxPresentation.SetActive(false);                  
 
         EndAction(currentAction, damage);
     }
