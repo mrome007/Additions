@@ -712,7 +712,10 @@ MonoBehaviour:
   additions:
   - Name: Double Barrel
     Addition:
-    - damage: 5
+    - Damage: 5
+      NumFramesToExecute: 120
+    - Damage: 7
+      NumFramesToExecute: 100
 --- !u!1 &1654497084
 GameObject:
   m_ObjectHideFlags: 0

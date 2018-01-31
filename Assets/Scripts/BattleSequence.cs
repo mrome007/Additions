@@ -35,12 +35,12 @@ public class BattleSequence : MonoBehaviour
         ShowBattleSequenceMenu(true);
         currentPlayer = darts.GetNextPlayer();
         currentPlayer.ActionEnd += HandleDartsActionEnd;
-        Debug.Log("Start");
+        //Debug.Log("Start");
     }
 
     public void BattleAttack()
     {
-        Debug.Log("Battle Attack");
+        //Debug.Log("Battle Attack");
         ShowBattleSequenceMenu(false);
         currentPlayer.PlayerAttack(targetPlayer);
     }
@@ -50,17 +50,17 @@ public class BattleSequence : MonoBehaviour
         battleSequenceMenuButtons.ForEach(button => button.gameObject.SetActive(show));
     }
 
-    private void HandleDartsActionEnd(object sender, EventArgs e)
+    private void HandleDartsActionEnd(object sender, ActionEventArgs e)
     {
         currentPlayer.ActionEnd -= HandleDartsActionEnd;
         ShowBattleSequenceMenu(false);
         currentPlayer = enemies.GetNextPlayer();
         currentPlayer.ActionEnd += HandleEnemiesActionEnd;
         currentPlayer.PlayerAttack(darts.GetRandomPlayer());
-        Debug.Log("Next Enemy");
+        //Debug.Log("Next Enemy");
     }
 
-    private void HandleEnemiesActionEnd(object sender, EventArgs e)
+    private void HandleEnemiesActionEnd(object sender, ActionEventArgs e)
     {
         //TODO create a way to cycle between enemies.
         targetPlayer = enemies.GetRandomPlayer();
@@ -68,7 +68,7 @@ public class BattleSequence : MonoBehaviour
         ShowBattleSequenceMenu(true);
         currentPlayer = darts.GetNextPlayer();
         currentPlayer.ActionEnd += HandleDartsActionEnd;
-        Debug.Log("Next Dart");
+        //Debug.Log("Next Dart");
     }
 }
 

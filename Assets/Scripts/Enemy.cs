@@ -7,6 +7,6 @@ public class Enemy : Player
     public override void PlayerAttack(Player target)
     {
         base.PlayerAttack(target);
-        EndAction();
+        EndAction(currentAction, 0f);
     }
 }
