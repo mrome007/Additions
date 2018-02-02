@@ -5,6 +5,7 @@ using System;
 
 public abstract class Player : MonoBehaviour 
 {
+    public int TurnPoints;
     public event EventHandler<ActionEventArgs> ActionStart;
     public event EventHandler<ActionEventArgs> ActionEnd;
     protected ActionType currentAction = ActionType.Idle;

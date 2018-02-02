@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AdditionSuccessBox : MonoBehaviour 
 {
+    //This may change in the future depending on how I indicate success.
     [SerializeField]
     private SpriteRenderer successBox;
 

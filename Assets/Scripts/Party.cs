@@ -17,13 +17,37 @@ public class Party
     
     public Party()
     {
-        currentPlayer = 0;
+        currentPlayer = -1;
     }
     
     public Player GetNextPlayer()
     {
-        var player = players[currentPlayer++];
+        ++currentPlayer;
         currentPlayer %= players.Count;
+        var player = players[currentPlayer];
+        return player;
+    }
+
+    public Player GetPreviousPlayer()
+    {
+        if(currentPlayer < 0)
+        {
+            currentPlayer = currentPlayer + players.Count;
+        }
+
+        --currentPlayer;
+
+        if(currentPlayer < 0)
+        {
+            currentPlayer = currentPlayer + players.Count;
+        }
+        else
+        {
+            currentPlayer %= players.Count;
+        }
+
+        var player = players[currentPlayer];
+
         return player;
     }
 
@@ -35,6 +59,6 @@ public class Party
     
     public void Reset()
     {
-        currentPlayer = 0;
+        currentPlayer = -1;
     }
 }
