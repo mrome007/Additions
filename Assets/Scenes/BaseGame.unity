@@ -1146,7 +1146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1fa97415752440f86bb467daf9d603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurnPoints: 4
+  TurnPoints: 5
   additions:
   - Name: Double Barrel
     Addition:
@@ -1384,4 +1384,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6ffe2505f044ba691a23e734abcb14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurnPoints: 3
+  TurnPoints: 4

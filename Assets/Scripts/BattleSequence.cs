@@ -20,12 +20,23 @@ public class BattleSequence : MonoBehaviour
 
     private Player currentPlayer;
     private Player currentTarget;
+    private Queue<Player> playerBattleQueue;
+    private List<int> playersTurnPoints;
+
+    private int turnPointsLimit = 17;
 
     private void Awake()
     {
         currentPlayer = null;
         currentTarget = null;
         ShowBattleSequenceMenu(false);
+        playerBattleQueue = new Queue<Player>();
+        playersTurnPoints = new List<int>();
+        for(int index = 0; index < darts.NumberOfPlayers + enemies.NumberOfPlayers; index++)
+        {
+            playersTurnPoints.Add(0);
+        }
+        playersTurnPoints.ForEach(turnPoints => turnPoints = 0);
     }
 
     private void Start()
@@ -35,11 +46,8 @@ public class BattleSequence : MonoBehaviour
 
     public void StartBattleSequence()
     {
-        ShowBattleSequenceMenu(true);
-        enemyIndicator.ShowEnemyIndicator(false);
-        currentPlayer = darts.GetNextPlayer();
-        currentPlayer.ActionEnd += HandleDartsActionEnd;
-        //Debug.Log("Start");
+        QueuePlayers();
+        StartPlayerTurn();
     }
 
     //Player Choosing To Attack with the menu button.
@@ -55,24 +63,15 @@ public class BattleSequence : MonoBehaviour
         battleSequenceMenuButtons.ForEach(button => button.gameObject.SetActive(show));
     }
 
-    private void HandleDartsActionEnd(object sender, ActionEventArgs e)
+    private void HandlePlayerActionEnd(object sender, ActionEventArgs e)
     {
-        currentPlayer.ActionEnd -= HandleDartsActionEnd;
-        ShowBattleSequenceMenu(false);
-        currentPlayer = enemies.GetNextPlayer();
-        currentPlayer.ActionEnd += HandleEnemiesActionEnd;
-        currentPlayer.PlayerAttack(darts.GetRandomPlayer());
-        //Debug.Log("Next Enemy");
-    }
+        currentPlayer.ActionEnd -= HandlePlayerActionEnd;
+        if(playerBattleQueue.Count == 0)
+        {
+            QueuePlayers();
+        }
 
-    private void HandleEnemiesActionEnd(object sender, ActionEventArgs e)
-    {
-        //TODO create a way to cycle between enemies.
-        currentPlayer.ActionEnd -= HandleEnemiesActionEnd;
-        ShowBattleSequenceMenu(true);
-        currentPlayer = darts.GetNextPlayer();
-        currentPlayer.ActionEnd += HandleDartsActionEnd;
-        //Debug.Log("Next Dart");
+        StartPlayerTurn();
     }
 
     private IEnumerator PlayerSelectEnemyTarget()
@@ -109,6 +108,56 @@ public class BattleSequence : MonoBehaviour
         enemyIndicator.ShowEnemyIndicator(false);
         currentPlayer.PlayerAttack(currentTarget);
 
+    }
+
+    private void QueuePlayers()
+    {
+        while(playerBattleQueue.Count == 0)
+        {
+            for(int index = 0; index < darts.NumberOfPlayers; index++)
+            {
+                var dart = darts.GetPlayer(index);
+                playersTurnPoints[index] += dart.TurnPoints;
+
+                if(playersTurnPoints[index] >= turnPointsLimit)
+                {
+                    playerBattleQueue.Enqueue(dart);
+                    playersTurnPoints[index] %= turnPointsLimit;
+                }
+            }      
+
+            for(int index = darts.NumberOfPlayers; index < playersTurnPoints.Count; index++)
+            {
+                var enemy = enemies.GetPlayer(index - darts.NumberOfPlayers);
+                playersTurnPoints[index] += enemy.TurnPoints;
+
+                if(playersTurnPoints[index] >= turnPointsLimit)
+                {
+                    playerBattleQueue.Enqueue(enemy);
+                    playersTurnPoints[index] %= turnPointsLimit;
+                }
+            }
+        }
+    }
+
+    private void StartPlayerTurn()
+    {
+        currentPlayer = playerBattleQueue.Dequeue();
+        currentPlayer.ActionEnd += HandlePlayerActionEnd;
+
+        if(currentPlayer.GetComponent<Enemy>() != null)
+        {
+            ShowBattleSequenceMenu(false);
+            enemyIndicator.MoveEnemyIndicator(currentPlayer.transform.position);
+            enemyIndicator.ShowEnemyIndicator(true);
+            //TODO work on how enemy target darts.
+            currentPlayer.PlayerAttack(currentTarget);
+        }
+        else
+        {
+            ShowBattleSequenceMenu(true);
+            enemyIndicator.ShowEnemyIndicator(false);
+        }
     }
 }
 

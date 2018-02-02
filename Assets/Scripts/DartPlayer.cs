@@ -27,6 +27,7 @@ public class DartPlayer : Player
     public override void PlayerAttack(Player target)
     {
         base.PlayerAttack(target);
+        additionBox.Reset();
         StartCoroutine(ExecuteAddition());
     }
 

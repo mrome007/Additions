@@ -9,7 +9,9 @@ public class Party
     //TODO Determine which player is the faster and return that for the next player.
     //Also have a method that checks every body's health in the party. This will be used
     //to determine when the battle sequence ends.
-    
+
+    public int NumberOfPlayers { get { return players.Count; } }
+
     [SerializeField]
     private List<Player> players;
     
@@ -51,9 +53,9 @@ public class Party
         return player;
     }
 
-    public Player GetRandomPlayer()
+    public Player GetPlayer(int index)
     {
-        var player = players[UnityEngine.Random.Range(0, players.Count)];
+        var player = players[index];
         return player;
     }
     
