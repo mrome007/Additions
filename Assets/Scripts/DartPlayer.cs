@@ -8,19 +8,20 @@ public class DartPlayer : Player
     [SerializeField]
     private List<Additions> additions;
 
-    private Additions currentAdditions;
-    private const int additionExecuteOffset = 20;
-
-    //TODO will make this part separate
     [SerializeField]
-    private GameObject additionBoxPresentation;
-    private float originalScale = 10f;
+    private AdditionSuccessBox additionBox;
+
+    private Additions currentAdditions;
+    private const int additionExecuteOffset = 10;
+    private WaitForSeconds delayShowAdditionBoxTime;
+    private WaitForSeconds additionDelayTime;
 
     private void Start()
     {
         //TODO temporary and will be able to cycle different additions attack.
         currentAdditions = additions[0];
-        additionBoxPresentation.SetActive(false);                  
+        delayShowAdditionBoxTime = new WaitForSeconds(0.15f);
+        additionDelayTime = new WaitForSeconds(0.1f);
     }
     
     public override void PlayerAttack(Player target)
@@ -33,21 +34,17 @@ public class DartPlayer : Player
     {
         var damage = 0f;
         var index = 0;
-        additionBoxPresentation.SetActive(true);                  
 
         for(; index < currentAdditions.Addition.Count; index++)
         {
+            additionBox.ShowAdditionBox(true);
+            
             var addition = currentAdditions.Addition[index];
             var numFrames = addition.NumFramesToExecute + additionExecuteOffset;
             var numFrameLowerLimit = addition.NumFramesToExecute - additionExecuteOffset;
             var numFrameUpperLimit = numFrames;
             var additionSuccess = true;
             var frameCount = 0;
-
-            //TODO will make this separate as well.
-            var boxScale = originalScale;
-            var boxScaleRate = (originalScale - 1f) / numFrames;
-            var boxScaleVector = Vector3.one;
 
             while(frameCount < numFrames)
             {
@@ -56,31 +53,27 @@ public class DartPlayer : Player
                     if(frameCount >= numFrameLowerLimit && frameCount < numFrameUpperLimit)
                     {
                         additionSuccess = true;
-                        //Debug.Log("Success " + index);
                         break;
                     }
                     else
                     {
                         additionSuccess = false;
-                        Debug.Log("X Success " + index);
                         break;
                     }
                 }
-                Debug.Log("Frame Count " + frameCount);
+
                 frameCount++;
-                boxScale -= boxScaleRate;
-                boxScaleVector.x = boxScale;
-                boxScaleVector.y = boxScale;
-                additionBoxPresentation.transform.localScale = boxScaleVector;
+                additionBox.ScaleAdditionBox(numFrames);
                 yield return null;
             }
 
             if(frameCount >= numFrames)
             {
                 additionSuccess = false;
-                Debug.Log("X O Success " + index);
             }
-            
+
+            additionBox.AdditionSuccess(additionSuccess);
+
             damage += addition.ApplyDamage(additionSuccess);
 
             if(!additionSuccess)
@@ -88,12 +81,12 @@ public class DartPlayer : Player
                 break;
             }
 
-            additionBoxPresentation.SetActive(false);
-            boxScaleVector.x = originalScale;
-            boxScaleVector.y = originalScale;
-            additionBoxPresentation.transform.localScale = boxScaleVector;
-            yield return new WaitForSeconds(0.25f);
-            additionBoxPresentation.SetActive(true);                  
+            yield return delayShowAdditionBoxTime;
+
+            additionBox.ShowAdditionBox(false);
+            additionBox.Reset();
+
+            yield return additionDelayTime;
         }
 
         if(index == currentAdditions.Addition.Count)
@@ -101,7 +94,10 @@ public class DartPlayer : Player
             //Do final attack here.
         }
 
-        additionBoxPresentation.SetActive(false);                  
+        yield return delayShowAdditionBoxTime;
+            
+        additionBox.ShowAdditionBox(false);
+        additionBox.Reset();
 
         EndAction(currentAction, damage);
     }

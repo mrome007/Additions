@@ -171,6 +171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 284018030}
   - component: {fileID: 284018029}
+  - component: {fileID: 284018031}
   m_Layer: 0
   m_Name: AdditionPresentation
   m_TagString: Untagged
@@ -235,6 +236,19 @@ Transform:
   m_Father: {fileID: 1638433793}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &284018031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 284018028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a992afd7235d04d2db4bc72072311194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  successBox: {fileID: 284018029}
+  originalScale: 10
 --- !u!1 &455717074
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,10 +801,10 @@ MonoBehaviour:
   - Name: Double Barrel
     Addition:
     - Damage: 5
-      NumFramesToExecute: 120
+      NumFramesToExecute: 75
     - Damage: 7
-      NumFramesToExecute: 80
-  additionBoxPresentation: {fileID: 284018028}
+      NumFramesToExecute: 55
+  additionBox: {fileID: 284018031}
 --- !u!1 &1654497084
 GameObject:
   m_ObjectHideFlags: 0
