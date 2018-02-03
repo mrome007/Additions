@@ -11,8 +11,11 @@ public class DartPlayer : Player
     [SerializeField]
     private AdditionSuccessBox additionBox;
 
+    [SerializeField]
+    private Animator dartPlayerAnimator;
+
     private Additions currentAdditions;
-    private const int additionExecuteOffset = 10;
+    private const int additionExecuteOffset = 12;
     private WaitForSeconds delayShowAdditionBoxTime;
     private WaitForSeconds additionDelayTime;
 
@@ -49,6 +52,11 @@ public class DartPlayer : Player
 
             while(frameCount < numFrames)
             {
+                if(frameCount == numFrameLowerLimit)
+                {
+                    dartPlayerAnimator.SetTrigger("attack1");
+                }
+                
                 if(Input.GetKeyDown(KeyCode.Space))
                 {
                     if(frameCount >= numFrameLowerLimit && frameCount < numFrameUpperLimit)
@@ -92,7 +100,7 @@ public class DartPlayer : Player
 
         if(index == currentAdditions.Addition.Count)
         {
-            //Do final attack here.
+            dartPlayerAnimator.SetTrigger("attack3");
         }
 
         yield return delayShowAdditionBoxTime;
