@@ -13,6 +13,7 @@ public class AdditionSuccessBox : MonoBehaviour
 
     private Vector3 scaleVector;
     private float boxScale;
+    private Color originalColor;
 
     private void Awake()
     {
@@ -20,6 +21,8 @@ public class AdditionSuccessBox : MonoBehaviour
         transform.localScale = scaleVector;
         boxScale = originalScale;
         ShowAdditionBox(false);
+        var origColor = 100f / 255f; 
+        originalColor = new Color(origColor, origColor, origColor, 30f / 100f);
     }
 
     public void ShowAdditionBox(bool show)
@@ -47,7 +50,7 @@ public class AdditionSuccessBox : MonoBehaviour
         scaleVector.x = originalScale;
         scaleVector.y = originalScale;
         boxScale = originalScale;
-        successBox.color = Color.white;
+        successBox.color = originalColor;
         transform.localScale = scaleVector;
     }
 }

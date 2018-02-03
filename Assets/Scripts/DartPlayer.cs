@@ -13,6 +13,8 @@ public class DartPlayer : Player
 
     [SerializeField]
     private Animator dartPlayerAnimator;
+    [SerializeField]
+    private Animator dartAdditionAnimator;
 
     private Additions currentAdditions;
     private const int additionExecuteOffset = 12;
@@ -54,7 +56,8 @@ public class DartPlayer : Player
             {
                 if(frameCount == numFrameLowerLimit)
                 {
-                    dartPlayerAnimator.SetTrigger("attack1");
+                    dartPlayerAnimator.SetTrigger(addition.AttackTrigger);
+                    dartAdditionAnimator.SetTrigger(addition.AttackTrigger);
                 }
                 
                 if(Input.GetKeyDown(KeyCode.Space))
@@ -92,6 +95,7 @@ public class DartPlayer : Player
 
             yield return delayShowAdditionBoxTime;
 
+            dartAdditionAnimator.Play("Idle");
             additionBox.ShowAdditionBox(false);
             additionBox.Reset();
 
@@ -100,11 +104,13 @@ public class DartPlayer : Player
 
         if(index == currentAdditions.Addition.Count)
         {
-            dartPlayerAnimator.SetTrigger("attack3");
+            dartPlayerAnimator.SetTrigger(currentAdditions.FinalAttackTrigger);
+            dartAdditionAnimator.SetTrigger(currentAdditions.FinalAttackTrigger);
         }
 
         yield return delayShowAdditionBoxTime;
-            
+
+        dartAdditionAnimator.Play("Idle");
         additionBox.ShowAdditionBox(false);
         additionBox.Reset();
 
@@ -117,11 +123,13 @@ public class Additions
 {
     public string Name;
     public List<Addition> Addition;
+    public string FinalAttackTrigger;
 }
 
 [Serializable]
 public struct Addition
 {
+    public string AttackTrigger;
     public float Damage;
     public int NumFramesToExecute;
 
