@@ -17,7 +17,7 @@ public class DartPlayer : Player
     private Animator dartAdditionAnimator;
 
     private Additions currentAdditions;
-    private const int additionExecuteOffset = 12;
+    private const int additionExecuteOffset = 6;
     private WaitForSeconds delayShowAdditionBoxTime;
     private WaitForSeconds additionDelayTime;
 
@@ -62,16 +62,8 @@ public class DartPlayer : Player
                 
                 if(Input.GetKeyDown(KeyCode.Space))
                 {
-                    if(frameCount >= numFrameLowerLimit && frameCount < numFrameUpperLimit)
-                    {
-                        additionSuccess = true;
-                        break;
-                    }
-                    else
-                    {
-                        additionSuccess = false;
-                        break;
-                    }
+                    additionSuccess = (frameCount >= numFrameLowerLimit && frameCount < numFrameUpperLimit);
+                    break;
                 }
 
                 frameCount++;
@@ -90,12 +82,22 @@ public class DartPlayer : Player
 
             if(!additionSuccess)
             {
+                while(frameCount < numFrames)
+                {
+                    if(frameCount == numFrameLowerLimit)
+                    {
+                        dartPlayerAnimator.SetTrigger(addition.AttackTrigger);
+                        dartAdditionAnimator.SetTrigger(addition.AttackTrigger);
+                    }
+                    frameCount++;
+                    additionBox.ScaleAdditionBox(numFrames);
+                    yield return null;
+                }
                 break;
             }
 
             yield return delayShowAdditionBoxTime;
 
-            dartAdditionAnimator.Play("Idle");
             additionBox.ShowAdditionBox(false);
             additionBox.Reset();
 
@@ -110,11 +112,15 @@ public class DartPlayer : Player
 
         yield return delayShowAdditionBoxTime;
 
-        dartAdditionAnimator.Play("Idle");
         additionBox.ShowAdditionBox(false);
         additionBox.Reset();
 
         EndAction(currentAction, damage);
+    }
+
+    private void MovePlayerToTarget()
+    {
+
     }
 }
 
