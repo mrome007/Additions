@@ -26,7 +26,7 @@ public class DartPlayer : Player
         //TODO temporary and will be able to cycle different additions attack.
         currentAdditions = additions[0];
         delayShowAdditionBoxTime = new WaitForSeconds(0.15f);
-        additionDelayTime = new WaitForSeconds(0.1f);
+        additionDelayTime = new WaitForSeconds(0.25f);
     }
     
     public override void PlayerAttack(Player target)
@@ -108,6 +108,7 @@ public class DartPlayer : Player
         {
             dartPlayerAnimator.SetTrigger(currentAdditions.FinalAttackTrigger);
             dartAdditionAnimator.SetTrigger(currentAdditions.FinalAttackTrigger);
+            yield return new WaitForSeconds(1f);
         }
 
         yield return delayShowAdditionBoxTime;
