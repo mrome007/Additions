@@ -23,6 +23,7 @@ public class DartPlayer : Player
     private WaitForSeconds finalAttackDelayTime;
     private WaitForSeconds delayEndAction;
     private Vector3 originalPosition;
+    private float enemyPositionOffset = 1.25f;
 
     private void Start()
     {
@@ -60,7 +61,9 @@ public class DartPlayer : Player
 
             if(index == 0)
             {
-                StartCoroutine(MovePlayerToTarget(numFrameLowerLimit - 1, Vector3.Distance(transform.position, target.transform.position) - 1f));
+                var direction = (target.transform.position - transform.position).normalized;
+                var distance = Vector3.Distance(transform.position, target.transform.position) - enemyPositionOffset;
+                StartCoroutine(MovePlayerToTarget(numFrameLowerLimit - 1, distance, direction));
             }
 
             while(frameCount < numFrames)
@@ -134,7 +137,7 @@ public class DartPlayer : Player
         EndAction(currentAction, damage);
     }
 
-    private IEnumerator MovePlayerToTarget(int numberOfFrames, float distance)
+    private IEnumerator MovePlayerToTarget(int numberOfFrames, float distance, Vector3 direction)
     {
         var rate = distance / numberOfFrames;
         var count = 0;
@@ -142,7 +145,7 @@ public class DartPlayer : Player
         dartAdditionAnimator.SetTrigger("skill");
         while(count < numberOfFrames)
         {
-            transform.Translate(Vector3.right * rate);
+            transform.Translate(direction * rate);
             count++;
             yield return null;
         }
