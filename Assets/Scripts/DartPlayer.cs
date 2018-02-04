@@ -24,7 +24,6 @@ public class DartPlayer : Player
 
     private void Start()
     {
-        //TODO temporary and will be able to cycle different additions attack.
         currentAdditions = additions[0];
         delayShowAdditionBoxTime = new WaitForSeconds(0.15f);
         additionDelayTime = new WaitForSeconds(0.25f);
@@ -35,10 +34,10 @@ public class DartPlayer : Player
     {
         base.PlayerAttack(target);
         additionBox.Reset();
-        StartCoroutine(ExecuteAddition());
+        StartCoroutine(ExecuteAddition(target));
     }
 
-    private IEnumerator ExecuteAddition()
+    private IEnumerator ExecuteAddition(Player target)
     {
         var damage = 0f;
         var index = 0;
