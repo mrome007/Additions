@@ -44,7 +44,14 @@ public class AdditionSuccessBox : MonoBehaviour
     public void ScaleAdditionBox(int numFrames)
     {
         var scaleRate = (originalScale - 1f) / numFrames;
-        boxScale -= scaleRate;
+        if(boxScale > 1f)
+        {
+            boxScale -= scaleRate;
+        }
+        else
+        {
+            boxScale = 1f;
+        }
         scaleVector.x = boxScale;
         scaleVector.y = boxScale;
 

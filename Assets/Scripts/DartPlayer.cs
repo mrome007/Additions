@@ -21,6 +21,8 @@ public class DartPlayer : Player
     private WaitForSeconds delayShowAdditionBoxTime;
     private WaitForSeconds additionDelayTime;
     private WaitForSeconds finalAttackDelayTime;
+    private WaitForSeconds delayEndAction;
+    private Vector3 originalPosition;
 
     private void Start()
     {
@@ -28,6 +30,9 @@ public class DartPlayer : Player
         delayShowAdditionBoxTime = new WaitForSeconds(0.15f);
         additionDelayTime = new WaitForSeconds(0.25f);
         finalAttackDelayTime = new WaitForSeconds(1f);
+        delayEndAction = new WaitForSeconds(0.75f);
+        originalPosition = transform.position;
+
     }
     
     public override void PlayerAttack(Player target)
@@ -52,6 +57,11 @@ public class DartPlayer : Player
             var numFrameUpperLimit = numFrames;
             var additionSuccess = true;
             var frameCount = 0;
+
+            if(index == 0)
+            {
+                StartCoroutine(MovePlayerToTarget(numFrameLowerLimit - 1, Vector3.Distance(transform.position, target.transform.position) - 1f));
+            }
 
             while(frameCount < numFrames)
             {
@@ -113,17 +123,28 @@ public class DartPlayer : Player
             yield return finalAttackDelayTime;
         }
 
-        yield return delayShowAdditionBoxTime;
+        yield return delayEndAction;
 
         additionBox.ShowAdditionBox(false);
         additionBox.Reset();
+        transform.position = originalPosition;
+
+        yield return additionDelayTime;
 
         EndAction(currentAction, damage);
     }
 
-    private void MovePlayerToTarget()
+    private IEnumerator MovePlayerToTarget(int numberOfFrames, float distance)
     {
-
+        var rate = distance / numberOfFrames;
+        var count = 0;
+        dartPlayerAnimator.SetTrigger("skill");
+        while(count < numberOfFrames)
+        {
+            transform.Translate(Vector3.right * rate);
+            count++;
+            yield return null;
+        }
     }
 }
 
