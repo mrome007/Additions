@@ -20,6 +20,7 @@ public class DartPlayer : Player
     private const int additionExecuteOffset = 6;
     private WaitForSeconds delayShowAdditionBoxTime;
     private WaitForSeconds additionDelayTime;
+    private WaitForSeconds finalAttackDelayTime;
 
     private void Start()
     {
@@ -27,6 +28,7 @@ public class DartPlayer : Player
         currentAdditions = additions[0];
         delayShowAdditionBoxTime = new WaitForSeconds(0.15f);
         additionDelayTime = new WaitForSeconds(0.25f);
+        finalAttackDelayTime = new WaitForSeconds(1f);
     }
     
     public override void PlayerAttack(Player target)
@@ -63,6 +65,7 @@ public class DartPlayer : Player
                 if(Input.GetKeyDown(KeyCode.Space))
                 {
                     additionSuccess = (frameCount >= numFrameLowerLimit && frameCount < numFrameUpperLimit);
+                    additionBox.ShowAdditionExecuted(false);
                     break;
                 }
 
@@ -108,7 +111,7 @@ public class DartPlayer : Player
         {
             dartPlayerAnimator.SetTrigger(currentAdditions.FinalAttackTrigger);
             dartAdditionAnimator.SetTrigger(currentAdditions.FinalAttackTrigger);
-            yield return new WaitForSeconds(1f);
+            yield return finalAttackDelayTime;
         }
 
         yield return delayShowAdditionBoxTime;
