@@ -139,6 +139,7 @@ public class DartPlayer : Player
         var rate = distance / numberOfFrames;
         var count = 0;
         dartPlayerAnimator.SetTrigger("skill");
+        dartAdditionAnimator.SetTrigger("skill");
         while(count < numberOfFrames)
         {
             transform.Translate(Vector3.right * rate);
