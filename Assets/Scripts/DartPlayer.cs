@@ -30,8 +30,8 @@ public class DartPlayer : Player
         currentAdditions = additions[0];
         delayShowAdditionBoxTime = new WaitForSeconds(0.15f);
         additionDelayTime = new WaitForSeconds(0.25f);
-        finalAttackDelayTime = new WaitForSeconds(1f);
-        delayEndAction = new WaitForSeconds(0.75f);
+        finalAttackDelayTime = new WaitForSeconds(1.15f);
+        delayEndAction = new WaitForSeconds(1f);
         originalPosition = transform.position;
 
     }
@@ -78,14 +78,13 @@ public class DartPlayer : Player
             {
                 if(frameCount == numFrameLowerLimit)
                 {
-                    dartPlayerAnimator.SetTrigger(addition.AttackTrigger);
                     dartAdditionAnimator.SetTrigger(addition.AttackTrigger);
+                    dartPlayerAnimator.SetTrigger(addition.AttackTrigger);
                 }
                 
                 if(Input.GetKeyDown(KeyCode.Space))
                 {
                     additionSuccess = (frameCount >= numFrameLowerLimit && frameCount < numFrameUpperLimit);
-                    additionBox.ShowAdditionExecuted(false);
                     break;
                 }
 
@@ -105,12 +104,12 @@ public class DartPlayer : Player
 
             if(!additionSuccess)
             {
-                while(frameCount < numFrames)
+                while(frameCount < numFrameLowerLimit)
                 {
-                    if(frameCount == numFrameLowerLimit)
+                    if(frameCount == numFrameLowerLimit - 1)
                     {
-                        dartPlayerAnimator.SetTrigger(addition.AttackTrigger);
                         dartAdditionAnimator.SetTrigger(addition.AttackTrigger);
+                        dartPlayerAnimator.SetTrigger(addition.AttackTrigger);
                     }
                     frameCount++;
                     additionBox.ScaleAdditionBox(numFrames);
@@ -121,7 +120,6 @@ public class DartPlayer : Player
 
             yield return delayShowAdditionBoxTime;
 
-            additionBox.ShowAdditionBox(false);
             additionBox.Reset();
 
             yield return additionDelayTime;
@@ -132,6 +130,11 @@ public class DartPlayer : Player
             dartPlayerAnimator.SetTrigger(currentAdditions.FinalAttackTrigger);
             dartAdditionAnimator.SetTrigger(currentAdditions.FinalAttackTrigger);
             yield return finalAttackDelayTime;
+        }
+        else
+        {
+            dartPlayerAnimator.Play("Idle");
+            dartAdditionAnimator.Play("Idle");
         }
 
         yield return delayEndAction;

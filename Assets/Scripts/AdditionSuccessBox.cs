@@ -12,9 +12,6 @@ public class AdditionSuccessBox : MonoBehaviour
     [SerializeField]
     private float originalScale;
 
-    [SerializeField]
-    private Selectable keyIndicator;
-
     private Vector3 scaleVector;
     private float boxScale;
     private Color originalColor;
@@ -31,14 +28,7 @@ public class AdditionSuccessBox : MonoBehaviour
 
     public void ShowAdditionBox(bool show)
     {
-        keyIndicator.gameObject.SetActive(show);
-        keyIndicator.interactable = show;
         successBox.gameObject.SetActive(show);
-    }
-
-    public void ShowAdditionExecuted(bool show)
-    {
-        keyIndicator.interactable = show;
     }
 
     public void ScaleAdditionBox(int numFrames)
