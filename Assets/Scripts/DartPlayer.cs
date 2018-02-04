@@ -43,6 +43,14 @@ public class DartPlayer : Player
         StartCoroutine(ExecuteAddition(target));
     }
 
+    public void ChangeAddition(int index)
+    {
+        if(index >= 0 & index < additions.Count)
+        {
+            currentAdditions = additions[index];
+        }
+    }
+
     private IEnumerator ExecuteAddition(Player target)
     {
         var damage = 0f;

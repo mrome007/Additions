@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BattleSequence : MonoBehaviour 
 {
@@ -13,7 +12,7 @@ public class BattleSequence : MonoBehaviour
     private Party enemies;
 
     [SerializeField]
-    private List<Selectable> battleSequenceMenuButtons;
+    private List<Transform> battleSequenceMenuButtons;
 
     [SerializeField]
     private EnemyIndicator enemyIndicator;
@@ -61,6 +60,57 @@ public class BattleSequence : MonoBehaviour
     private void ShowBattleSequenceMenu(bool show)
     {
         battleSequenceMenuButtons.ForEach(button => button.gameObject.SetActive(show));
+        if(show)
+        {
+            StartCoroutine(PlayerSelectAddition());
+        }
+    }
+
+    private IEnumerator PlayerSelectAddition()
+    {
+        var index = 0;
+        var currentAddition = battleSequenceMenuButtons[index];
+        enemyIndicator.MoveEnemyIndicator(currentAddition.transform.position);
+        enemyIndicator.ShowEnemyIndicator(true);
+
+        while(true)
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                var dartPlayer = currentPlayer.GetComponent<DartPlayer>();
+                if(dartPlayer != null)
+                {
+                    dartPlayer.ChangeAddition(index);
+                }
+                break;
+            }
+
+            if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                index++;
+                index %= battleSequenceMenuButtons.Count;
+                currentAddition = battleSequenceMenuButtons[index];
+                enemyIndicator.MoveEnemyIndicator(currentAddition.transform.position);
+            }
+
+            if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                index--;
+                if(index < 0)
+                {
+                    index += battleSequenceMenuButtons.Count;
+                }
+                currentAddition = battleSequenceMenuButtons[index];
+                enemyIndicator.MoveEnemyIndicator(currentAddition.transform.position);
+            }
+
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.25f);
+
+        enemyIndicator.ShowEnemyIndicator(false);
+        BattleAttack();
     }
 
     private void HandlePlayerActionEnd(object sender, ActionEventArgs e)
@@ -155,8 +205,8 @@ public class BattleSequence : MonoBehaviour
         }
         else
         {
-            ShowBattleSequenceMenu(true);
             enemyIndicator.ShowEnemyIndicator(false);
+            ShowBattleSequenceMenu(true);
         }
     }
 }
