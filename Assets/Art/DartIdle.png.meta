@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 89a2d83f72c6a4f838505bf65aabe772
-timeCreated: 1517893236
+timeCreated: 1517901155
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -56,7 +56,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 10
+  spritePixelsToUnits: 20
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -123,10 +123,10 @@ TextureImporter:
       name: DartIdle_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 44
-        width: 33
-        height: 26
+        x: 0
+        y: 0
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,10 +137,10 @@ TextureImporter:
       name: DartIdle_1
       rect:
         serializedVersion: 2
-        x: 37
-        y: 44
-        width: 33
-        height: 24
+        x: 36
+        y: 0
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,10 +151,10 @@ TextureImporter:
       name: DartIdle_2
       rect:
         serializedVersion: 2
-        x: 73
-        y: 44
-        width: 33
-        height: 26
+        x: 72
+        y: 0
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -165,10 +165,10 @@ TextureImporter:
       name: DartIdle_3
       rect:
         serializedVersion: 2
-        x: 109
-        y: 44
-        width: 33
-        height: 24
+        x: 108
+        y: 0
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,10 +179,10 @@ TextureImporter:
       name: DartIdle_4
       rect:
         serializedVersion: 2
-        x: 145
-        y: 44
-        width: 33
-        height: 26
+        x: 144
+        y: 0
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,10 +193,10 @@ TextureImporter:
       name: DartIdle_5
       rect:
         serializedVersion: 2
-        x: 1
-        y: 8
-        width: 33
-        height: 24
+        x: 180
+        y: 0
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -207,10 +207,10 @@ TextureImporter:
       name: DartIdle_6
       rect:
         serializedVersion: 2
-        x: 37
-        y: 8
-        width: 33
-        height: 26
+        x: 216
+        y: 0
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,10 +221,10 @@ TextureImporter:
       name: DartIdle_7
       rect:
         serializedVersion: 2
-        x: 73
-        y: 8
-        width: 33
-        height: 24
+        x: 252
+        y: 0
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -235,10 +235,10 @@ TextureImporter:
       name: DartIdle_8
       rect:
         serializedVersion: 2
-        x: 109
-        y: 8
-        width: 33
-        height: 26
+        x: 288
+        y: 0
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -249,10 +249,10 @@ TextureImporter:
       name: DartIdle_9
       rect:
         serializedVersion: 2
-        x: 145
-        y: 8
-        width: 33
-        height: 24
+        x: 324
+        y: 0
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
