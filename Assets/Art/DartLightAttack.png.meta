@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 20014747f803f488fb7e295aa374a345
-timeCreated: 1517895613
+timeCreated: 1517980375
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -60,7 +60,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 10
+  spritePixelsToUnits: 20
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -128,7 +128,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 36
+        y: 0
         width: 36
         height: 36
       alignment: 0
@@ -142,7 +142,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 36
-        y: 36
+        y: 0
         width: 36
         height: 36
       alignment: 0
@@ -156,7 +156,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 72
-        y: 36
+        y: 0
         width: 36
         height: 36
       alignment: 0
@@ -170,7 +170,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 108
-        y: 36
+        y: 0
         width: 36
         height: 36
       alignment: 0
@@ -184,7 +184,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 144
-        y: 36
+        y: 0
         width: 36
         height: 36
       alignment: 0
@@ -197,7 +197,7 @@ TextureImporter:
       name: DartLightAttack_5
       rect:
         serializedVersion: 2
-        x: 0
+        x: 180
         y: 0
         width: 36
         height: 36
@@ -211,7 +211,7 @@ TextureImporter:
       name: DartLightAttack_6
       rect:
         serializedVersion: 2
-        x: 36
+        x: 216
         y: 0
         width: 36
         height: 36
@@ -225,7 +225,7 @@ TextureImporter:
       name: DartLightAttack_7
       rect:
         serializedVersion: 2
-        x: 72
+        x: 252
         y: 0
         width: 36
         height: 36
@@ -239,7 +239,7 @@ TextureImporter:
       name: DartLightAttack_8
       rect:
         serializedVersion: 2
-        x: 108
+        x: 288
         y: 0
         width: 36
         height: 36
@@ -253,7 +253,7 @@ TextureImporter:
       name: DartLightAttack_9
       rect:
         serializedVersion: 2
-        x: 144
+        x: 324
         y: 0
         width: 36
         height: 36
