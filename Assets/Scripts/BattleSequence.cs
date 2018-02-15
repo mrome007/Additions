@@ -5,6 +5,24 @@ using UnityEngine;
 
 public class BattleSequence : MonoBehaviour 
 {
+    #region Instance
+
+    public static BattleSequence Instance
+    {
+        get
+        {
+            if(instance == null)
+            {
+                instance = (BattleSequence)FindObjectOfType(typeof(BattleSequence));
+            }
+            return instance;
+        }
+    }
+
+    private static BattleSequence instance = null;
+
+    #endregion
+
     [SerializeField]
     private Party darts;
 
@@ -26,21 +44,24 @@ public class BattleSequence : MonoBehaviour
 
     private void Awake()
     {
-        currentPlayer = null;
-        currentTarget = null;
-        ShowBattleSequenceMenu(false);
-        playerBattleQueue = new Queue<BattlePlayer>();
-        playersTurnPoints = new List<int>();
-        for(int index = 0; index < darts.NumberOfPlayers + enemies.NumberOfPlayers; index++)
+        if(instance == null)
         {
-            playersTurnPoints.Add(0);
+            instance = (BattleSequence)FindObjectOfType(typeof(BattleSequence));
         }
-        playersTurnPoints.ForEach(turnPoints => turnPoints = 0);
+
+        DontDestroyOnLoad(gameObject);
+        
+        Reset();
     }
 
     private void Start()
     {
-        StartBattleSequence();
+        //StartBattleSequence();
+    }
+
+    public void EndBattleSequence()
+    {
+        Reset();
     }
 
     public void StartBattleSequence()
@@ -208,6 +229,21 @@ public class BattleSequence : MonoBehaviour
             enemyIndicator.ShowEnemyIndicator(false);
             ShowBattleSequenceMenu(true);
         }
+    }
+
+    private void Reset()
+    {
+        currentPlayer = null;
+        currentTarget = null;
+        ShowBattleSequenceMenu(false);
+        playerBattleQueue = new Queue<BattlePlayer>();
+        playersTurnPoints = new List<int>();
+        for(int index = 0; index < darts.NumberOfPlayers + enemies.NumberOfPlayers; index++)
+        {
+            playersTurnPoints.Add(0);
+        }
+        playersTurnPoints.ForEach(turnPoints => turnPoints = 0);
+        enemyIndicator.ShowEnemyIndicator(false);
     }
 }
 
