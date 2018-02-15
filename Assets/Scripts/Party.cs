@@ -13,7 +13,7 @@ public class Party
     public int NumberOfPlayers { get { return players.Count; } }
 
     [SerializeField]
-    private List<Player> players;
+    private List<BattlePlayer> players;
     
     private int currentPlayer;
     
@@ -22,7 +22,7 @@ public class Party
         currentPlayer = -1;
     }
     
-    public Player GetNextPlayer()
+    public BattlePlayer GetNextPlayer()
     {
         ++currentPlayer;
         currentPlayer %= players.Count;
@@ -30,7 +30,7 @@ public class Party
         return player;
     }
 
-    public Player GetPreviousPlayer()
+    public BattlePlayer GetPreviousPlayer()
     {
         if(currentPlayer < 0)
         {
@@ -53,7 +53,7 @@ public class Party
         return player;
     }
 
-    public Player GetPlayer(int index)
+    public BattlePlayer GetPlayer(int index)
     {
         var player = players[index];
         return player;

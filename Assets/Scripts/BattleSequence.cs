@@ -17,9 +17,9 @@ public class BattleSequence : MonoBehaviour
     [SerializeField]
     private EnemyIndicator enemyIndicator;
 
-    private Player currentPlayer;
-    private Player currentTarget;
-    private Queue<Player> playerBattleQueue;
+    private BattlePlayer currentPlayer;
+    private BattlePlayer currentTarget;
+    private Queue<BattlePlayer> playerBattleQueue;
     private List<int> playersTurnPoints;
 
     private int turnPointsLimit = 17;
@@ -29,7 +29,7 @@ public class BattleSequence : MonoBehaviour
         currentPlayer = null;
         currentTarget = null;
         ShowBattleSequenceMenu(false);
-        playerBattleQueue = new Queue<Player>();
+        playerBattleQueue = new Queue<BattlePlayer>();
         playersTurnPoints = new List<int>();
         for(int index = 0; index < darts.NumberOfPlayers + enemies.NumberOfPlayers; index++)
         {
@@ -77,7 +77,7 @@ public class BattleSequence : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
-                var dartPlayer = currentPlayer.GetComponent<DartPlayer>();
+                var dartPlayer = currentPlayer.GetComponent<DartBattlePlayer>();
                 if(dartPlayer != null)
                 {
                     dartPlayer.ChangeAddition(index);
@@ -195,7 +195,7 @@ public class BattleSequence : MonoBehaviour
         currentPlayer = playerBattleQueue.Dequeue();
         currentPlayer.ActionEnd += HandlePlayerActionEnd;
 
-        if(currentPlayer.GetComponent<Enemy>() != null)
+        if(currentPlayer.GetComponent<EnemyBattlePlayer>() != null)
         {
             ShowBattleSequenceMenu(false);
             enemyIndicator.MoveEnemyIndicator(currentPlayer.transform.position);
