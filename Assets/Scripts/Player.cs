@@ -7,25 +7,25 @@ public abstract class Player : MonoBehaviour
     #region Player Status Inspector Elements
 
     [SerializeField]
-    private int health;
+    protected int health;
 
     [SerializeField]
-    private int level = 1;
+    protected int level = 1;
 
     [SerializeField]
-    private int experience;
+    protected int experience;
 
     [SerializeField]
-    private int experienceCap;
+    protected int experienceCap;
 
     [SerializeField]
-    private int strength;
+    protected int strength;
 
     [SerializeField]
-    private int defense;
+    protected int defense;
 
     [SerializeField]
-    private int speed;
+    protected int speed;
 
     #endregion
 
