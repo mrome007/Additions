@@ -5,10 +5,16 @@ using System;
 
 public abstract class BattlePlayer : MonoBehaviour 
 {
-    public int TurnPoints;
+    public int TurnPoints { get; private set; }
     public event EventHandler<ActionEventArgs> ActionStart;
     public event EventHandler<ActionEventArgs> ActionEnd;
     protected ActionType currentAction = ActionType.Idle;
+
+    protected virtual void Awake()
+    {
+        var player = GetComponent<Player>();
+        TurnPoints = player != null ? player.Speed : 1;
+    }
 
     protected virtual void StartAction()
     {
