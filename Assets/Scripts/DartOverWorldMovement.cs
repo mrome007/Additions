@@ -46,13 +46,13 @@ public class DartOverWorldMovement : PlayerOverWorldMovement
         }
 
         //TEMPORARY FOR POPULATING WHAT PLAYERS ARE PRESENT IN BATTLE SEQUENCE.
-        var darts = new List<BattlePlayer>();
-        darts.Add(BattlePlayerCreator.Instance.CreateDartBattlePlayer(BattlePlayerCreator.Darts.Dart));
+        var darts = new List<BattlePlayerCreator.Darts>();
+        darts.Add(BattlePlayerCreator.Darts.Dart);
 
-        var enemies = new List<BattlePlayer>();
+        var enemies = new List<BattlePlayerCreator.Enemies>();
         for(int index = 0; index < 3; index++)
         {
-            enemies.Add(BattlePlayerCreator.Instance.CreateEnemyBattlePlayer(BattlePlayerCreator.Enemies.Slime));
+            enemies.Add(BattlePlayerCreator.Enemies.Slime);
         }
 
         BattleSequence.Instance.PopulateParties(darts, enemies);

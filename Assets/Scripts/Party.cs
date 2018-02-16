@@ -40,6 +40,7 @@ public class Party
     public void ClearPlayersFromParty()
     {
         Reset();
+        battlePlayers.ForEach(member => GameObject.Destroy(member.gameObject));
         battlePlayers.Clear();
     }
 

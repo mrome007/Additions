@@ -49,8 +49,6 @@ public class BattleSequence : MonoBehaviour
         {
             instance = (BattleSequence)FindObjectOfType(typeof(BattleSequence));
         }
-
-        DontDestroyOnLoad(gameObject);        
     }
 
     public void EndBattleSequence()
@@ -250,23 +248,22 @@ public class BattleSequence : MonoBehaviour
         enemyIndicator.ShowEnemyIndicator(false);
     }
 
-    public void PopulateParties(List<BattlePlayer> dts, List<BattlePlayer> enm)
+    public void PopulateParties(List<BattlePlayerCreator.Darts> dts, List<BattlePlayerCreator.Enemies> enm)
     {
-        dts.ForEach(goodGuys => darts.AddPlayerToParty(goodGuys));
-        enm.ForEach(badGuys => enemies.AddPlayerToParty(badGuys));
+        dts.ForEach(dartType => darts.AddPlayerToParty(BattlePlayerCreator.Instance.CreateDartBattlePlayer(dartType)));
+        enm.ForEach(enemyType => enemies.AddPlayerToParty(BattlePlayerCreator.Instance.CreateEnemyBattlePlayer(enemyType)));
     }
 
     //TEMPORARY
     private IEnumerator UnloadBattleSequenceScene()
     {
+        EndBattleSequence();
         var asyncUnload = SceneManager.UnloadSceneAsync("BattleSequence");
 
         while(!asyncUnload.isDone)
         {
             yield return null;
         }
-
-        EndBattleSequence();
     }
 }
 
