@@ -15,11 +15,6 @@ public class DartOverWorldMovement : PlayerOverWorldMovement
     private void Update()
     {
         DartMovement();
-
-        if(Input.GetKeyDown(KeyCode.Return))
-        {
-            SceneManager.UnloadSceneAsync("BattleSequence");
-        }
     }
 
     private void DartMovement()
@@ -36,7 +31,31 @@ public class DartOverWorldMovement : PlayerOverWorldMovement
         {
             playerCollider.enabled = false;
             other.enabled = false;
-            SceneManager.LoadScene("BattleSequence", LoadSceneMode.Additive);
+            enabled = false;
+            StartCoroutine(LoadBattleSequenceScene());
         }
+    }
+
+    IEnumerator LoadBattleSequenceScene()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("BattleSequence", LoadSceneMode.Additive);
+
+        while(!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        //TEMPORARY FOR POPULATING WHAT PLAYERS ARE PRESENT IN BATTLE SEQUENCE.
+        var darts = new List<BattlePlayer>();
+        darts.Add(BattlePlayerCreator.Instance.CreateDartBattlePlayer(BattlePlayerCreator.Darts.Dart));
+
+        var enemies = new List<BattlePlayer>();
+        for(int index = 0; index < 3; index++)
+        {
+            enemies.Add(BattlePlayerCreator.Instance.CreateEnemyBattlePlayer(BattlePlayerCreator.Enemies.Slime));
+        }
+
+        BattleSequence.Instance.PopulateParties(darts, enemies);
+        BattleSequence.Instance.StartBattleSequence();
     }
 }

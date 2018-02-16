@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\ActionEventArgs.cs" />
      <Compile Include="Assets\Scripts\AdditionSuccessBox.cs" />
      <Compile Include="Assets\Scripts\BattlePlayer.cs" />
+     <Compile Include="Assets\Scripts\BattlePlayerCreator.cs" />
      <Compile Include="Assets\Scripts\BattleSequence.cs" />
      <Compile Include="Assets\Scripts\DartBattlePlayer.cs" />
      <Compile Include="Assets\Scripts\DartOverWorldMovement.cs" />

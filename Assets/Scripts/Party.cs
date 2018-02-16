@@ -10,23 +10,44 @@ public class Party
     //Also have a method that checks every body's health in the party. This will be used
     //to determine when the battle sequence ends.
 
-    public int NumberOfPlayers { get { return players.Count; } }
+    public int NumberOfPlayers { get { return battlePlayers.Count; } }
+
+    private List<BattlePlayer> battlePlayers;
 
     [SerializeField]
-    private List<BattlePlayer> players;
+    private Transform partyPosition;
+
+    [SerializeField]
+    private float playerPositionOffset;
     
     private int currentPlayer;
     
     public Party()
     {
         currentPlayer = -1;
+        battlePlayers = new List<BattlePlayer>();
     }
-    
+
+    public void AddPlayerToParty(BattlePlayer player)
+    {
+        var partyPos = partyPosition.position;
+        player.transform.position = partyPos;
+        partyPos.x += playerPositionOffset;
+        partyPosition.position = partyPos;
+        battlePlayers.Add(player);
+    }
+
+    public void ClearPlayersFromParty()
+    {
+        Reset();
+        battlePlayers.Clear();
+    }
+
     public BattlePlayer GetNextPlayer()
     {
         ++currentPlayer;
-        currentPlayer %= players.Count;
-        var player = players[currentPlayer];
+        currentPlayer %= battlePlayers.Count;
+        var player = battlePlayers[currentPlayer];
         return player;
     }
 
@@ -34,28 +55,28 @@ public class Party
     {
         if(currentPlayer < 0)
         {
-            currentPlayer = currentPlayer + players.Count;
+            currentPlayer = currentPlayer + battlePlayers.Count;
         }
 
         --currentPlayer;
 
         if(currentPlayer < 0)
         {
-            currentPlayer = currentPlayer + players.Count;
+            currentPlayer = currentPlayer + battlePlayers.Count;
         }
         else
         {
-            currentPlayer %= players.Count;
+            currentPlayer %= battlePlayers.Count;
         }
 
-        var player = players[currentPlayer];
+        var player = battlePlayers[currentPlayer];
 
         return player;
     }
 
     public BattlePlayer GetPlayer(int index)
     {
-        var player = players[index];
+        var player = battlePlayers[index];
         return player;
     }
     

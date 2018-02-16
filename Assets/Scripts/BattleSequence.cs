@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleSequence : MonoBehaviour 
 {
@@ -49,23 +50,19 @@ public class BattleSequence : MonoBehaviour
             instance = (BattleSequence)FindObjectOfType(typeof(BattleSequence));
         }
 
-        DontDestroyOnLoad(gameObject);
-        
-        Reset();
-    }
-
-    private void Start()
-    {
-        //StartBattleSequence();
+        DontDestroyOnLoad(gameObject);        
     }
 
     public void EndBattleSequence()
     {
+        darts.ClearPlayersFromParty();
+        enemies.ClearPlayersFromParty();
         Reset();
     }
 
     public void StartBattleSequence()
     {
+        Reset();
         QueuePlayers();
         StartPlayerTurn();
     }
@@ -96,6 +93,12 @@ public class BattleSequence : MonoBehaviour
 
         while(true)
         {
+            //TEMPORARY just testing whether I can go back to overworld just fine.
+            if(Input.GetKeyDown(KeyCode.Return))
+            {
+                StartCoroutine(UnloadBattleSequenceScene());
+            }
+
             if(Input.GetKeyDown(KeyCode.Space))
             {
                 var dartPlayer = currentPlayer.GetComponent<DartBattlePlayer>();
@@ -233,6 +236,7 @@ public class BattleSequence : MonoBehaviour
 
     private void Reset()
     {
+        StopCoroutine("PlayerSelectAddition");
         currentPlayer = null;
         currentTarget = null;
         ShowBattleSequenceMenu(false);
@@ -244,6 +248,25 @@ public class BattleSequence : MonoBehaviour
         }
         playersTurnPoints.ForEach(turnPoints => turnPoints = 0);
         enemyIndicator.ShowEnemyIndicator(false);
+    }
+
+    public void PopulateParties(List<BattlePlayer> dts, List<BattlePlayer> enm)
+    {
+        dts.ForEach(goodGuys => darts.AddPlayerToParty(goodGuys));
+        enm.ForEach(badGuys => enemies.AddPlayerToParty(badGuys));
+    }
+
+    //TEMPORARY
+    private IEnumerator UnloadBattleSequenceScene()
+    {
+        var asyncUnload = SceneManager.UnloadSceneAsync("BattleSequence");
+
+        while(!asyncUnload.isDone)
+        {
+            yield return null;
+        }
+
+        EndBattleSequence();
     }
 }
 
