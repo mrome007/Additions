@@ -95,6 +95,7 @@ public class BattleSequence : MonoBehaviour
             //TEMPORARY just testing whether I can go back to overworld just fine.
             if(Input.GetKeyDown(KeyCode.Return))
             {
+                EndBattleSequence();
                 DartBattleSequenceTransition.Instance.UnloadBattleSequence();
             }
 

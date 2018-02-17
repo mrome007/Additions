@@ -30,8 +30,9 @@ public class DartBattleSequenceTransition : MonoBehaviour
 
     [SerializeField]
     private GameObject OverWorldElementsContainer;
+    [SerializeField]
+    private GameObject mainPlayerContainer;
     private GameObject enemyContact;
-    private GameObject mainPlayer;
 
     private void Awake()
     {
@@ -39,8 +40,6 @@ public class DartBattleSequenceTransition : MonoBehaviour
         {
             instance = (DartBattleSequenceTransition)FindObjectOfType(typeof(DartBattleSequenceTransition));
         }
-
-        mainPlayer = gameObject;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -50,7 +49,7 @@ public class DartBattleSequenceTransition : MonoBehaviour
         {
             enemyContact = other.gameObject;
             other.enabled = false;
-            mainPlayer.GetComponent<Collider2D>().enabled = false;
+            gameObject.GetComponent<Collider2D>().enabled = false;
 
             LoadBattleSequence();
         }
@@ -103,7 +102,7 @@ public class DartBattleSequenceTransition : MonoBehaviour
     private void ShowOverWorldElements(bool show)
     {
         OverWorldElementsContainer.SetActive(show);
-        mainPlayer.SetActive(show);
+        mainPlayerContainer.SetActive(show);
         if(enemyContact != null)
         {
             enemyContact.SetActive(show);
