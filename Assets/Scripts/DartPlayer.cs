@@ -7,6 +7,11 @@ public class DartPlayer : Player
     [SerializeField]
     private int expCapIncr = 50;
 
+    [SerializeField]
+    private BattlePlayerCreator.Darts dartType;
+
+    public BattlePlayerCreator.Darts DartType { get { return dartType; } }
+
     public void IncrementExperiencePoints(int exp)
     {
         experience += exp;

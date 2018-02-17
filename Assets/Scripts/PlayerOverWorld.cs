@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerOverWorldMovement : MonoBehaviour 
+public class PlayerOverWorld : MonoBehaviour 
 {
+    [SerializeField]
+    private List<Player> playerTeam;
+
+    public List<Player> PlayerTeam { get { return playerTeam; } }
+    
     [SerializeField]
     protected float movementSpeed;
 

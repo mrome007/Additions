@@ -58,8 +58,9 @@ public class BattleSequence : MonoBehaviour
         Reset();
     }
 
-    public void StartBattleSequence()
+    public void StartBattleSequence(List<BattlePlayer> goodGuys, List<BattlePlayer> badGuys)
     {
+        PopulateParties(goodGuys, badGuys);
         Reset();
         QueuePlayers();
         StartPlayerTurn();
@@ -94,7 +95,7 @@ public class BattleSequence : MonoBehaviour
             //TEMPORARY just testing whether I can go back to overworld just fine.
             if(Input.GetKeyDown(KeyCode.Return))
             {
-                StartCoroutine(UnloadBattleSequenceScene());
+                DartBattleSequenceTransition.Instance.UnloadBattleSequence();
             }
 
             if(Input.GetKeyDown(KeyCode.Space))
@@ -248,22 +249,10 @@ public class BattleSequence : MonoBehaviour
         enemyIndicator.ShowEnemyIndicator(false);
     }
 
-    public void PopulateParties(List<BattlePlayerCreator.Darts> dts, List<BattlePlayerCreator.Enemies> enm)
+    public void PopulateParties(List<BattlePlayer> dts, List<BattlePlayer> enm)
     {
-        dts.ForEach(dartType => darts.AddPlayerToParty(BattlePlayerCreator.Instance.CreateDartBattlePlayer(dartType)));
-        enm.ForEach(enemyType => enemies.AddPlayerToParty(BattlePlayerCreator.Instance.CreateEnemyBattlePlayer(enemyType)));
-    }
-
-    //TEMPORARY
-    private IEnumerator UnloadBattleSequenceScene()
-    {
-        EndBattleSequence();
-        var asyncUnload = SceneManager.UnloadSceneAsync("BattleSequence");
-
-        while(!asyncUnload.isDone)
-        {
-            yield return null;
-        }
+        dts.ForEach(goodGuys => darts.AddPlayerToParty(goodGuys));
+        enm.ForEach(badGuys => enemies.AddPlayerToParty(badGuys));
     }
 }
 

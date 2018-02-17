@@ -1,11 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BattleSequence.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/DartOverWorldMovement.cs">
     <Files>
-      <File FileName="Assets/Scripts/BattleSequence.cs" Line="64" Column="17" />
-      <File FileName="Assets/Scripts/DartOverWorldMovement.cs" Line="10" Column="23" />
+      <File FileName="Assets/Scripts/PlayerOverWorldMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BattleSequence.cs" Line="260" Column="29" />
+      <File FileName="Assets/Scripts/DartOverWorldMovement.cs" Line="58" Column="40" />
       <File FileName="Assets/Scripts/DartPlayer.cs" Line="5" Column="30" />
       <File FileName="Assets/Scripts/Player.cs" Line="5" Column="1" />
+      <File FileName="Assets/Scripts/Party.cs" Line="43" Column="80" />
+      <File FileName="Assets/Scripts/BattlePlayerCreator.cs" Line="60" Column="25" />
+      <File FileName="Assets/Scripts/EnemyBattlePlayer.cs" Line="5" Column="39" />
+      <File FileName="Assets/Scripts/BattlePlayer.cs" Line="10" Column="46" />
+      <File FileName="Assets/Scripts/DartBattlePlayer.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

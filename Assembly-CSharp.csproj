@@ -57,14 +57,16 @@
      <Compile Include="Assets\Scripts\BattlePlayerCreator.cs" />
      <Compile Include="Assets\Scripts\BattleSequence.cs" />
      <Compile Include="Assets\Scripts\DartBattlePlayer.cs" />
-     <Compile Include="Assets\Scripts\DartOverWorldMovement.cs" />
+     <Compile Include="Assets\Scripts\DartBattleSequenceTransition.cs" />
+     <Compile Include="Assets\Scripts\DartOverWorld.cs" />
      <Compile Include="Assets\Scripts\DartPlayer.cs" />
      <Compile Include="Assets\Scripts\EnemyBattlePlayer.cs" />
      <Compile Include="Assets\Scripts\EnemyIndicator.cs" />
+     <Compile Include="Assets\Scripts\EnemyOverWorld.cs" />
      <Compile Include="Assets\Scripts\EnemyPlayer.cs" />
      <Compile Include="Assets\Scripts\Party.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
-     <Compile Include="Assets\Scripts\PlayerOverWorldMovement.cs" />
+     <Compile Include="Assets\Scripts\PlayerOverWorld.cs" />
      <Compile Include="Assets\Universal Pixel Hero (Warrior)\Scripts\Controller.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
