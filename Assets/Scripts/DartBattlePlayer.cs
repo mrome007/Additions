@@ -53,7 +53,7 @@ public class DartBattlePlayer : BattlePlayer
 
     private IEnumerator ExecuteAddition(BattlePlayer target)
     {
-        var damage = 0f;
+        var damage = 0;
         var index = 0;
 
         for(; index < currentAdditions.Addition.Count; index++)
@@ -121,6 +121,7 @@ public class DartBattlePlayer : BattlePlayer
             yield return delayShowAdditionBoxTime;
 
             additionBox.Reset();
+            additionBox.ShowAdditionBox(false);
 
             yield return additionDelayTime;
         }
@@ -128,13 +129,8 @@ public class DartBattlePlayer : BattlePlayer
         if(index == currentAdditions.Addition.Count)
         {
             dartPlayerAnimator.SetTrigger(currentAdditions.FinalAttackTrigger);
-            dartAdditionAnimator.SetTrigger(currentAdditions.FinalAttackTrigger);
+            damage += 10;
             yield return finalAttackDelayTime;
-        }
-        else
-        {
-            dartPlayerAnimator.Play("Idle");
-            dartAdditionAnimator.Play("Idle");
         }
 
         yield return delayEndAction;
@@ -145,7 +141,7 @@ public class DartBattlePlayer : BattlePlayer
 
         yield return additionDelayTime;
 
-        EndAction(currentAction, damage);
+        EndAction(currentAction, damage, target);
     }
 
     private IEnumerator MovePlayerToTarget(int numberOfFrames, float distance, Vector3 direction)
@@ -175,12 +171,12 @@ public class Additions
 public struct Addition
 {
     public string AttackTrigger;
-    public float Damage;
+    public int Damage;
     public int NumFramesToExecute;
 
-    public float ApplyDamage(bool success)
+    public int ApplyDamage(bool success)
     {
-        var damage = success ? Damage : Damage / 2f;
+        var damage = success ? Damage : Damage / 2;
         return damage;
     }
 }

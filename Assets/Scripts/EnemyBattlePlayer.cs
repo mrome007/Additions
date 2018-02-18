@@ -7,13 +7,13 @@ public class EnemyBattlePlayer : BattlePlayer
     public override void PlayerAttack(BattlePlayer target)
     {
         base.PlayerAttack(target);
-        StartCoroutine(WaitForEnemyAttack());
+        StartCoroutine(WaitForEnemyAttack(target));
     }
 
-    private IEnumerator WaitForEnemyAttack()
+    private IEnumerator WaitForEnemyAttack(BattlePlayer target)
     {
         Debug.Log(gameObject.name + " attacks");
         yield return new WaitForSeconds(3f);
-        EndAction(currentAction, 0f);
+        EndAction(currentAction, 1, target);
     }
 }

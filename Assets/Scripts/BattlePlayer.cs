@@ -10,10 +10,13 @@ public abstract class BattlePlayer : MonoBehaviour
     public event EventHandler<ActionEventArgs> ActionEnd;
     protected ActionType currentAction = ActionType.Idle;
 
+    private int health;
+
     protected virtual void Awake()
     {
         var player = GetComponent<Player>();
         TurnPoints = player != null ? player.Speed : 1;
+        health = player.Health;
     }
 
     protected virtual void StartAction()
@@ -25,18 +28,19 @@ public abstract class BattlePlayer : MonoBehaviour
         }
     }
 
-    protected virtual void EndAction(ActionType act, float hp)
+    protected virtual void EndAction(ActionType act, int hp, BattlePlayer targ)
     {
         var handler = ActionEnd;
         if(handler != null)
         {
-            handler(this, new ActionEventArgs(act, hp));
+            handler(this, new ActionEventArgs(act, hp, targ));
         }
     }
 
     public virtual void PlayerAttack(BattlePlayer target)
     {
         currentAction = ActionType.Attack;
+        ActionEnd += HandleBattlePlayerActionEnded;
         StartAction();
     }
 
@@ -51,4 +55,51 @@ public abstract class BattlePlayer : MonoBehaviour
         currentAction = ActionType.Heal;
         StartAction();
     }
+
+    protected virtual void ApplyDamage(int damage, BattlePlayer target)
+    {
+        target.TakeDamage(damage);
+    }
+
+    protected virtual void TakeDamage(int damage)
+    {
+        health -= damage;
+        Debug.Log(gameObject.name + ": " + health);
+        CheckDeath();
+    }
+
+    protected virtual void CheckDeath()
+    {
+        if(health <= 0)
+        {
+
+        }
+    }
+
+    #region EventHandlers
+
+    protected virtual void HandleBattlePlayerActionEnded(object sender, ActionEventArgs actArgs)
+    {
+        ActionEnd -= HandleBattlePlayerActionEnded;
+        switch(actArgs.ActionType)
+        {
+            case ActionType.Attack:
+                ApplyDamage(actArgs.HitPoints, actArgs.Target);
+                break;
+
+            case ActionType.Defend:
+                break;
+
+            case ActionType.Heal:
+                break;
+            
+            case ActionType.Idle:
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    #endregion
 }
