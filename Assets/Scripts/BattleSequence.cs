@@ -153,8 +153,8 @@ public class BattleSequence : MonoBehaviour
         else        //If either side has died.
         {
             //TODO Temporary Do Winning or Losing animation.
-            EndBattleSequence();
             BattleSequenceTransition.Instance.UnloadBattleSequence(darts.IsPartyAlive()); //If darts are alive then they have won the battle.
+            EndBattleSequence();
         }
     }
 

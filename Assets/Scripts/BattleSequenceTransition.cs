@@ -64,6 +64,13 @@ public class BattleSequenceTransition : MonoBehaviour
     public void UnloadBattleSequence(bool win)
     {
         BattleSequenceUnloadComplete += HandleUnloadBattleSequenceComplete;
+        if(win)
+        {
+            Destroy(enemyContact);
+            enemyContact = null;
+
+            gameObject.GetComponent<Collider2D>().enabled = true;
+        }
         StartCoroutine(UnloadBattleSequenceAsyncCoroutine(win));
     }
 
