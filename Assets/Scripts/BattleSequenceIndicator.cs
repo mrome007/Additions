@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyIndicator : MonoBehaviour 
+public class BattleSequenceIndicator : MonoBehaviour 
 {
     [SerializeField]
     private GameObject enemyIndicatorObject;
 
-    public void MoveEnemyIndicator(Vector3 pos)
+    public void MoveBattleSequenceIndicator(Vector3 pos)
     {
         transform.position = pos;
     }
 
-    public void ShowEnemyIndicator(bool show)
+    public void ShowBattleSequenceIndicator(bool show)
     {
         gameObject.SetActive(show);
     }

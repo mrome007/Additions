@@ -20,11 +20,11 @@ public class Party
     [SerializeField]
     private float playerPositionOffset;
     
-    private int currentPlayer;
+    private int currentPlayerIndex;
     
     public Party()
     {
-        currentPlayer = -1;
+        currentPlayerIndex = -1;
         battlePlayers = new List<BattlePlayer>();
     }
 
@@ -46,31 +46,44 @@ public class Party
 
     public BattlePlayer GetNextPlayer()
     {
-        ++currentPlayer;
-        currentPlayer %= battlePlayers.Count;
-        var player = battlePlayers[currentPlayer];
+        BattlePlayer player;
+
+        do
+        {
+            ++currentPlayerIndex;
+            currentPlayerIndex %= battlePlayers.Count;
+            player = battlePlayers[currentPlayerIndex];
+        } 
+        while(!player.Alive);
+
         return player;
     }
 
     public BattlePlayer GetPreviousPlayer()
     {
-        if(currentPlayer < 0)
-        {
-            currentPlayer = currentPlayer + battlePlayers.Count;
-        }
+        BattlePlayer player;
 
-        --currentPlayer;
-
-        if(currentPlayer < 0)
+        do
         {
-            currentPlayer = currentPlayer + battlePlayers.Count;
-        }
-        else
-        {
-            currentPlayer %= battlePlayers.Count;
-        }
+            if(currentPlayerIndex < 0)
+            {
+                currentPlayerIndex = currentPlayerIndex + battlePlayers.Count;
+            }
 
-        var player = battlePlayers[currentPlayer];
+            --currentPlayerIndex;
+
+            if(currentPlayerIndex < 0)
+            {
+                currentPlayerIndex = currentPlayerIndex + battlePlayers.Count;
+            }
+            else
+            {
+                currentPlayerIndex %= battlePlayers.Count;
+            }
+
+            player = battlePlayers[currentPlayerIndex];
+        } 
+        while(!player.Alive);
 
         return player;
     }
@@ -80,9 +93,14 @@ public class Party
         var player = battlePlayers[index];
         return player;
     }
+
+    public bool IsPartyAlive()
+    {
+        return battlePlayers.Exists(player => player.Alive);
+    }
     
     public void Reset()
     {
-        currentPlayer = -1;
+        currentPlayerIndex = -1;
     }
 }

@@ -34,7 +34,7 @@ public class BattleSequence : MonoBehaviour
     private List<Transform> battleSequenceMenuButtons;
 
     [SerializeField]
-    private EnemyIndicator enemyIndicator;
+    private BattleSequenceIndicator battleIndicator;
 
     private BattlePlayer currentPlayer;
     private BattlePlayer currentTarget;
@@ -87,18 +87,11 @@ public class BattleSequence : MonoBehaviour
     {
         var index = 0;
         var currentAddition = battleSequenceMenuButtons[index];
-        enemyIndicator.MoveEnemyIndicator(currentAddition.transform.position);
-        enemyIndicator.ShowEnemyIndicator(true);
+        battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
+        battleIndicator.ShowBattleSequenceIndicator(true);
 
         while(true)
         {
-            //TEMPORARY just testing whether I can go back to overworld just fine.
-            if(Input.GetKeyDown(KeyCode.Return))
-            {
-                EndBattleSequence();
-                DartBattleSequenceTransition.Instance.UnloadBattleSequence();
-            }
-
             if(Input.GetKeyDown(KeyCode.Space))
             {
                 var dartPlayer = currentPlayer.GetComponent<DartBattlePlayer>();
@@ -114,7 +107,7 @@ public class BattleSequence : MonoBehaviour
                 index++;
                 index %= battleSequenceMenuButtons.Count;
                 currentAddition = battleSequenceMenuButtons[index];
-                enemyIndicator.MoveEnemyIndicator(currentAddition.transform.position);
+                battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
             }
 
             if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
@@ -125,7 +118,7 @@ public class BattleSequence : MonoBehaviour
                     index += battleSequenceMenuButtons.Count;
                 }
                 currentAddition = battleSequenceMenuButtons[index];
-                enemyIndicator.MoveEnemyIndicator(currentAddition.transform.position);
+                battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
             }
 
             yield return null;
@@ -133,27 +126,44 @@ public class BattleSequence : MonoBehaviour
 
         yield return new WaitForSeconds(0.25f);
 
-        enemyIndicator.ShowEnemyIndicator(false);
+        battleIndicator.ShowBattleSequenceIndicator(false);
         BattleAttack();
     }
 
     private void HandlePlayerActionEnd(object sender, ActionEventArgs e)
     {
         currentPlayer.ActionEnd -= HandlePlayerActionEnd;
-        if(playerBattleQueue.Count == 0)
-        {
-            QueuePlayers();
-        }
 
-        StartPlayerTurn();
+        //if both parties are still alive.
+        if(darts.IsPartyAlive() && enemies.IsPartyAlive())
+        {
+            //If next player is dead, skip it.
+            while(playerBattleQueue.Count > 0 && !playerBattleQueue.Peek().Alive) 
+            {
+                playerBattleQueue.Dequeue();
+            }
+            
+            if(playerBattleQueue.Count == 0)
+            {
+                QueuePlayers();
+            }
+
+            StartPlayerTurn();
+        }
+        else        //If either side has died.
+        {
+            //TODO Temporary Do Winning or Losing animation.
+            EndBattleSequence();
+            BattleSequenceTransition.Instance.UnloadBattleSequence(darts.IsPartyAlive()); //If darts are alive then they have won the battle.
+        }
     }
 
     private IEnumerator PlayerSelectEnemyTarget()
     {
         enemies.Reset();
         currentTarget = enemies.GetNextPlayer();
-        enemyIndicator.MoveEnemyIndicator(currentTarget.transform.position);
-        enemyIndicator.ShowEnemyIndicator(true);
+        battleIndicator.MoveBattleSequenceIndicator(currentTarget.transform.position);
+        battleIndicator.ShowBattleSequenceIndicator(true);
 
         while(true)
         {
@@ -165,13 +175,13 @@ public class BattleSequence : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 currentTarget = enemies.GetPreviousPlayer();
-                enemyIndicator.MoveEnemyIndicator(currentTarget.transform.position);
+                battleIndicator.MoveBattleSequenceIndicator(currentTarget.transform.position);
             }
 
             if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             {
                 currentTarget = enemies.GetNextPlayer();
-                enemyIndicator.MoveEnemyIndicator(currentTarget.transform.position);
+                battleIndicator.MoveBattleSequenceIndicator(currentTarget.transform.position);
             }
 
             yield return null;
@@ -179,7 +189,7 @@ public class BattleSequence : MonoBehaviour
 
         yield return new WaitForSeconds(0.25f);
 
-        enemyIndicator.ShowEnemyIndicator(false);
+        battleIndicator.ShowBattleSequenceIndicator(false);
         currentPlayer.PlayerAttack(currentTarget);
 
     }
@@ -191,7 +201,7 @@ public class BattleSequence : MonoBehaviour
             for(int index = 0; index < darts.NumberOfPlayers; index++)
             {
                 var dart = darts.GetPlayer(index);
-                playersTurnPoints[index] += dart.TurnPoints;
+                playersTurnPoints[index] += dart.Alive ? dart.TurnPoints : 0;
 
                 if(playersTurnPoints[index] >= turnPointsLimit)
                 {
@@ -203,7 +213,7 @@ public class BattleSequence : MonoBehaviour
             for(int index = darts.NumberOfPlayers; index < playersTurnPoints.Count; index++)
             {
                 var enemy = enemies.GetPlayer(index - darts.NumberOfPlayers);
-                playersTurnPoints[index] += enemy.TurnPoints;
+                playersTurnPoints[index] += enemy.Alive ? enemy.TurnPoints : 0;
 
                 if(playersTurnPoints[index] >= turnPointsLimit)
                 {
@@ -222,14 +232,15 @@ public class BattleSequence : MonoBehaviour
         if(currentPlayer.GetComponent<EnemyBattlePlayer>() != null)
         {
             ShowBattleSequenceMenu(false);
-            enemyIndicator.MoveEnemyIndicator(currentPlayer.transform.position);
-            enemyIndicator.ShowEnemyIndicator(true);
+            battleIndicator.MoveBattleSequenceIndicator(currentPlayer.transform.position);
+            battleIndicator.ShowBattleSequenceIndicator(true);
             //TODO work on how enemy target darts.
+            currentTarget = darts.GetNextPlayer();
             currentPlayer.PlayerAttack(currentTarget);
         }
         else
         {
-            enemyIndicator.ShowEnemyIndicator(false);
+            battleIndicator.ShowBattleSequenceIndicator(false);
             ShowBattleSequenceMenu(true);
         }
     }
@@ -247,7 +258,7 @@ public class BattleSequence : MonoBehaviour
             playersTurnPoints.Add(0);
         }
         playersTurnPoints.ForEach(turnPoints => turnPoints = 0);
-        enemyIndicator.ShowEnemyIndicator(false);
+        battleIndicator.ShowBattleSequenceIndicator(false);
     }
 
     public void PopulateParties(List<BattlePlayer> dts, List<BattlePlayer> enm)

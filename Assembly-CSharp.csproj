@@ -56,12 +56,13 @@
      <Compile Include="Assets\Scripts\BattlePlayer.cs" />
      <Compile Include="Assets\Scripts\BattlePlayerCreator.cs" />
      <Compile Include="Assets\Scripts\BattleSequence.cs" />
+     <Compile Include="Assets\Scripts\BattleSequenceIndicator.cs" />
+     <Compile Include="Assets\Scripts\BattleSequenceTransition.cs" />
+     <Compile Include="Assets\Scripts\BattleWonArgs.cs" />
      <Compile Include="Assets\Scripts\DartBattlePlayer.cs" />
-     <Compile Include="Assets\Scripts\DartBattleSequenceTransition.cs" />
      <Compile Include="Assets\Scripts\DartOverWorld.cs" />
      <Compile Include="Assets\Scripts\DartPlayer.cs" />
      <Compile Include="Assets\Scripts\EnemyBattlePlayer.cs" />
-     <Compile Include="Assets\Scripts\EnemyIndicator.cs" />
      <Compile Include="Assets\Scripts\EnemyOverWorld.cs" />
      <Compile Include="Assets\Scripts\EnemyPlayer.cs" />
      <Compile Include="Assets\Scripts\Party.cs" />

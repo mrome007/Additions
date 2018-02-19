@@ -4,29 +4,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DartBattleSequenceTransition : MonoBehaviour 
+public class BattleSequenceTransition : MonoBehaviour 
 {
     #region Instance
 
-    public static DartBattleSequenceTransition Instance
+    public static BattleSequenceTransition Instance
     {
         get
         {
             if(instance == null)
             {
-                instance = (DartBattleSequenceTransition)FindObjectOfType(typeof(DartBattleSequenceTransition));
+                instance = (BattleSequenceTransition)FindObjectOfType(typeof(BattleSequenceTransition));
             }
 
             return instance;
         }
     }
 
-    private static DartBattleSequenceTransition instance = null;
+    private static BattleSequenceTransition instance = null;
 
     #endregion
 
-    public event EventHandler BattleSequenceLoadComplete;
-    public event EventHandler BattleSequenceUnloadComplete;
+    public event EventHandler<BattleWonArgs> BattleSequenceLoadComplete;
+    public event EventHandler<BattleWonArgs> BattleSequenceUnloadComplete;
 
     [SerializeField]
     private GameObject OverWorldElementsContainer;
@@ -38,7 +38,7 @@ public class DartBattleSequenceTransition : MonoBehaviour
     {
         if(instance == null)
         {
-            instance = (DartBattleSequenceTransition)FindObjectOfType(typeof(DartBattleSequenceTransition));
+            instance = (BattleSequenceTransition)FindObjectOfType(typeof(BattleSequenceTransition));
         }
     }
 
@@ -61,10 +61,10 @@ public class DartBattleSequenceTransition : MonoBehaviour
         StartCoroutine(LoadBattleSequenceAsyncCoroutine());
     }
 
-    public void UnloadBattleSequence()
+    public void UnloadBattleSequence(bool win)
     {
         BattleSequenceUnloadComplete += HandleUnloadBattleSequenceComplete;
-        StartCoroutine(UnloadBattleSequenceAsyncCoroutine());
+        StartCoroutine(UnloadBattleSequenceAsyncCoroutine(win));
     }
 
     private IEnumerator LoadBattleSequenceAsyncCoroutine()
@@ -83,7 +83,7 @@ public class DartBattleSequenceTransition : MonoBehaviour
         }
     }
 
-    private IEnumerator UnloadBattleSequenceAsyncCoroutine()
+    private IEnumerator UnloadBattleSequenceAsyncCoroutine(bool win)
     {
         var asyncLoad = SceneManager.UnloadSceneAsync("BattleSequence");
 
@@ -95,7 +95,7 @@ public class DartBattleSequenceTransition : MonoBehaviour
         var handler = BattleSequenceUnloadComplete;
         if(handler != null)
         {
-            handler(this, null);
+            handler(this, new BattleWonArgs(win));
         }
     }
 

@@ -6,6 +6,8 @@ using System;
 public abstract class BattlePlayer : MonoBehaviour 
 {
     public int TurnPoints { get; private set; }
+    public bool Alive { get{ return health > 0; } }
+
     public event EventHandler<ActionEventArgs> ActionStart;
     public event EventHandler<ActionEventArgs> ActionEnd;
     protected ActionType currentAction = ActionType.Idle;
@@ -17,6 +19,14 @@ public abstract class BattlePlayer : MonoBehaviour
         var player = GetComponent<Player>();
         TurnPoints = player != null ? player.Speed : 1;
         health = player.Health;
+
+        //Subscriptions
+        ActionEnd += HandleBattlePlayerActionEnded;
+    }
+
+    protected virtual void OnDestroy()
+    {
+        ActionEnd -= HandleBattlePlayerActionEnded;
     }
 
     protected virtual void StartAction()
@@ -40,7 +50,6 @@ public abstract class BattlePlayer : MonoBehaviour
     public virtual void PlayerAttack(BattlePlayer target)
     {
         currentAction = ActionType.Attack;
-        ActionEnd += HandleBattlePlayerActionEnded;
         StartAction();
     }
 
@@ -72,7 +81,8 @@ public abstract class BattlePlayer : MonoBehaviour
     {
         if(health <= 0)
         {
-
+            //TODO temporary. do something else when players die.
+            gameObject.SetActive(false);
         }
     }
 
@@ -80,7 +90,6 @@ public abstract class BattlePlayer : MonoBehaviour
 
     protected virtual void HandleBattlePlayerActionEnded(object sender, ActionEventArgs actArgs)
     {
-        ActionEnd -= HandleBattlePlayerActionEnded;
         switch(actArgs.ActionType)
         {
             case ActionType.Attack:
