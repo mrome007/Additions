@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class DartOverWorld : PlayerOverWorld 
 {   
+    [SerializeField]
+    private DartOverWorldAnimation dartOverWorldAnimation;
+    
     private void Update()
     {
         DartMovement();
@@ -12,6 +15,7 @@ public class DartOverWorld : PlayerOverWorld
     private void DartMovement()
     {
         var h = Input.GetAxis("Horizontal");
+        dartOverWorldAnimation.DartWalk(h);
         movementVector.x = h;
         transform.Translate(movementSpeed * movementVector * Time.deltaTime);
     }

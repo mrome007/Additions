@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\BattleWonArgs.cs" />
      <Compile Include="Assets\Scripts\DartBattlePlayer.cs" />
      <Compile Include="Assets\Scripts\DartOverWorld.cs" />
+     <Compile Include="Assets\Scripts\DartOverWorldAnimation.cs" />
      <Compile Include="Assets\Scripts\DartPlayer.cs" />
      <Compile Include="Assets\Scripts\EnemyBattlePlayer.cs" />
      <Compile Include="Assets\Scripts\EnemyOverWorld.cs" />

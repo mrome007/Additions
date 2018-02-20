@@ -1,12 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BattlePlayer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BattleSequenceTransition.cs">
     <Files>
-      <File FileName="Assets/Scripts/BattleSequence.cs" Line="238" Column="34" />
-      <File FileName="Assets/Scripts/BattleSequenceTransition.cs" Line="7" Column="38" />
-      <File FileName="Assets/Scripts/EnemyBattlePlayer.cs" Line="7" Column="34" />
-      <File FileName="Assets/Scripts/Party.cs" Line="99" Column="61" />
-      <File FileName="Assets/Scripts/BattlePlayer.cs" Line="42" Column="5" />
+      <File FileName="Assets/Scripts/BattleSequence.cs" Line="157" Column="33" />
+      <File FileName="Assets/Scripts/BattlePlayer.cs" Line="29" Column="52" />
+      <File FileName="Assets/Scripts/BattlePlayerCreator.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/DartBattlePlayer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/EnemyBattlePlayer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/ActionEventArgs.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BattleWonArgs.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Party.cs" Line="91" Column="31" />
+      <File FileName="Assets/Scripts/BattleSequenceTransition.cs" Line="64" Column="43" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

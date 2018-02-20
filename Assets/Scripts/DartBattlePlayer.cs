@@ -30,7 +30,7 @@ public class DartBattlePlayer : BattlePlayer
         currentAdditions = additions[0];
         delayShowAdditionBoxTime = new WaitForSeconds(0.15f);
         additionDelayTime = new WaitForSeconds(0.25f);
-        finalAttackDelayTime = new WaitForSeconds(1.15f);
+        finalAttackDelayTime = new WaitForSeconds(1.5f);
         delayEndAction = new WaitForSeconds(1f);
         originalPosition = transform.position;
 
@@ -78,7 +78,7 @@ public class DartBattlePlayer : BattlePlayer
             {
                 if(frameCount == numFrameLowerLimit)
                 {
-                    dartAdditionAnimator.SetTrigger(addition.AttackTrigger);
+                    //dartAdditionAnimator.SetTrigger(addition.AttackTrigger);
                     dartPlayerAnimator.SetTrigger(addition.AttackTrigger);
                 }
                 
@@ -108,7 +108,7 @@ public class DartBattlePlayer : BattlePlayer
                 {
                     if(frameCount == numFrameLowerLimit - 1)
                     {
-                        dartAdditionAnimator.SetTrigger(addition.AttackTrigger);
+                        //dartAdditionAnimator.SetTrigger(addition.AttackTrigger);
                         dartPlayerAnimator.SetTrigger(addition.AttackTrigger);
                     }
                     frameCount++;
@@ -148,8 +148,8 @@ public class DartBattlePlayer : BattlePlayer
     {
         var rate = distance / numberOfFrames;
         var count = 0;
-        dartPlayerAnimator.SetTrigger("skill");
-        dartAdditionAnimator.SetTrigger("skill");
+        //dartPlayerAnimator.SetTrigger("Dash");
+        //dartAdditionAnimator.SetTrigger("Dash");
         while(count < numberOfFrames)
         {
             transform.Translate(direction * rate);
