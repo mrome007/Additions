@@ -66,6 +66,7 @@
      <Compile Include="Assets\Scripts\EnemyBattlePlayer.cs" />
      <Compile Include="Assets\Scripts\EnemyOverWorld.cs" />
      <Compile Include="Assets\Scripts\EnemyPlayer.cs" />
+     <Compile Include="Assets\Scripts\NPC.cs" />
      <Compile Include="Assets\Scripts\Party.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\PlayerOverWorld.cs" />

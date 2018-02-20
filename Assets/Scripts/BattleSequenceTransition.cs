@@ -42,6 +42,7 @@ public class BattleSequenceTransition : MonoBehaviour
         }
     }
 
+    //TODO put this in DartOverWorld class instead.
     private void OnTriggerEnter2D(Collider2D other)
     {
         var enemy = other.GetComponent<EnemyPlayer>();

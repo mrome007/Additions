@@ -19,4 +19,22 @@ public class DartOverWorld : PlayerOverWorld
         movementVector.x = h;
         transform.Translate(movementSpeed * movementVector * Time.deltaTime);
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        var npc = other.GetComponent<NPC>();
+        if(npc != null)
+        {
+            npc.ShowText(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        var npc = other.GetComponent<NPC>();
+        if(npc != null)
+        {
+            npc.ShowText(false);
+        }
+    }
 }
