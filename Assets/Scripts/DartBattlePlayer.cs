@@ -29,9 +29,9 @@ public class DartBattlePlayer : BattlePlayer
     {
         currentAdditions = additions[0];
         delayShowAdditionBoxTime = new WaitForSeconds(0.15f);
-        additionDelayTime = new WaitForSeconds(0.25f);
+        additionDelayTime = new WaitForSeconds(0.5f);
         finalAttackDelayTime = new WaitForSeconds(1.5f);
-        delayEndAction = new WaitForSeconds(1f);
+        delayEndAction = new WaitForSeconds(1.5f);
         originalPosition = transform.position;
 
     }
