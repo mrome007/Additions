@@ -1,16 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BattleSequenceTransition.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/NPC.cs">
     <Files>
-      <File FileName="Assets/Scripts/BattleSequence.cs" Line="157" Column="33" />
-      <File FileName="Assets/Scripts/BattlePlayer.cs" Line="29" Column="52" />
-      <File FileName="Assets/Scripts/BattlePlayerCreator.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/DartBattlePlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/EnemyBattlePlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ActionEventArgs.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/BattleWonArgs.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Party.cs" Line="91" Column="31" />
-      <File FileName="Assets/Scripts/BattleSequenceTransition.cs" Line="64" Column="43" />
+      <File FileName="Assets/Scripts/EnemyPlayer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/DartOverWorld.cs" Line="37" Column="31" />
+      <File FileName="Assets/Scripts/DartOverWorldAnimation.cs" Line="20" Column="23" />
+      <File FileName="Assets/Scripts/DartBattlePlayer.cs" Line="34" Column="48" />
+      <File FileName="Assets/Universal Pixel Hero (Warrior)/Scripts/Controller.cs" Line="39" Column="30" />
+      <File FileName="Assets/Scripts/NPC.cs" Line="29" Column="32" />
+      <File FileName="Assets/Scripts/BattleSequenceTransition.cs" Line="51" Column="21" />
+      <File FileName="Assets/Scripts/PlayerOverWorld.cs" Line="5" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
