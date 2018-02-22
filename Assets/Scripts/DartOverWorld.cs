@@ -6,6 +6,9 @@ public class DartOverWorld : PlayerOverWorld
 {   
     [SerializeField]
     private DartOverWorldAnimation dartOverWorldAnimation;
+
+    [SerializeField]
+    private DartOverWorldAnimation shadowAnimation;
     
     private void Update()
     {
@@ -16,6 +19,7 @@ public class DartOverWorld : PlayerOverWorld
     {
         var h = Input.GetAxis("Horizontal");
         dartOverWorldAnimation.DartWalk(h);
+        shadowAnimation.DartWalk(h);
         movementVector.x = h;
         transform.Translate(movementSpeed * movementVector * Time.deltaTime);
     }
