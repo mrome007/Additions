@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\FollowPlayer.cs" />
      <Compile Include="Assets\Scripts\ActionEventArgs.cs" />
      <Compile Include="Assets\Scripts\AdditionSuccessBox.cs" />
      <Compile Include="Assets\Scripts\BattlePlayer.cs" />
