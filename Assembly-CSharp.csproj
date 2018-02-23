@@ -51,7 +51,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\FollowPlayer.cs" />
      <Compile Include="Assets\Scripts\ActionEventArgs.cs" />
      <Compile Include="Assets\Scripts\AdditionSuccessBox.cs" />
      <Compile Include="Assets\Scripts\BattlePlayer.cs" />
@@ -67,11 +66,12 @@
      <Compile Include="Assets\Scripts\EnemyBattlePlayer.cs" />
      <Compile Include="Assets\Scripts\EnemyOverWorld.cs" />
      <Compile Include="Assets\Scripts\EnemyPlayer.cs" />
+     <Compile Include="Assets\Scripts\FollowPlayer.cs" />
      <Compile Include="Assets\Scripts\NPC.cs" />
      <Compile Include="Assets\Scripts\Party.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\PlayerOverWorld.cs" />
-     <Compile Include="Assets\Universal Pixel Hero (Warrior)\Scripts\Controller.cs" />
+     <Compile Include="Assets\Scripts\ShadowMovement.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

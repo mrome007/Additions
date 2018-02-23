@@ -7,8 +7,12 @@ public class DartOverWorld : PlayerOverWorld
     [SerializeField]
     private DartOverWorldAnimation dartOverWorldAnimation;
 
+    //TODO temporary, have shadow animations take care of itself.
     [SerializeField]
     private DartOverWorldAnimation shadowAnimation;
+
+    [SerializeField]
+    private ShadowMovement shadowMovement;
 
     [SerializeField]
     private Rigidbody2D dartRigidBody;
@@ -25,6 +29,12 @@ public class DartOverWorld : PlayerOverWorld
 
     private Vector2 jumpForce;
 
+    private bool shadowLeftInputStart = false;
+    private float shadowLeftInputTimer = 0f;
+    private bool shadowRightInputStart = false;
+    private float shadowRightInputTimer = 0f;
+    private float shadowTimerCap = 0.25f;
+
     protected override void Awake()
     {
         base.Awake();
@@ -38,6 +48,8 @@ public class DartOverWorld : PlayerOverWorld
         {
             dartRigidBody.AddForce(jumpForce);
         }
+           
+        GetShadowInput();
     }
 
     private void FixedUpdate()
@@ -65,6 +77,12 @@ public class DartOverWorld : PlayerOverWorld
         {
             npc.ShowText(true);
         }
+
+        var enemy = other.GetComponent<EnemyPlayer>();
+        if(enemy != null)
+        {
+            BattleSequenceTransition.Instance.LoadBattleSequence(other.gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -74,5 +92,56 @@ public class DartOverWorld : PlayerOverWorld
         {
             npc.ShowText(false);
         }
+    }
+
+    private void GetShadowInput()
+    {
+        if(shadowMovement.Moving)
+        {
+            shadowLeftInputStart = false;
+            shadowLeftInputTimer = 0f;
+            shadowRightInputStart = false;
+            shadowRightInputTimer = 0f;
+            return;
+        }
+        
+        if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if(shadowRightInputStart && shadowRightInputTimer <= shadowTimerCap)
+            {
+                shadowMovement.MoveShadow(Vector2.right);
+            }
+            shadowRightInputStart = true;
+        }
+
+        if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if(shadowLeftInputStart && shadowLeftInputTimer <= shadowTimerCap)
+            {
+                shadowMovement.MoveShadow(Vector2.left);
+            }
+            shadowLeftInputStart = true;
+        }
+
+        if(shadowRightInputStart)
+        {
+            shadowRightInputTimer += Time.deltaTime;
+            if(shadowRightInputTimer > shadowTimerCap)
+            {
+                shadowRightInputStart = false;
+                shadowRightInputTimer = 0;
+            }
+        }
+
+        if(shadowLeftInputStart)
+        {
+            shadowLeftInputTimer += Time.deltaTime;
+            if(shadowLeftInputTimer > shadowTimerCap)
+            {
+                shadowLeftInputStart = false;
+                shadowLeftInputTimer = 0;
+            }
+        }
+
     }
 }

@@ -42,22 +42,9 @@ public class BattleSequenceTransition : MonoBehaviour
         }
     }
 
-    //TODO put this in DartOverWorld class instead.
-    private void OnTriggerEnter2D(Collider2D other)
+    public void LoadBattleSequence(GameObject other)
     {
-        var enemy = other.GetComponent<EnemyPlayer>();
-        if(enemy != null)
-        {
-            enemyContact = other.gameObject;
-            other.enabled = false;
-            gameObject.GetComponent<Collider2D>().enabled = false;
-
-            LoadBattleSequence();
-        }
-    }
-
-    public void LoadBattleSequence()
-    {
+        enemyContact = other;
         BattleSequenceLoadComplete += HandleLoadBattleSequenceComplete;
         StartCoroutine(LoadBattleSequenceAsyncCoroutine());
     }
@@ -69,8 +56,6 @@ public class BattleSequenceTransition : MonoBehaviour
         {
             Destroy(enemyContact);
             enemyContact = null;
-
-            gameObject.GetComponent<Collider2D>().enabled = true;
         }
         StartCoroutine(UnloadBattleSequenceAsyncCoroutine(win));
     }
@@ -119,7 +104,7 @@ public class BattleSequenceTransition : MonoBehaviour
 
     private void SpawnBattleSequencePlayers(ref List<BattlePlayer> goodGuys, ref List<BattlePlayer> badGuys)
     {
-        var dartOverWorld = gameObject.GetComponent<PlayerOverWorld>();
+        var dartOverWorld = mainPlayerContainer.GetComponent<PlayerOverWorld>();
         var enemyOverWorld = enemyContact.GetComponent<PlayerOverWorld>();
 
         //make good guys.
