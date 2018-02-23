@@ -33,7 +33,7 @@ public class DartOverWorld : PlayerOverWorld
     private float shadowLeftInputTimer = 0f;
     private bool shadowRightInputStart = false;
     private float shadowRightInputTimer = 0f;
-    private float shadowTimerCap = 0.25f;
+    private float shadowTimerCap = 0.35f;
 
     protected override void Awake()
     {

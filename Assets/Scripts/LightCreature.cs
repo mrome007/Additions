@@ -38,11 +38,14 @@ public class LightCreature : MonoBehaviour
             if(shadow != null)
             {
                 CurrentState = LightCreatureState.Alert;
+                //temporary just to show me.
+                lightSprite.color = Color.red;
             }
         }
         else
         {
             CurrentState = LightCreatureState.Oblivious;
+            lightSprite.color = Color.white;
         }
     }
 
@@ -61,9 +64,9 @@ public class LightCreature : MonoBehaviour
     {
         while(true)
         {
-            yield return StartCoroutine(CheckForShadowRoutine());
             lightSprite.flipX = !lightSprite.flipX;
             direction = lightSprite.flipX ? Vector2.right : Vector2.left;
+            yield return StartCoroutine(CheckForShadowRoutine());
         }
     }
 }
