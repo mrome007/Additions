@@ -13,6 +13,9 @@ public class ShadowMovement : MonoBehaviour
     [SerializeField]
     private float shadowSpeed;
 
+    [SerializeField]
+    private Collider2D shadowCollider;
+
     private Coroutine followCoroutine = null;
 
     public bool Moving { get; set; }
@@ -31,6 +34,8 @@ public class ShadowMovement : MonoBehaviour
     private IEnumerator MoveShadowCoroutine(Vector2 direction)
     {
         Moving = true;
+        shadowCollider.enabled = true;
+
         var distance = 0f;
         while(distance < maxDistance)
         {
@@ -62,6 +67,7 @@ public class ShadowMovement : MonoBehaviour
     private IEnumerator FollowDartCoroutine()
     {
         Moving = false;
+        shadowCollider.enabled = false;
         while(true)
         {
             transform.position = dartTransform.position;
