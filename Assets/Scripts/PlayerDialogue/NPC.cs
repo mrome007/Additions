@@ -20,10 +20,16 @@ public class NPC : MonoBehaviour
     private Text textBoxText;
 
     private Coroutine textShowCoroutine = null;
+    private int maxLength = 140;
 
     private void Awake()
     {
-        uiText = new StringBuilder(140, 140);
+        if(npcInspectorText.Length > maxLength)
+        {
+            Debug.LogError("Text can only be " + maxLength + " characters long.");
+        }
+        
+        uiText = new StringBuilder(maxLength, maxLength);
         for(int index = 0; index < uiText.Capacity; index++)
         {
             uiText.Append(' ');
