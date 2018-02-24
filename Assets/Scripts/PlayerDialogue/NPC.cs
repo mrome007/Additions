@@ -26,7 +26,7 @@ public class NPC : MonoBehaviour
     {
         if(npcInspectorText.Length > maxLength)
         {
-            Debug.LogError("Text can only be " + maxLength + " characters long.");
+            Debug.LogError("Text can only be " + maxLength + " characters long. Text has to be shorter.");
         }
         
         uiText = new StringBuilder(maxLength, maxLength);

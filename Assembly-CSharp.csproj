@@ -60,6 +60,8 @@
      <Compile Include="Assets\Scripts\BattleSequence\BattleWonArgs.cs" />
      <Compile Include="Assets\Scripts\BattleSequence\Party.cs" />
      <Compile Include="Assets\Scripts\PlayerDialogue\NPC.cs" />
+     <Compile Include="Assets\Scripts\PlayerDialogue\StoryCharacter.cs" />
+     <Compile Include="Assets\Scripts\PlayerDialogue\StoryDialoguePresentation.cs" />
      <Compile Include="Assets\Scripts\PlayerOverWorld\DartOverWorld.cs" />
      <Compile Include="Assets\Scripts\PlayerOverWorld\DartOverWorldAnimation.cs" />
      <Compile Include="Assets\Scripts\PlayerOverWorld\EnemyOverWorld.cs" />

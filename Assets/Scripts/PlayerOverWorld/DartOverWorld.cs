@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,16 +35,23 @@ public class DartOverWorld : PlayerOverWorld
     private bool shadowRightInputStart = false;
     private float shadowRightInputTimer = 0f;
     private float shadowTimerCap = 0.35f;
+    private bool stopMovement = false;
 
     protected override void Awake()
     {
         base.Awake();
         jumpForce = new Vector2(0f, 600f);
         results = new Collider2D[1];
+        StoryDialoguePresentation.Instance.DialogueEnded += HandleStoryDialogueEnded;
     }
 
     private void Update()
     {
+        if(stopMovement)
+        {
+            return;
+        }
+        
         if(grounded && Input.GetKeyDown(KeyCode.Space))
         {
             dartRigidBody.AddForce(jumpForce);
@@ -54,6 +62,11 @@ public class DartOverWorld : PlayerOverWorld
 
     private void FixedUpdate()
     {
+        if(stopMovement)
+        {
+            return;
+        }
+        
         DartMovement();
     }
 
@@ -76,6 +89,16 @@ public class DartOverWorld : PlayerOverWorld
         if(npc != null)
         {
             npc.ShowText(true);
+        }
+
+        var storyChar = other.GetComponent<StoryCharacter>();
+        if(storyChar != null)
+        {
+            if(!storyChar.Activated)
+            {
+                stopMovement = true;
+                storyChar.ShowDialogue();
+            }
         }
 
         var enemy = other.GetComponent<EnemyPlayer>();
@@ -143,5 +166,10 @@ public class DartOverWorld : PlayerOverWorld
             }
         }
 
+    }
+
+    private void HandleStoryDialogueEnded(object sender, EventArgs e)
+    {
+        stopMovement = false;
     }
 }
