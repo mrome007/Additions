@@ -44,11 +44,15 @@ public class StoryDialoguePresentation : MonoBehaviour
 
     [SerializeField]
     private Text textBoxText;
+
+    [SerializeField]
+    private Text characterSpeakingText;
     
     private StringBuilder uiTextContainer;
     private int maxLength = 140;
     private Coroutine storyDialogueCoroutine = null;
     private WaitForSeconds dialogueDelay;
+    private WaitForSeconds perCharDelay;
 
     private void Awake()
     {
@@ -57,6 +61,7 @@ public class StoryDialoguePresentation : MonoBehaviour
             instance = (StoryDialoguePresentation)FindObjectOfType(typeof(StoryDialoguePresentation));
         }
         dialogueDelay = new WaitForSeconds(1f);
+        perCharDelay = new WaitForSeconds(0.2f);
         ResetUiText();
 
         ShowStoryPresentation(false);
@@ -89,10 +94,14 @@ public class StoryDialoguePresentation : MonoBehaviour
 
         for(int index = 0; index < dialogues.Count; index++)
         {
-            ShowCharacters(dialogues[index].CharacterSpeaking);
-            yield return StartCoroutine(GoThroughText(dialogues[index].StoryText));
+            var dialogue = dialogues[index];
+            characterSpeakingText.text = dialogue.CharacterSpeaking.ToString();
+            ShowCharacters(dialogue.CharacterSpeaking);
+            yield return StartCoroutine(GoThroughText(dialogue.StoryText));
             yield return dialogueDelay;
         }
+
+        yield return dialogueDelay;
 
         ShowStoryPresentation(false);
 
@@ -132,7 +141,7 @@ public class StoryDialoguePresentation : MonoBehaviour
             var character = dialogueText[index];
             uiTextContainer[index] = character;
             textBoxText.text = uiTextContainer.ToString();
-            yield return new WaitForSeconds(0.1f);
+            yield return perCharDelay;
         }
     }
 
@@ -140,7 +149,7 @@ public class StoryDialoguePresentation : MonoBehaviour
     {
         switch(character)
         {
-            case StoryDialogue.Characters.Player:
+            case StoryDialogue.Characters.Dart:
                 leftCharacter.gameObject.SetActive(true);
                 shadowCharacter.gameObject.SetActive(false);
                 break;
@@ -174,7 +183,7 @@ public class StoryDialogue
 {
     public enum Characters
     {
-        Player,
+        Dart,
         Shadow,
         DarkTree
     }
