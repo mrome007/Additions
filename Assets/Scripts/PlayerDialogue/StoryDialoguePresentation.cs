@@ -28,13 +28,13 @@ public class StoryDialoguePresentation : MonoBehaviour
     public event EventHandler DialogueEnded;
 
     [SerializeField]
-    private List<Sprite> characterSprites;
+    private List<DialogueSprites> characterSprites;
     
     [SerializeField]
     private GameObject storyDialoguePresentationContainer;
 
     [SerializeField]
-    private GameObject characterPresentationContainer;
+    private Image shadowCharacter;
 
     [SerializeField]
     private Image leftCharacter;
@@ -56,7 +56,7 @@ public class StoryDialoguePresentation : MonoBehaviour
         {
             instance = (StoryDialoguePresentation)FindObjectOfType(typeof(StoryDialoguePresentation));
         }
-        dialogueDelay = new WaitForSeconds(0.5f);
+        dialogueDelay = new WaitForSeconds(1f);
         ResetUiText();
 
         ShowStoryPresentation(false);
@@ -85,9 +85,11 @@ public class StoryDialoguePresentation : MonoBehaviour
     private IEnumerator ShowStoryDialogueRoutine(List<StoryDialogue> dialogues)
     {
         ShowStoryPresentation(true);
+        HideAllCharacters();
 
         for(int index = 0; index < dialogues.Count; index++)
         {
+            ShowCharacters(dialogues[index].CharacterSpeaking);
             yield return StartCoroutine(GoThroughText(dialogues[index].StoryText));
             yield return dialogueDelay;
         }
@@ -124,7 +126,7 @@ public class StoryDialoguePresentation : MonoBehaviour
     {
         ResetUiText();
         textBoxText.text = "";
-        
+
         for(int index = 0; index < dialogueText.Length; index++)
         {
             var character = dialogueText[index];
@@ -133,4 +135,59 @@ public class StoryDialoguePresentation : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
     }
+
+    private void ShowCharacters(StoryDialogue.Characters character)
+    {
+        switch(character)
+        {
+            case StoryDialogue.Characters.Player:
+                leftCharacter.gameObject.SetActive(true);
+                shadowCharacter.gameObject.SetActive(false);
+                break;
+
+            //TODO make this more generic, as all secondary characters will do this.
+            case StoryDialogue.Characters.DarkTree:
+                rightCharacter.sprite = characterSprites.Find(spr => spr.Character == character).CharacterSprite;
+                rightCharacter.gameObject.SetActive(true);
+                break;
+
+            case StoryDialogue.Characters.Shadow:
+                shadowCharacter.gameObject.SetActive(true);
+                leftCharacter.gameObject.SetActive(false);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void HideAllCharacters()
+    {
+        shadowCharacter.gameObject.SetActive(false);
+        leftCharacter.gameObject.SetActive(false);
+        rightCharacter.gameObject.SetActive(false);
+    }
+}
+
+[Serializable]
+public class StoryDialogue
+{
+    public enum Characters
+    {
+        Player,
+        Shadow,
+        DarkTree
+    }
+
+    public Characters CharacterSpeaking;
+
+    [TextArea]
+    public string StoryText;
+}
+
+[Serializable]
+public class DialogueSprites
+{
+    public StoryDialogue.Characters Character;
+    public Sprite CharacterSprite;
 }

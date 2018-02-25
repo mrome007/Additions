@@ -33,21 +33,4 @@ public class StoryCharacter : MonoBehaviour
         Activated = true;
         StoryDialoguePresentation.Instance.ShowStoryDialogue(dialogues);
     }
-
-}
-
-[Serializable]
-public class StoryDialogue
-{
-    public enum Characters
-    {
-        Player,
-        Shadow,
-        DarkTree
-    }
-
-    public Characters CharacterSpeaking;
-
-    [TextArea]
-    public string StoryText;
 }
