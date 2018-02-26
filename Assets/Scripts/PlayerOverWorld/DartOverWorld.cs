@@ -17,31 +17,40 @@ public class DartOverWorld : PlayerOverWorld
 
     [SerializeField]
     private Rigidbody2D dartRigidBody;
+
     [SerializeField]
     private Transform groundCheck;
+
+    [SerializeField]
+    private Transform groundCheckRight;
+
+    [SerializeField]
+    private Transform groundCheckLeft;
+
     [SerializeField]
     private float groundCheckRadius;
+
     [SerializeField]
     private LayerMask groundLayer;
 
     private bool grounded = false;
-
     private Collider2D []results;
-
     private Vector2 jumpForce;
-
     private bool shadowLeftInputStart = false;
     private float shadowLeftInputTimer = 0f;
     private bool shadowRightInputStart = false;
     private float shadowRightInputTimer = 0f;
     private float shadowTimerCap = 0.35f;
     private bool stopMovement = false;
+    private bool jumped = false;
+    private WaitForSeconds jumpDelayTime;
 
     protected override void Awake()
     {
         base.Awake();
         jumpForce = new Vector2(0f, 600f);
         results = new Collider2D[1];
+        jumpDelayTime = new WaitForSeconds(0.1f);
         StoryDialoguePresentation.Instance.DialogueEnded += HandleStoryDialogueEnded;
     }
 
@@ -54,6 +63,8 @@ public class DartOverWorld : PlayerOverWorld
             
         if(grounded && Input.GetKeyDown(KeyCode.Space))
         {
+            //TODO Keep an eye on calls to this.
+            StartCoroutine(DelayJump());
             dartRigidBody.AddForce(jumpForce);
         }
          
@@ -69,13 +80,18 @@ public class DartOverWorld : PlayerOverWorld
         
         DartMovement();
 
-        dartRigidBody.isKinematic = dartRigidBody.velocity.sqrMagnitude < 0.5f && grounded;
-        dartRigidBody.simulated = !dartRigidBody.isKinematic;
+        if(!jumped)
+        {
+            dartRigidBody.isKinematic = dartRigidBody.velocity.sqrMagnitude < 0.5f && grounded;
+            dartRigidBody.simulated = !dartRigidBody.isKinematic;
+        }
     }
 
     private void DartMovement()
     {
-        grounded = Physics2D.OverlapCircleNonAlloc(groundCheck.position, groundCheckRadius, results, (int)groundLayer) > 0;
+        grounded = Physics2D.OverlapCircleNonAlloc(groundCheck.position, groundCheckRadius, results, (int)groundLayer) > 0 ||
+                   Physics2D.OverlapCircleNonAlloc(groundCheckLeft.position, groundCheckRadius, results, (int)groundLayer) > 0 ||
+                   Physics2D.OverlapCircleNonAlloc(groundCheckRight.position, groundCheckRadius, results, (int)groundLayer) > 0;
 
         var h = Input.GetAxis("Horizontal");
 
@@ -175,5 +191,15 @@ public class DartOverWorld : PlayerOverWorld
     private void HandleStoryDialogueEnded(object sender, EventArgs e)
     {
         stopMovement = false;
+    }
+
+    private IEnumerator DelayJump()
+    {
+        jumped = true;
+        dartRigidBody.isKinematic = false;
+        dartRigidBody.simulated = true;
+        yield return jumpDelayTime;
+
+        jumped = false;
     }
 }
