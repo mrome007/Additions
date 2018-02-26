@@ -51,12 +51,12 @@ public class DartOverWorld : PlayerOverWorld
         {
             return;
         }
-        
+            
         if(grounded && Input.GetKeyDown(KeyCode.Space))
         {
             dartRigidBody.AddForce(jumpForce);
         }
-           
+         
         GetShadowInput();
     }
 
@@ -68,13 +68,17 @@ public class DartOverWorld : PlayerOverWorld
         }
         
         DartMovement();
+
+        dartRigidBody.isKinematic = dartRigidBody.velocity.sqrMagnitude < 0.5f && grounded;
+        dartRigidBody.simulated = !dartRigidBody.isKinematic;
     }
 
     private void DartMovement()
     {
         grounded = Physics2D.OverlapCircleNonAlloc(groundCheck.position, groundCheckRadius, results, (int)groundLayer) > 0;
-        
+
         var h = Input.GetAxis("Horizontal");
+
         dartOverWorldAnimation.DartWalk(h);
         shadowAnimation.DartWalk(h);
         movementVector.x = h * movementSpeed;
