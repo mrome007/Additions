@@ -54,6 +54,10 @@ public abstract class Player : MonoBehaviour
         {
             return level;
         }
+        set
+        {
+            level = value;
+        }
     }
 
     public int Experience
@@ -61,6 +65,10 @@ public abstract class Player : MonoBehaviour
         get
         {
             return experience;
+        }
+        set
+        {
+            experience = value;
         }
     }
 
@@ -70,6 +78,10 @@ public abstract class Player : MonoBehaviour
         {
             return experienceCap;
         }
+        set
+        {
+            experienceCap = value;
+        }
     }
 
     public int Strength
@@ -77,6 +89,10 @@ public abstract class Player : MonoBehaviour
         get
         {
             return strength;
+        }
+        set
+        {
+            strength = value;
         }
     }
 
@@ -86,6 +102,10 @@ public abstract class Player : MonoBehaviour
         {
             return defense;
         }
+        set
+        {
+            defense = value;
+        }
     }
 
     public int Speed
@@ -94,7 +114,33 @@ public abstract class Player : MonoBehaviour
         {
             return speed;
         }
+        set
+        {
+            speed = value;
+        }
     }
 
     #endregion
+
+    public virtual void Initialize(Player player)
+    {
+        this.Health = player.Health;
+        this.Level = player.Level;
+        this.Experience = player.Experience;
+        this.ExperienceCap = player.ExperienceCap;
+        this.Strength = player.Strength;
+        this.Defense = player.Defense;
+        this.Speed = player.Speed;
+    }
+
+    public virtual void Initialize(int hlth, int lvl, int exp, int expCap, int str, int def, int spd)
+    {
+        this.Health = hlth;
+        this.Level = lvl;
+        this.Experience = exp;
+        this.ExperienceCap = expCap;
+        this.Strength = str;
+        this.Defense = def;
+        this.Speed = spd;
+    }
 }

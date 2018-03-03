@@ -6,6 +6,17 @@ using System;
 public abstract class BattlePlayer : MonoBehaviour 
 {
     public int TurnPoints { get; private set; }
+    public Player PlayerStats
+    {
+        get
+        {
+            return player;
+        }
+        private set
+        {
+            player = value;
+        }
+    }
     public bool Alive { get{ return health > 0; } }
 
     public event EventHandler<ActionEventArgs> ActionStart;
@@ -13,12 +24,13 @@ public abstract class BattlePlayer : MonoBehaviour
     protected ActionType currentAction = ActionType.Idle;
 
     private int health;
+    private Player player;
 
     protected virtual void Awake()
     {
-        var player = GetComponent<Player>();
-        TurnPoints = player != null ? player.Speed : 1;
-        health = player.Health;
+        PlayerStats = GetComponent<Player>();
+        TurnPoints = PlayerStats != null ? PlayerStats.Speed : 1;
+        health = PlayerStats.Health;
 
         //Subscriptions
         ActionEnd += HandleBattlePlayerActionEnded;

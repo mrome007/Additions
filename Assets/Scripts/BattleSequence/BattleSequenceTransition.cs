@@ -112,12 +112,14 @@ public class BattleSequenceTransition : MonoBehaviour
         {
             //local variable to assign stats in the future.
             var teamMate = BattlePlayerCreator.Instance.CreateDartBattlePlayer(member.GetComponent<DartPlayer>().DartType);
+            teamMate.PlayerStats.Initialize(member);
             goodGuys.Add(teamMate);
         }
 
         foreach(var member in enemyOverWorld.PlayerTeam)
         {
             var teamMate = BattlePlayerCreator.Instance.CreateEnemyBattlePlayer(member.GetComponent<EnemyPlayer>().EnemyType);
+            teamMate.PlayerStats.Initialize(member);
             badGuys.Add(teamMate);
         }
     }
