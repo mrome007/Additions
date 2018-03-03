@@ -21,6 +21,7 @@ public class NPC : MonoBehaviour
 
     private Coroutine textShowCoroutine = null;
     private int maxLength = 140;
+    private bool showing = false;
 
     private void Awake()
     {
@@ -43,12 +44,11 @@ public class NPC : MonoBehaviour
 
     public void ShowText(bool show)
     {
-        textBoxObject.SetActive(show);
-
         if(show)
         {
-            if(textShowCoroutine == null)
+            if(textShowCoroutine == null && !showing)
             {
+                textBoxObject.SetActive(show);
                 textShowCoroutine = StartCoroutine(GoThroughText());
             }
         }
@@ -59,22 +59,34 @@ public class NPC : MonoBehaviour
                 StopCoroutine(textShowCoroutine);
                 textShowCoroutine = null;
             }
-            textBoxText.text = string.Empty;
-            for(int index = 0; index < uiText.Length; index++)
-            {
-                uiText[index] = ' ';
-            }
+
+            textBoxObject.SetActive(show);
+            ResetTextBox();
         }
     }
 
     private IEnumerator GoThroughText()
     {
+        showing = true;
         for(int index = 0; index < npcInspectorText.Length; index++)
         {
             var character = npcInspectorText[index];
             uiText[index] = character;
             textBoxText.text = uiText.ToString();
             yield return new WaitForSeconds(0.1f);
+        }
+
+        yield return new WaitForSeconds(0.25f);
+        showing = false;
+        ShowText(false);
+    }
+
+    private void ResetTextBox()
+    {
+        textBoxText.text = string.Empty;
+        for(int index = 0; index < uiText.Length; index++)
+        {
+            uiText[index] = ' ';
         }
     }
 }

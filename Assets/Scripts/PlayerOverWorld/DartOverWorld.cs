@@ -19,6 +19,9 @@ public class DartOverWorld : PlayerOverWorld
     private Rigidbody2D dartRigidBody;
 
     [SerializeField]
+    private Collider2D dartCollider;
+
+    [SerializeField]
     private Transform groundCheck;
 
     [SerializeField]
@@ -84,6 +87,7 @@ public class DartOverWorld : PlayerOverWorld
         {
             dartRigidBody.isKinematic = dartRigidBody.velocity.sqrMagnitude < 0.5f && grounded;
             dartRigidBody.simulated = !dartRigidBody.isKinematic;
+            dartCollider.isTrigger = dartRigidBody.isKinematic;
         }
     }
 
@@ -125,15 +129,6 @@ public class DartOverWorld : PlayerOverWorld
         if(enemy != null)
         {
             BattleSequenceTransition.Instance.LoadBattleSequence(other.gameObject);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        var npc = other.GetComponent<NPC>();
-        if(npc != null)
-        {
-            npc.ShowText(false);
         }
     }
 
