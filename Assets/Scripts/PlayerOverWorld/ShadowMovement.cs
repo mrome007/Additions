@@ -25,6 +25,16 @@ public class ShadowMovement : MonoBehaviour
         FollowDart();
     }
 
+    private void OnDisable()
+    {
+        StopFollowing();
+    }
+
+    private void OnEnable()
+    {
+        FollowDart();
+    }
+
     public void MoveShadow(Vector2 direction)
     {
         StopFollowing();

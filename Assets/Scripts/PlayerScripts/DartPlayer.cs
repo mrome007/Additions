@@ -47,7 +47,7 @@ public class DartPlayer : Player
         experience += exp;
         if(experience >= experienceCap)
         {
-            level++;
+            Level++;
             experience %= experienceCap;
             experienceCap += (expCapIncr * level);
         }
