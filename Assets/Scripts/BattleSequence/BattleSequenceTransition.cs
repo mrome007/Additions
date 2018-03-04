@@ -37,9 +37,11 @@ public class BattleSequenceTransition : MonoBehaviour
     }
 
     [SerializeField]
-    private GameObject OverWorldElementsContainer;
+    private GameObject overWorldElementsContainer;
     [SerializeField]
     private DartPlayer mainPlayerContainer;
+    [SerializeField]
+    private GameObject shadowContainer;
     private GameObject enemyContact;
 
     private void Awake()
@@ -102,8 +104,9 @@ public class BattleSequenceTransition : MonoBehaviour
 
     private void ShowOverWorldElements(bool show)
     {
-        OverWorldElementsContainer.SetActive(show);
+        overWorldElementsContainer.SetActive(show);
         mainPlayerContainer.gameObject.SetActive(show);
+        shadowContainer.gameObject.SetActive(show);
         if(enemyContact != null)
         {
             enemyContact.SetActive(show);

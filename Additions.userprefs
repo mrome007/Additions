@@ -1,17 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerScripts/DartBattlePlayer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BattleSequence/BattleSequence.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerScripts/DartBattlePlayer.cs" Line="30" Column="1" />
+      <File FileName="Assets/Scripts/PlayerScripts/DartBattlePlayer.cs" Line="28" Column="12" />
       <File FileName="Assets/Scripts/PlayerDialogue/StoryDialoguePresentation.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/PlayerScripts/Player.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/PlayerOverWorld/DartOverWorld.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/PlayerDialogue/NPC.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/BattleSequence/BattleSequence.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceTransition.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequence.cs" Line="223" Column="82" />
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceTransition.cs" Line="130" Column="22" />
       <File FileName="Assets/Scripts/PlayerScripts/DartPlayer.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/BattleSequence/Party.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PlayerScripts/BattlePlayer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/PlayerScripts/BattlePlayer.cs" Line="8" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

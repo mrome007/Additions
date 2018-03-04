@@ -61,7 +61,7 @@ public class StoryDialoguePresentation : MonoBehaviour
             instance = (StoryDialoguePresentation)FindObjectOfType(typeof(StoryDialoguePresentation));
         }
         dialogueDelay = new WaitForSeconds(1f);
-        perCharDelay = new WaitForSeconds(0.2f);
+        perCharDelay = new WaitForSeconds(0.1f);
         ResetUiText();
 
         ShowStoryPresentation(false);

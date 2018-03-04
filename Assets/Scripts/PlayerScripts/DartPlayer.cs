@@ -4,6 +4,36 @@ using UnityEngine;
 
 public class DartPlayer : Player
 {
+    #region Overrides
+
+    public override int Health
+    {
+        get
+        {
+            return base.Health;
+        }
+        set
+        {
+            base.Health = value;
+            PlayerStateUiController.Instance.UpdatePlayerHealth((float)health / healthCap);
+        }
+    }
+
+    public override int Level
+    {
+        get
+        {
+            return base.Level;
+        }
+        protected set
+        {
+            base.Level = value;
+            PlayerStateUiController.Instance.UpdatePlayerLevel(level);
+        }
+    }
+
+    #endregion
+    
     [SerializeField]
     private int expCapIncr = 50;
 

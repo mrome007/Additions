@@ -9,6 +9,8 @@ public abstract class Player : MonoBehaviour
     [SerializeField]
     protected int health;
 
+    protected int healthCap;
+
     [SerializeField]
     protected int level = 1;
 
@@ -31,12 +33,24 @@ public abstract class Player : MonoBehaviour
 
     #region Player Status Properties
 
+    public int HealthCap
+    {
+        get
+        {
+            return healthCap;
+        }
+        private set
+        {
+            healthCap = value;
+        }
+    }
+
     /// <summary>
     /// Gets or sets the health. Be able to set due to 
     /// health being used in Battle Sequences and Overworld.
     /// </summary>
     /// <value>The health.</value>
-    public int Health
+    public virtual int Health
     {
         get
         {
@@ -48,11 +62,15 @@ public abstract class Player : MonoBehaviour
         }
     }
 
-    public int Level
+    public virtual int Level
     {
         get
         {
             return level;
+        }
+        protected set
+        {
+            level = value;
         }
     }
 
@@ -98,9 +116,15 @@ public abstract class Player : MonoBehaviour
 
     #endregion
 
+    protected virtual void Awake()
+    {
+        healthCap = health;
+    }
+
     public virtual void Initialize(Player player)
     {
         this.health = player.Health;
+        healthCap = health;
         this.level = player.Level;
         this.experience = player.Experience;
         this.experienceCap = player.ExperienceCap;
@@ -112,6 +136,7 @@ public abstract class Player : MonoBehaviour
     public virtual void Initialize(int hlth, int lvl, int exp, int expCap, int str, int def, int spd)
     {
         this.health = hlth;
+        healthCap = health;
         this.level = lvl;
         this.experience = exp;
         this.experienceCap = expCap;
