@@ -5,7 +5,6 @@ using System;
 
 public abstract class BattlePlayer : MonoBehaviour 
 {
-    public int TurnPoints { get; private set; }
     public Player PlayerStats
     {
         get
@@ -17,20 +16,17 @@ public abstract class BattlePlayer : MonoBehaviour
             player = value;
         }
     }
-    public bool Alive { get{ return health > 0; } }
+    public bool Alive { get{ return PlayerStats.Health > 0; } }
 
     public event EventHandler<ActionEventArgs> ActionStart;
     public event EventHandler<ActionEventArgs> ActionEnd;
     protected ActionType currentAction = ActionType.Idle;
 
-    private int health;
     private Player player;
 
     protected virtual void Awake()
     {
         PlayerStats = GetComponent<Player>();
-        TurnPoints = PlayerStats != null ? PlayerStats.Speed : 1;
-        health = PlayerStats.Health;
 
         //Subscriptions
         ActionEnd += HandleBattlePlayerActionEnded;
@@ -84,14 +80,14 @@ public abstract class BattlePlayer : MonoBehaviour
 
     protected virtual void TakeDamage(int damage)
     {
-        health -= damage;
-        Debug.Log(gameObject.name + ": " + health);
+        player.Health -= damage;
+        Debug.Log(gameObject.name + ": " + player.Health);
         CheckDeath();
     }
 
     protected virtual void CheckDeath()
     {
-        if(health <= 0)
+        if(player.Health <= 0)
         {
             //TODO temporary. do something else when players die.
             gameObject.SetActive(false);

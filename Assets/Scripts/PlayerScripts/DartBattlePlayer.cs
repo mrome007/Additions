@@ -148,8 +148,7 @@ public class DartBattlePlayer : BattlePlayer
     {
         var rate = distance / numberOfFrames;
         var count = 0;
-        //dartPlayerAnimator.SetTrigger("Dash");
-        //dartAdditionAnimator.SetTrigger("Dash");
+
         while(count < numberOfFrames)
         {
             transform.Translate(direction * rate);

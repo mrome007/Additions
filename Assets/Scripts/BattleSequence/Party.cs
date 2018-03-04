@@ -103,4 +103,15 @@ public class Party
     {
         currentPlayerIndex = -1;
     }
+
+    public int GetPartyExperiencePoints()
+    {
+        var exp = 0;
+        for(int index = 0; index < battlePlayers.Count; index++)
+        {
+            exp += battlePlayers[index].PlayerStats.Experience;
+        }
+
+        return exp;
+    }
 }

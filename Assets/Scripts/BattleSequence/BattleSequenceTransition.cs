@@ -28,10 +28,18 @@ public class BattleSequenceTransition : MonoBehaviour
     public event EventHandler<BattleWonArgs> BattleSequenceLoadComplete;
     public event EventHandler<BattleWonArgs> BattleSequenceUnloadComplete;
 
+    public DartPlayer MainPlayer
+    {
+        get
+        {
+            return mainPlayerContainer;
+        }
+    }
+
     [SerializeField]
     private GameObject OverWorldElementsContainer;
     [SerializeField]
-    private GameObject mainPlayerContainer;
+    private DartPlayer mainPlayerContainer;
     private GameObject enemyContact;
 
     private void Awake()
@@ -95,7 +103,7 @@ public class BattleSequenceTransition : MonoBehaviour
     private void ShowOverWorldElements(bool show)
     {
         OverWorldElementsContainer.SetActive(show);
-        mainPlayerContainer.SetActive(show);
+        mainPlayerContainer.gameObject.SetActive(show);
         if(enemyContact != null)
         {
             enemyContact.SetActive(show);

@@ -153,6 +153,13 @@ public class BattleSequence : MonoBehaviour
         else        //If either side has died.
         {
             //TODO Temporary Do Winning or Losing animation.
+            if(darts.IsPartyAlive())
+            {
+                var exp = enemies.GetPartyExperiencePoints();
+                BattleSequenceTransition.Instance.MainPlayer.IncrementExperiencePoints(exp);
+                BattleSequenceTransition.Instance.MainPlayer.Health = darts.GetNextPlayer().PlayerStats.Health;
+            }
+
             BattleSequenceTransition.Instance.UnloadBattleSequence(darts.IsPartyAlive()); //If darts are alive then they have won the battle.
             EndBattleSequence();
         }
@@ -201,7 +208,7 @@ public class BattleSequence : MonoBehaviour
             for(int index = 0; index < darts.NumberOfPlayers; index++)
             {
                 var dart = darts.GetPlayer(index);
-                playersTurnPoints[index] += dart.Alive ? dart.TurnPoints : 0;
+                playersTurnPoints[index] += dart.Alive ? dart.PlayerStats.Speed : 0;
 
                 if(playersTurnPoints[index] >= turnPointsLimit)
                 {
@@ -213,7 +220,7 @@ public class BattleSequence : MonoBehaviour
             for(int index = darts.NumberOfPlayers; index < playersTurnPoints.Count; index++)
             {
                 var enemy = enemies.GetPlayer(index - darts.NumberOfPlayers);
-                playersTurnPoints[index] += enemy.Alive ? enemy.TurnPoints : 0;
+                playersTurnPoints[index] += enemy.Alive ? enemy.PlayerStats.Speed : 0;
 
                 if(playersTurnPoints[index] >= turnPointsLimit)
                 {

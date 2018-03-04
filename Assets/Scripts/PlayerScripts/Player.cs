@@ -62,10 +62,6 @@ public abstract class Player : MonoBehaviour
         {
             return experience;
         }
-        set
-        {
-            experience = value;
-        }
     }
 
     public int ExperienceCap
