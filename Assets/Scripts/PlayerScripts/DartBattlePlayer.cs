@@ -129,6 +129,7 @@ public class DartBattlePlayer : BattlePlayer
         if(index == currentAdditions.Addition.Count)
         {
             currentAdditions.Count++;
+            currentAdditions.Count %= 500;
             dartPlayerAnimator.SetTrigger(currentAdditions.FinalAttackTrigger);
             damage += PlayerStats.Strength;
             yield return finalAttackDelayTime;
