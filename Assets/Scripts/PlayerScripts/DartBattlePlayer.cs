@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 public class DartBattlePlayer : BattlePlayer
-{
+{   
     [SerializeField]
     private List<Additions> additions;
 
@@ -156,6 +156,29 @@ public class DartBattlePlayer : BattlePlayer
             transform.Translate(direction * rate);
             count++;
             yield return null;
+        }
+    }
+
+    //For now pick a random addition to apply boost to.
+    public void BoostAdditions(string additionName, AdditionTarget.BoostType boost, int boostValue)
+    {
+        //List works for now since the additions list are small.
+        var additionSelected = additions.Find(add => add.Name == additionName);
+
+        var addition = additionSelected.Addition[UnityEngine.Random.Range(0,additionSelected.Addition.Count)];
+        switch(boost)
+        {
+            case AdditionTarget.BoostType.Damage:
+                addition.Damage += boostValue;
+                break;
+
+            case AdditionTarget.BoostType.Frames:
+                addition.NumFramesToExecute += boostValue;
+                break;
+
+            case AdditionTarget.BoostType.Multiplier:
+                addition.SuccessMultiplier += boostValue;
+                break;
         }
     }
 }

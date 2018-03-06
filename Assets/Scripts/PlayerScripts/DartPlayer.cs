@@ -40,6 +40,9 @@ public class DartPlayer : Player
     [SerializeField]
     private BattlePlayerCreator.Darts dartType;
 
+    [SerializeField]
+    private AdditionMilestones additionMileStones;
+
     public BattlePlayerCreator.Darts DartType { get { return dartType; } }
 
     public void IncrementExperiencePoints(int exp)
@@ -51,5 +54,10 @@ public class DartPlayer : Player
             experience %= experienceCap;
             experienceCap += (expCapIncr * level);
         }
+    }
+
+    public void ApplyBoosts(DartBattlePlayer player)
+    {
+        additionMileStones.ApplyMilestoneBoosts(player);
     }
 }

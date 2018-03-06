@@ -123,6 +123,7 @@ public class BattleSequenceTransition : MonoBehaviour
         {
             //local variable to assign stats in the future.
             var teamMate = BattlePlayerCreator.Instance.CreateDartBattlePlayer(member.GetComponent<DartPlayer>().DartType);
+            mainPlayerContainer.ApplyBoosts((DartBattlePlayer)teamMate);
             teamMate.PlayerStats.Initialize(member);
             goodGuys.Add(teamMate);
         }
