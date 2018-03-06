@@ -129,7 +129,7 @@ public class DartBattlePlayer : BattlePlayer
         if(index == currentAdditions.Addition.Count)
         {
             dartPlayerAnimator.SetTrigger(currentAdditions.FinalAttackTrigger);
-            damage += 10;
+            damage += PlayerStats.Strength;
             yield return finalAttackDelayTime;
         }
 
@@ -172,10 +172,11 @@ public struct Addition
     public string AttackTrigger;
     public int Damage;
     public int NumFramesToExecute;
+    public int SuccessMultiplier;
 
     public int ApplyDamage(bool success)
     {
-        var damage = success ? Damage : Damage / 2;
+        var damage = success ? Damage * SuccessMultiplier : Damage / 2;
         return damage;
     }
 }

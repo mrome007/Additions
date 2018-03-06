@@ -75,7 +75,16 @@ public abstract class BattlePlayer : MonoBehaviour
 
     protected virtual void ApplyDamage(int damage, BattlePlayer target)
     {
-        target.TakeDamage(damage);
+        var damagePercent = (float)(PlayerStats.Strength) / (PlayerStats.Strength + target.PlayerStats.Defense);
+        var baseDamage = (float)(damage + PlayerStats.Strength);
+        var totalDamage = (int)(baseDamage * damagePercent);
+
+        if(totalDamage <= 0)
+        {
+            totalDamage = PlayerStats.Strength > 1 ? PlayerStats.Strength / 2 : 1;
+        }
+
+        target.TakeDamage(totalDamage);
     }
 
     protected virtual void TakeDamage(int damage)
