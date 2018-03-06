@@ -128,6 +128,7 @@ public class DartBattlePlayer : BattlePlayer
 
         if(index == currentAdditions.Addition.Count)
         {
+            currentAdditions.Count++;
             dartPlayerAnimator.SetTrigger(currentAdditions.FinalAttackTrigger);
             damage += PlayerStats.Strength;
             yield return finalAttackDelayTime;
@@ -164,6 +165,7 @@ public class Additions
     public string Name;
     public List<Addition> Addition;
     public string FinalAttackTrigger;
+    public int Count = 0;
 }
 
 [Serializable]
