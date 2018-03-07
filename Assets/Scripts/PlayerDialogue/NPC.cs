@@ -42,6 +42,11 @@ public class NPC : MonoBehaviour
         ShowText(false);
     }
 
+    private void OnDisable()
+    {
+        ShowText(false);
+    }
+
     public void ShowText(bool show)
     {
         if(show)
@@ -60,6 +65,7 @@ public class NPC : MonoBehaviour
                 textShowCoroutine = null;
             }
 
+            showing = false;
             textBoxObject.SetActive(show);
             ResetTextBox();
         }
