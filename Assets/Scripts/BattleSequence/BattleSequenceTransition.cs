@@ -145,6 +145,14 @@ public class BattleSequenceTransition : MonoBehaviour
         BattleSequence.Instance.StartBattleSequence(goodGuys, badGuys);
     }
 
+    public void UpdateAdditionsInformation(Dictionary<string, int> additions)
+    {
+        foreach(var addition in additions)
+        {
+            mainPlayerContainer.UpdateAdditionMileStoneCount(addition.Key, addition.Value);
+        }
+    }
+
     #region EventHandlers
 
     private void HandleLoadBattleSequenceComplete(object sender, EventArgs e)

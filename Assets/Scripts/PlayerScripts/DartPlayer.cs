@@ -60,4 +60,9 @@ public class DartPlayer : Player
     {
         additionMileStones.ApplyMilestoneBoosts(player);
     }
+
+    public void UpdateAdditionMileStoneCount(string name, int count)
+    {
+        additionMileStones.UpdateMilestoneCount(name, count);
+    }
 }

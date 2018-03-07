@@ -8,19 +8,41 @@ public class AdditionMilestones : MonoBehaviour
     //Public for now, til I figure out the entire logic.
     public List<AdditionMilestone> Additions;
 
-    public void ApplyMilestoneBoosts(DartBattlePlayer dart)
+    private Dictionary<string, AdditionMilestone> AdditionMilestonesContainer;
+
+    private void Awake()
     {
+        AdditionMilestonesContainer = new Dictionary<string, AdditionMilestone>();
         for(int index = 0; index < Additions.Count; index++)
         {
             var mileStone = Additions[index];
-            for(int mIndex = 0; mIndex < mileStone.Milestones.Count; mIndex++)
+            if(!AdditionMilestonesContainer.ContainsKey(mileStone.MilestoneName))
             {
-                var target = mileStone.Milestones[mIndex];
-                if(mileStone.MilestoneCount >= target.Target)
+                AdditionMilestonesContainer.Add(mileStone.MilestoneName, mileStone);
+            }
+        }
+    }
+
+    public void ApplyMilestoneBoosts(DartBattlePlayer dart)
+    {
+        foreach(var mileStone in AdditionMilestonesContainer)
+        {
+            for(int mIndex = 0; mIndex < mileStone.Value.Milestones.Count; mIndex++)
+            {
+                var target = mileStone.Value.Milestones[mIndex];
+                if(mileStone.Value.MilestoneCount >= target.Target)
                 {
-                    dart.BoostAdditions(mileStone.MilestoneName, target.AdditionBoostType, target.BoostValue);
+                    dart.BoostAdditions(mileStone.Value.MilestoneName, target.AdditionBoostType, target.BoostValue);
                 }
             }
+        }
+    }
+
+    public void UpdateMilestoneCount(string name, int count)
+    {
+        if(AdditionMilestonesContainer.ContainsKey(name))
+        {
+            AdditionMilestonesContainer[name].SetMilestoneCount(count);
         }
     }
 }

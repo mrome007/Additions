@@ -181,6 +181,21 @@ public class DartBattlePlayer : BattlePlayer
                 break;
         }
     }
+
+    public Dictionary<string, int> GetAdditionsCount()
+    {
+        var additionCountContainer = new Dictionary<string, int>();
+        for(int index = 0; index < additions.Count; index++)
+        {
+            var addition = additions[index];
+            if(!additionCountContainer.ContainsKey(addition.Name))
+            {
+                additionCountContainer.Add(addition.Name, addition.Count);
+            }
+        }
+
+        return additionCountContainer;
+    }
 }
 
 [Serializable]

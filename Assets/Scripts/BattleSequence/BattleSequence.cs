@@ -158,6 +158,7 @@ public class BattleSequence : MonoBehaviour
                 var exp = enemies.GetPartyExperiencePoints();
                 BattleSequenceTransition.Instance.MainPlayer.IncrementExperiencePoints(exp);
                 BattleSequenceTransition.Instance.MainPlayer.Health = darts.GetNextPlayer().PlayerStats.Health;
+                BattleSequenceTransition.Instance.UpdateAdditionsInformation(((DartBattlePlayer)darts.GetNextPlayer()).GetAdditionsCount());
             }
 
             BattleSequenceTransition.Instance.UnloadBattleSequence(darts.IsPartyAlive()); //If darts are alive then they have won the battle.
