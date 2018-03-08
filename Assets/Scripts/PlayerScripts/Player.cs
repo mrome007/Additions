@@ -116,9 +116,26 @@ public abstract class Player : MonoBehaviour
 
     #endregion
 
+    #region base values
+
+    protected int baseHealth;
+    protected int baseStrength;
+    protected int baseDefense;
+    protected int baseSpeed;
+
+    #endregion
+
     protected virtual void Awake()
     {
         healthCap = health;
+    }
+
+    protected virtual void Start()
+    {
+        baseHealth = health;
+        baseStrength = strength;
+        baseDefense = defense;
+        baseSpeed = speed;
     }
 
     public virtual void Initialize(Player player)

@@ -8,4 +8,10 @@ public class EnemyPlayer : Player
     private BattlePlayerCreator.Enemies enemyType;
 
     public BattlePlayerCreator.Enemies EnemyType { get { return enemyType; } }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        experience *= level;
+    }
 }

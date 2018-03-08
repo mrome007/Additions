@@ -33,9 +33,6 @@ public class DartPlayer : Player
     }
 
     #endregion
-    
-    [SerializeField]
-    private int expCapIncr = 50;
 
     [SerializeField]
     private BattlePlayerCreator.Darts dartType;
@@ -50,9 +47,7 @@ public class DartPlayer : Player
         experience += exp;
         if(experience >= experienceCap)
         {
-            Level++;
-            experience %= experienceCap;
-            experienceCap += (expCapIncr * level);
+            LevelUp();
         }
     }
 
@@ -64,5 +59,28 @@ public class DartPlayer : Player
     public void UpdateAdditionMileStoneCount(string name, int count)
     {
         additionMileStones.UpdateMilestoneCount(name, count);
+    }
+
+    private int GetNewLevelUpCap(int lvl)
+    {
+        return lvl * lvl * lvl;
+    }
+
+    private void LevelUp()
+    {
+        var levelIncrement = experience / experienceCap;
+        Level += levelIncrement;
+        experience %= experienceCap;
+        experienceCap += GetNewLevelUpCap(level);
+
+        healthCap = LevelUpAttributes(level, baseHealth, healthCap, 0);
+        strength = LevelUpAttributes(level, baseStrength, strength, Random.Range(2,4));
+        defense = LevelUpAttributes(level, baseDefense, defense, 0);
+        speed = LevelUpAttributes(level, baseSpeed, speed, Random.Range(1, 4));
+    }
+
+    private int LevelUpAttributes(int lvl, int baseValue, int currentValue, int modifier)
+    {
+        return (baseValue + currentValue / 17) + (lvl * baseValue / 11) + modifier;
     }
 }
