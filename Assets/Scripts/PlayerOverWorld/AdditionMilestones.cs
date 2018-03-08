@@ -27,12 +27,16 @@ public class AdditionMilestones : MonoBehaviour
     {
         foreach(var mileStone in AdditionMilestonesContainer)
         {
-            for(int mIndex = 0; mIndex < mileStone.Value.Milestones.Count; mIndex++)
+            dart.EnableAdditions(mileStone.Key, mileStone.Value.Enabled);
+            if(mileStone.Value.Enabled)
             {
-                var target = mileStone.Value.Milestones[mIndex];
-                if(mileStone.Value.MilestoneCount >= target.Target)
+                for(int mIndex = 0; mIndex < mileStone.Value.Milestones.Count; mIndex++)
                 {
-                    dart.BoostAdditions(mileStone.Value.MilestoneName, target.AdditionBoostType, target.BoostValue);
+                    var target = mileStone.Value.Milestones[mIndex];
+                    if(mileStone.Value.MilestoneCount >= target.Target)
+                    {
+                        dart.BoostAdditions(mileStone.Key, target.AdditionBoostType, target.BoostValue);
+                    }
                 }
             }
         }
@@ -45,12 +49,22 @@ public class AdditionMilestones : MonoBehaviour
             AdditionMilestonesContainer[name].SetMilestoneCount(count);
         }
     }
+
+    public void UpdateEnabledAdditions(int lvl)
+    {
+        foreach(var mileStone in AdditionMilestonesContainer)
+        {
+            mileStone.Value.Enabled = mileStone.Value.LevelEnabled >= lvl;
+        }
+    }
 }
 
 [Serializable]
 public class AdditionMilestone
 {
     public string MilestoneName;
+    public bool Enabled;
+    public int LevelEnabled;
     public int MilestoneCount { get; private set; }
     public List<AdditionTarget> Milestones;
 

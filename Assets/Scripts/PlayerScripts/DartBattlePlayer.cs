@@ -5,6 +5,8 @@ using System;
 
 public class DartBattlePlayer : BattlePlayer
 {   
+    public Additions CurrentAddition { get { return currentAdditions; }  }
+
     [SerializeField]
     private List<Additions> additions;
 
@@ -182,6 +184,13 @@ public class DartBattlePlayer : BattlePlayer
         }
     }
 
+    public void EnableAdditions(string additionName, bool enable)
+    {
+        //List works for now since the additions list are small.
+        var additionSelected = additions.Find(add => add.Name == additionName);
+        additionSelected.Enabled = enable;
+    }
+
     public Dictionary<string, int> GetAdditionsCount()
     {
         var additionCountContainer = new Dictionary<string, int>();
@@ -202,6 +211,7 @@ public class DartBattlePlayer : BattlePlayer
 public class Additions
 {
     public string Name;
+    public bool Enabled;
     public List<Addition> Addition;
     public string FinalAttackTrigger;
     public int Count = 0;

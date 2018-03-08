@@ -48,6 +48,7 @@ public class DartPlayer : Player
         if(experience >= experienceCap)
         {
             LevelUp();
+            additionMileStones.UpdateEnabledAdditions(level);
         }
     }
 
