@@ -31,6 +31,9 @@ public class BattleSequence : MonoBehaviour
     private Party enemies;
 
     [SerializeField]
+    private PlayerActionButtonController playerActionButtonController;
+
+    [SerializeField]
     private AdditionButtonController additionButtonController;
 
     [SerializeField]
@@ -77,42 +80,85 @@ public class BattleSequence : MonoBehaviour
     private void ShowBattleSequenceMenu(bool show)
     {
         additionButtonController.ShowAdditionButtons(false);
+        playerActionButtonController.ShowActionButtons(show);
+
         if(show)
         {
             additionButtonController.ShowAdditionButtons(true, ((DartBattlePlayer)currentPlayer).GetEnabledAdditions());
-            StartCoroutine(PlayerSelectAddition());
+            StartCoroutine(PlayerSelectAction());
         }
     }
 
-    private IEnumerator PlayerSelectAddition()
+    private IEnumerator PlayerSelectAction()
     {
-        var currentAddition = additionButtonController.GetCurrentAdditionButton();
-        battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
+        var currentAction = playerActionButtonController.GetCurrentActionButton();
+        battleIndicator.MoveBattleSequenceIndicator(currentAction.transform.position);
         battleIndicator.ShowBattleSequenceIndicator(true);
+ 
+        var currentAddition = additionButtonController.GetCurrentAdditionButton();
+        if(currentAction.Action == ActionType.Attack)
+        {
+            battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
+        }
 
         while(true)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
-                var dartPlayer = currentPlayer.GetComponent<DartBattlePlayer>();
-                if(dartPlayer != null)
+                currentAction = playerActionButtonController.GetNextActionButton();
+                battleIndicator.MoveBattleSequenceIndicator(currentAction.transform.position);
+
+                if(currentAction.Action == ActionType.Attack)
                 {
-                    dartPlayer.ChangeAddition(currentAddition.AdditionIndex);
+                    currentAddition = additionButtonController.GetCurrentAdditionButton();
+                    battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
                 }
-                break;
             }
 
-            if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+            if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
             {
-                currentAddition = additionButtonController.GetNextAdditionButton();
-                battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
+                currentAction = playerActionButtonController.GetPreviousActionButton();
+                battleIndicator.MoveBattleSequenceIndicator(currentAction.transform.position);
+
+                if(currentAction.Action == ActionType.Attack)
+                {
+                    currentAddition = additionButtonController.GetCurrentAdditionButton();
+                    battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
+                }
+            }
+            
+            if(currentAction.Action == ActionType.Heal || currentAction.Action == ActionType.Defend)
+            {
+                if(Input.GetKeyDown(KeyCode.Space))
+                {
+                    break;
+                }
+            }
+            else if(currentAction.Action == ActionType.Attack)
+            {
+                if(Input.GetKeyDown(KeyCode.Space))
+                {
+                    var dartPlayer = currentPlayer.GetComponent<DartBattlePlayer>();
+                    if(dartPlayer != null)
+                    {
+                        dartPlayer.ChangeAddition(currentAddition.AdditionIndex);
+                    }
+                    break;
+                }
+
+                if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    currentAddition = additionButtonController.GetNextAdditionButton();
+                    battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
+                }
+
+                if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    currentAddition = additionButtonController.GetPreviousAdditionButton();
+                    battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
+                }
             }
 
-            if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                currentAddition = additionButtonController.GetPreviousAdditionButton();
-                battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
-            }
 
             yield return null;
         }
@@ -120,7 +166,25 @@ public class BattleSequence : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
 
         battleIndicator.ShowBattleSequenceIndicator(false);
-        BattleAttack();
+
+        switch(currentAction.Action)
+        {
+            case ActionType.Attack:
+                BattleAttack();
+                break;
+
+            //TODO if in the future the main player have more party members, I will implement selecting the target
+            // and not just healing yourself.
+            case ActionType.Defend:
+                currentPlayer.PlayerDefend(currentPlayer);
+                break;
+            
+            case ActionType.Heal:
+                currentPlayer.PlayerHeal(currentPlayer);
+                break;
+            default:
+                break;
+        }
     }
 
     private void HandlePlayerActionEnd(object sender, ActionEventArgs e)

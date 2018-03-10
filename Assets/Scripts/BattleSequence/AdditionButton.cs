@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AdditionButton : MonoBehaviour 
+public class AdditionButton : PlayerActionButton
 {
     public string AdditionName;
     public int AdditionIndex;

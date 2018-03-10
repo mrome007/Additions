@@ -60,24 +60,19 @@ public class AdditionButtonController : MonoBehaviour
 
     public AdditionButton GetNextAdditionButton()
     {
-        if(currentButtonIndex >= 0 && currentButtonIndex < enabledAdditionButtons.Count)
-        {
-            currentButtonIndex++;
-            currentButtonIndex %= enabledAdditionButtons.Count;
-        }
+
+        currentButtonIndex++;
+        currentButtonIndex %= enabledAdditionButtons.Count;
 
         return enabledAdditionButtons[currentButtonIndex];
     }
 
     public AdditionButton GetPreviousAdditionButton()
     {
-        if(currentButtonIndex >= 0 && currentButtonIndex < enabledAdditionButtons.Count)
+        currentButtonIndex--;
+        if(currentButtonIndex < 0)
         {
-            currentButtonIndex--;
-            if(currentButtonIndex < 0)
-            {
-                currentButtonIndex += enabledAdditionButtons.Count;
-            }
+            currentButtonIndex += enabledAdditionButtons.Count;
         }
 
         return enabledAdditionButtons[currentButtonIndex];
