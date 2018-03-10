@@ -103,6 +103,21 @@ public abstract class BattlePlayer : MonoBehaviour
         }
     }
 
+    protected virtual void IncreaseHealth(int hp)
+    {
+        var hpDifference = player.HealthCap - player.Health;
+        if(hp > hpDifference)
+        {
+            hp = hpDifference;
+        }
+        player.Health += hp;
+    }
+
+    protected virtual void ApplyHealth(int hp, BattlePlayer target)
+    {
+        target.IncreaseHealth(hp);
+    }
+        
     #region EventHandlers
 
     protected virtual void HandleBattlePlayerActionEnded(object sender, ActionEventArgs actArgs)
@@ -117,6 +132,7 @@ public abstract class BattlePlayer : MonoBehaviour
                 break;
 
             case ActionType.Heal:
+                ApplyHealth(actArgs.HitPoints, actArgs.Target);
                 break;
             
             case ActionType.Idle:

@@ -44,7 +44,7 @@ public class BattleSequence : MonoBehaviour
     private Queue<BattlePlayer> playerBattleQueue;
     private List<int> playersTurnPoints;
 
-    private int turnPointsLimit = 7;
+    private int turnPointsLimit = 11;
 
     private void Awake()
     {
@@ -103,6 +103,39 @@ public class BattleSequence : MonoBehaviour
 
         while(true)
         {
+            if(currentAction.Action == ActionType.Heal || currentAction.Action == ActionType.Defend)
+            {
+                if(Input.GetKeyDown(KeyCode.Space))
+                {
+                    break;
+                }
+            }
+
+            if(currentAction.Action == ActionType.Attack)
+            {
+                if(Input.GetKeyDown(KeyCode.Space))
+                {
+                    var dartPlayer = currentPlayer.GetComponent<DartBattlePlayer>();
+                    if(dartPlayer != null)
+                    {
+                        dartPlayer.ChangeAddition(currentAddition.AdditionIndex);
+                    }
+                    break;
+                }
+
+                if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    currentAddition = additionButtonController.GetNextAdditionButton();
+                    battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
+                }
+
+                if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    currentAddition = additionButtonController.GetPreviousAdditionButton();
+                    battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
+                }
+            }
+
             if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
                 currentAction = playerActionButtonController.GetNextActionButton();
@@ -127,37 +160,7 @@ public class BattleSequence : MonoBehaviour
                 }
             }
             
-            if(currentAction.Action == ActionType.Heal || currentAction.Action == ActionType.Defend)
-            {
-                if(Input.GetKeyDown(KeyCode.Space))
-                {
-                    break;
-                }
-            }
-            else if(currentAction.Action == ActionType.Attack)
-            {
-                if(Input.GetKeyDown(KeyCode.Space))
-                {
-                    var dartPlayer = currentPlayer.GetComponent<DartBattlePlayer>();
-                    if(dartPlayer != null)
-                    {
-                        dartPlayer.ChangeAddition(currentAddition.AdditionIndex);
-                    }
-                    break;
-                }
 
-                if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-                {
-                    currentAddition = additionButtonController.GetNextAdditionButton();
-                    battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
-                }
-
-                if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-                {
-                    currentAddition = additionButtonController.GetPreviousAdditionButton();
-                    battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
-                }
-            }
 
 
             yield return null;

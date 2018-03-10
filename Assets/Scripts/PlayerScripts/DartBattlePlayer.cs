@@ -55,7 +55,7 @@ public class DartBattlePlayer : BattlePlayer
     public override void PlayerHeal(BattlePlayer target)
     {
         base.PlayerHeal(target);
-        EndAction(currentAction, 5, target);
+        StartCoroutine(ExecuteHeal(target));
     }
 
     public void ChangeAddition(int index)
@@ -159,6 +159,13 @@ public class DartBattlePlayer : BattlePlayer
         yield return additionDelayTime;
 
         EndAction(currentAction, damage, target);
+    }
+
+    private IEnumerator ExecuteHeal(BattlePlayer target)
+    {
+        yield return delayEndAction;
+        var hp = UnityEngine.Random.Range(1, target.PlayerStats.HealthCap / 4);
+        EndAction(currentAction, hp, target);
     }
 
     private IEnumerator MovePlayerToTarget(int numberOfFrames, float distance, Vector3 direction)
