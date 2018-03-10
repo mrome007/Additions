@@ -46,6 +46,18 @@ public class DartBattlePlayer : BattlePlayer
         StartCoroutine(ExecuteAddition(target));
     }
 
+    public override void PlayerDefend(BattlePlayer target)
+    {
+        base.PlayerDefend(target);
+        EndAction(currentAction, 5, target);
+    }
+
+    public override void PlayerHeal(BattlePlayer target)
+    {
+        base.PlayerHeal(target);
+        EndAction(currentAction, 5, target);
+    }
+
     public void ChangeAddition(int index)
     {
         if(index >= 0 & index < additions.Count)
