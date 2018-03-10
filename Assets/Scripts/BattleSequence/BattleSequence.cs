@@ -31,7 +31,7 @@ public class BattleSequence : MonoBehaviour
     private Party enemies;
 
     [SerializeField]
-    private List<Transform> battleSequenceMenuButtons;
+    private AdditionButtonController additionButtonController;
 
     [SerializeField]
     private BattleSequenceIndicator battleIndicator;
@@ -76,17 +76,17 @@ public class BattleSequence : MonoBehaviour
 
     private void ShowBattleSequenceMenu(bool show)
     {
-        battleSequenceMenuButtons.ForEach(button => button.gameObject.SetActive(show));
+        additionButtonController.ShowAdditionButtons(false);
         if(show)
         {
+            additionButtonController.ShowAdditionButtons(true, ((DartBattlePlayer)currentPlayer).GetEnabledAdditions());
             StartCoroutine(PlayerSelectAddition());
         }
     }
 
     private IEnumerator PlayerSelectAddition()
     {
-        var index = 0;
-        var currentAddition = battleSequenceMenuButtons[index];
+        var currentAddition = additionButtonController.GetCurrentAdditionButton();
         battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
         battleIndicator.ShowBattleSequenceIndicator(true);
 
@@ -97,27 +97,20 @@ public class BattleSequence : MonoBehaviour
                 var dartPlayer = currentPlayer.GetComponent<DartBattlePlayer>();
                 if(dartPlayer != null)
                 {
-                    dartPlayer.ChangeAddition(index);
+                    dartPlayer.ChangeAddition(currentAddition.AdditionIndex);
                 }
                 break;
             }
 
             if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             {
-                index++;
-                index %= battleSequenceMenuButtons.Count;
-                currentAddition = battleSequenceMenuButtons[index];
+                currentAddition = additionButtonController.GetNextAdditionButton();
                 battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
             }
 
             if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                index--;
-                if(index < 0)
-                {
-                    index += battleSequenceMenuButtons.Count;
-                }
-                currentAddition = battleSequenceMenuButtons[index];
+                currentAddition = additionButtonController.GetPreviousAdditionButton();
                 battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
             }
 
