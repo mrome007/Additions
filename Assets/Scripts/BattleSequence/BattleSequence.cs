@@ -102,7 +102,7 @@ public class BattleSequence : MonoBehaviour
                 break;
             }
 
-            if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             {
                 index++;
                 index %= battleSequenceMenuButtons.Count;
@@ -110,7 +110,7 @@ public class BattleSequence : MonoBehaviour
                 battleIndicator.MoveBattleSequenceIndicator(currentAddition.transform.position);
             }
 
-            if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+            if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 index--;
                 if(index < 0)

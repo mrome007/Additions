@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using System;
 
 public class DartBattlePlayer : BattlePlayer
 {   
@@ -204,6 +205,11 @@ public class DartBattlePlayer : BattlePlayer
         }
 
         return additionCountContainer;
+    }
+
+    public List<string> GetEnabledAdditions()
+    {
+        return additions.Where(addi => addi.Enabled).Select(add => add.Name).ToList();
     }
 }
 
