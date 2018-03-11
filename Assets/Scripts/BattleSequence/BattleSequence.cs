@@ -44,7 +44,7 @@ public class BattleSequence : MonoBehaviour
     private Queue<BattlePlayer> playerBattleQueue;
     private List<int> playersTurnPoints;
 
-    private int turnPointsLimit = 11;
+    private int turnPointsLimit = 9;
 
     private void Awake()
     {

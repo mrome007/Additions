@@ -96,6 +96,10 @@ public abstract class Player : MonoBehaviour
         {
             return strength;
         }
+        set
+        {
+            strength = value;
+        }
     }
 
     public int Defense
@@ -104,6 +108,10 @@ public abstract class Player : MonoBehaviour
         {
             return defense;
         }
+        set
+        {
+            defense = value;
+        }
     }
 
     public int Speed
@@ -111,6 +119,10 @@ public abstract class Player : MonoBehaviour
         get
         {
             return speed;
+        }
+        set
+        {
+            speed = value;
         }
     }
 

@@ -24,6 +24,13 @@ public abstract class BattlePlayer : MonoBehaviour
 
     private Player player;
 
+    #region Defense Buff
+
+    private int baseDefense;
+    private bool defenseBuffed = false;
+
+    #endregion
+
     protected virtual void Awake()
     {
         PlayerStats = GetComponent<Player>();
@@ -39,6 +46,19 @@ public abstract class BattlePlayer : MonoBehaviour
 
     protected virtual void StartAction()
     {
+        switch(currentAction)
+        {
+            //ABLE TO STACK BUFFS. For now able to stack defense buffs, so if the previous action is not a buff
+            //then reset the buffs.
+            case ActionType.Attack:
+            case ActionType.Heal:
+                ResetBuffs();
+                break;
+
+            default:
+                break;
+        }
+
         var handler = ActionStart;
         if(handler != null)
         {
@@ -117,6 +137,33 @@ public abstract class BattlePlayer : MonoBehaviour
     {
         target.IncreaseHealth(hp);
     }
+
+    protected virtual void BuffDefense(int points)
+    {
+        if(!defenseBuffed)
+        {
+            defenseBuffed = true;
+            baseDefense = player.Defense;
+        }
+
+        player.Defense += points;
+    }
+
+    protected virtual void ApplyDefense(int points, BattlePlayer target)
+    {
+        target.BuffDefense(points);
+    }
+
+    protected virtual void ResetBuffs()
+    {
+        if(defenseBuffed)
+        {
+            defenseBuffed = false;
+            player.Defense = baseDefense;
+        }
+
+        //TODO strength and speed buffs in the future.
+    }
         
     #region EventHandlers
 
@@ -129,6 +176,7 @@ public abstract class BattlePlayer : MonoBehaviour
                 break;
 
             case ActionType.Defend:
+                ApplyDefense(actArgs.HitPoints, actArgs.Target);
                 break;
 
             case ActionType.Heal:

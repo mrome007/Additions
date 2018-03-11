@@ -49,7 +49,7 @@ public class DartBattlePlayer : BattlePlayer
     public override void PlayerDefend(BattlePlayer target)
     {
         base.PlayerDefend(target);
-        EndAction(currentAction, 5, target);
+        StartCoroutine(ExecuteDefense(target));
     }
 
     public override void PlayerHeal(BattlePlayer target)
@@ -166,6 +166,13 @@ public class DartBattlePlayer : BattlePlayer
         yield return delayEndAction;
         var hp = UnityEngine.Random.Range(1, target.PlayerStats.HealthCap / 4);
         EndAction(currentAction, hp, target);
+    }
+
+    private IEnumerator ExecuteDefense(BattlePlayer target)
+    {
+        yield return delayEndAction;
+
+        EndAction(currentAction, 1, target);
     }
 
     private IEnumerator MovePlayerToTarget(int numberOfFrames, float distance, Vector3 direction)
