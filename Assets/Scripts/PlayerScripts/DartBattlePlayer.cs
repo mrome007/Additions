@@ -240,7 +240,7 @@ public class Additions
 }
 
 [Serializable]
-public struct Addition
+public class Addition
 {
     public string AttackTrigger;
     public int Damage;
