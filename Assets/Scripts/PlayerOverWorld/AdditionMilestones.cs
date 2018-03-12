@@ -35,7 +35,7 @@ public class AdditionMilestones : MonoBehaviour
                     var target = mileStone.Value.Milestones[mIndex];
                     if(mileStone.Value.MilestoneCount >= target.Target)
                     {
-                        dart.BoostAdditions(mileStone.Key, target.AdditionBoostType, target.BoostValue);
+                        dart.BoostAdditions(mileStone.Key, target.DamagePercent);
                     }
                 }
             }
@@ -77,14 +77,6 @@ public class AdditionMilestone
 [Serializable]
 public class AdditionTarget
 {
-    public enum BoostType
-    {
-        Damage,
-        Multiplier,
-        Frames
-    }
-
-    public BoostType AdditionBoostType;
-    public int BoostValue;
+    public float DamagePercent;
     public int Target;
 }

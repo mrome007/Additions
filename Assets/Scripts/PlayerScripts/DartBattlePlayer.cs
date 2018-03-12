@@ -189,25 +189,15 @@ public class DartBattlePlayer : BattlePlayer
     }
 
     //For now pick a random addition to apply boost to.
-    public void BoostAdditions(string additionName, AdditionTarget.BoostType boost, int boostValue)
+    public void BoostAdditions(string additionName, float boostValue)
     {
         //List works for now since the additions list are small.
         var additionSelected = additions.Find(add => add.Name == additionName);
 
-        var addition = additionSelected.Addition[UnityEngine.Random.Range(0,additionSelected.Addition.Count)];
-        switch(boost)
+        for(int index = 0; index < additionSelected.Addition.Count; index++)
         {
-            case AdditionTarget.BoostType.Damage:
-                addition.Damage += boostValue;
-                break;
-
-            case AdditionTarget.BoostType.Frames:
-                addition.NumFramesToExecute += boostValue;
-                break;
-
-            case AdditionTarget.BoostType.Multiplier:
-                addition.SuccessMultiplier += boostValue;
-                break;
+            var addition = additionSelected.Addition[index];
+            addition.BoostDamage(boostValue);
         }
     }
 
@@ -255,11 +245,18 @@ public struct Addition
     public string AttackTrigger;
     public int Damage;
     public int NumFramesToExecute;
-    public int SuccessMultiplier;
+    public int BaseDamage;
 
     public int ApplyDamage(bool success)
     {
-        var damage = success ? Damage * SuccessMultiplier : Damage / 2;
+        var damage = success ? Damage : Damage / 2;
         return damage;
+    }
+
+    public void BoostDamage(float boostPercentage)
+    {
+        var perc = boostPercentage / 100f;
+        var newDamage = perc * BaseDamage;
+        Damage = (int)newDamage;
     }
 }
