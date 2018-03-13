@@ -72,7 +72,9 @@
      <Compile Include="Assets\Scripts\PlayerOverWorld\EnemyOverWorld.cs" />
      <Compile Include="Assets\Scripts\PlayerOverWorld\FollowPlayer.cs" />
      <Compile Include="Assets\Scripts\PlayerOverWorld\LightCreature.cs" />
+     <Compile Include="Assets\Scripts\PlayerOverWorld\ParameterizedText.cs" />
      <Compile Include="Assets\Scripts\PlayerOverWorld\PlayerOverWorld.cs" />
+     <Compile Include="Assets\Scripts\PlayerOverWorld\PlayerStatsMenuController.cs" />
      <Compile Include="Assets\Scripts\PlayerOverWorld\ShadowIntimidate.cs" />
      <Compile Include="Assets\Scripts\PlayerOverWorld\ShadowMovement.cs" />
      <Compile Include="Assets\Scripts\PlayerScripts\BattlePlayer.cs" />

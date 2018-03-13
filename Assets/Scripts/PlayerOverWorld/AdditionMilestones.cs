@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class AdditionMilestones : MonoBehaviour 
 {
-    //Public for now, til I figure out the entire logic.
-    public List<AdditionMilestone> Additions;
+    public int MilestonesCount { get { return Additions.Count; } }
+
+    [SerializeField]
+    private List<AdditionMilestone> Additions;
 
     private Dictionary<string, AdditionMilestone> AdditionMilestonesContainer;
 
@@ -57,6 +59,16 @@ public class AdditionMilestones : MonoBehaviour
             mileStone.Value.Enabled = mileStone.Value.LevelEnabled >= lvl;
         }
     }
+
+    public AdditionMilestone GetMileStone(int index)
+    {
+        if(index >= 0 && index < Additions.Count)
+        {
+            return Additions[index];
+        }
+
+        return null;
+    }
 }
 
 [Serializable]
@@ -71,6 +83,53 @@ public class AdditionMilestone
     public void SetMilestoneCount(int count)
     {
         MilestoneCount = count;
+    }
+
+    public AdditionTarget GetNextTarget()
+    {
+        AdditionTarget result = null;
+        for(int mIndex = 0; mIndex < Milestones.Count; mIndex++)
+        {
+            var target = Milestones[mIndex];
+            if(MilestoneCount >= target.Target)
+            {
+                result = target;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public AdditionTarget GetCurrentTarget()
+    {
+        AdditionTarget result = null;
+        for(int mIndex = 0; mIndex < Milestones.Count; mIndex++)
+        {
+            var target = Milestones[mIndex];
+            if(MilestoneCount < target.Target)
+            {
+                result = target;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public int GetLevel()
+    {
+        var count = 1;
+        for(int mIndex = 0; mIndex < Milestones.Count; mIndex++)
+        {
+            var target = Milestones[mIndex];
+            if(MilestoneCount >= target.Target)
+            {
+                count++;
+            }
+        }
+
+        return count;
     }
 }
 
