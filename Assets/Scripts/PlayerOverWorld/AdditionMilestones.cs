@@ -56,7 +56,7 @@ public class AdditionMilestones : MonoBehaviour
     {
         foreach(var mileStone in AdditionMilestonesContainer)
         {
-            mileStone.Value.Enabled = mileStone.Value.LevelEnabled >= lvl;
+            mileStone.Value.Enabled = lvl >= mileStone.Value.LevelEnabled;
         }
     }
 
