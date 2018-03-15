@@ -4,19 +4,15 @@ using UnityEngine;
 
 public class ShadowIntimidate : MonoBehaviour 
 {
-    //TODO do this for now so I can see it on the inspector. In the future create a meter GUI for it.
     [SerializeField]
-    private int intimidatePoints;
-
-    private int intimidatePointsCap = 100;
-
+    private DartPlayer player;
     private Vector3 scaleVector;
-    private float scaleIncrement = 0.015f;
+    private float scaleIncrement;
 
     private void Awake()
     {
         scaleVector = transform.localScale;
-        intimidatePoints = 0;
+        scaleIncrement = 1f / player.ShadowCap;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -28,20 +24,19 @@ public class ShadowIntimidate : MonoBehaviour
             if(lightCreature.CurrentState == LightCreatureState.Oblivious)
             {
                 Destroy(other.gameObject);
-                intimidatePoints++;
-                if(intimidatePoints < intimidatePointsCap)
+                if(player.Shadow < player.ShadowCap)
                 {
+                    player.Shadow++;
                     scaleVector.x += scaleIncrement;
                     scaleVector.y += scaleIncrement;
                     transform.localScale = scaleVector;
                 }
-                intimidatePoints %= intimidatePointsCap;
             }
             else
             {
-                if(intimidatePoints > 0)
+                if(player.Shadow > 0)
                 {
-                    intimidatePoints--;
+                    player.Shadow--;
                     scaleVector.x -= scaleIncrement;
                     scaleVector.y -= scaleIncrement;
                     transform.localScale = scaleVector;

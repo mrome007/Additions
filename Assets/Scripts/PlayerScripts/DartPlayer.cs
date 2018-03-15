@@ -32,6 +32,19 @@ public class DartPlayer : Player
         }
     }
 
+    public override int Shadow
+    {
+        get
+        {
+            return base.Shadow;
+        }
+        set
+        {
+            base.Shadow = value;
+            PlayerStateUiController.Instance.UpdateShadowMeter((float)shadow / shadowCap);
+        }
+    }
+
     #endregion
 
     [SerializeField]

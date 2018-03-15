@@ -29,6 +29,11 @@ public abstract class Player : MonoBehaviour
     [SerializeField]
     protected int speed;
 
+    [SerializeField]
+    protected int shadow;
+
+    protected int shadowCap = 20;
+
     #endregion
 
     #region Player Status Properties
@@ -123,6 +128,26 @@ public abstract class Player : MonoBehaviour
         set
         {
             speed = value;
+        }
+    }
+
+    public virtual int Shadow
+    {
+        get
+        {
+            return shadow;
+        }
+        set
+        {
+            shadow = value;
+        }
+    }
+
+    public virtual int ShadowCap
+    {
+        get
+        {
+            return shadowCap;
         }
     }
 
