@@ -185,9 +185,10 @@ public abstract class Player : MonoBehaviour
         this.strength = player.Strength;
         this.defense = player.Defense;
         this.speed = player.Speed;
+        this.shadow = player.shadow;
     }
 
-    public virtual void Initialize(int hlth, int lvl, int exp, int expCap, int str, int def, int spd)
+    public virtual void Initialize(int hlth, int lvl, int exp, int expCap, int str, int def, int spd, int sdw)
     {
         this.health = hlth;
         healthCap = health;
@@ -197,5 +198,6 @@ public abstract class Player : MonoBehaviour
         this.strength = str;
         this.defense = def;
         this.speed = spd;
+        this.shadow = sdw;
     }
 }

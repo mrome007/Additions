@@ -218,6 +218,7 @@ public class BattleSequence : MonoBehaviour
                 var exp = enemies.GetPartyExperiencePoints();
                 BattleSequenceTransition.Instance.MainPlayer.IncrementExperiencePoints(exp);
                 BattleSequenceTransition.Instance.MainPlayer.Health = darts.GetNextPlayer().PlayerStats.Health;
+                BattleSequenceTransition.Instance.MainPlayer.Shadow = darts.GetNextPlayer().PlayerStats.Shadow;
                 BattleSequenceTransition.Instance.UpdateAdditionsInformation(((DartBattlePlayer)darts.GetNextPlayer()).GetAdditionsCount());
             }
 
