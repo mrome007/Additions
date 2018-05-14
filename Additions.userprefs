@@ -1,12 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerOverWorld/PlayerStatsMenuController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerScripts/DartBattlePlayer.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerOverWorld/ParameterizedText.cs" Line="14" Column="29" />
-      <File FileName="Assets/Scripts/PlayerOverWorld/PlayerStatsMenuController.cs" Line="93" Column="149" />
-      <File FileName="Assets/Scripts/PlayerOverWorld/AdditionMilestones.cs" Line="132" Column="22" />
-      <File FileName="Assets/Scripts/PlayerScripts/DartPlayer.cs" Line="5" Column="31" />
-      <File FileName="Assets/Scripts/PlayerScripts/Player.cs" Line="5" Column="1" />
+      <File FileName="Assets/Scripts/PlayerScripts/DartBattlePlayer.cs" Line="204" Column="24" />
+      <File FileName="Assets/Scripts/PlayerScripts/Player.cs" Line="201" Column="27" />
+      <File FileName="Assets/Scripts/PlayerScripts/DartPlayer.cs" Line="31" Column="51" />
+      <File FileName="Assets/Scripts/PlayerOverWorld/ShadowIntimidate.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceTransition.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequence.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
