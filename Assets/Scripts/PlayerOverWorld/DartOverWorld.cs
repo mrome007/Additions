@@ -85,9 +85,12 @@ public class DartOverWorld : PlayerOverWorld
 
     private void DartMovement()
     {
-        grounded = Physics2D.OverlapCircleNonAlloc(groundCheck.position, groundCheckRadius, results, (int)groundLayer) > 0 ||
-                   Physics2D.OverlapCircleNonAlloc(groundCheckLeft.position, groundCheckRadius, results, (int)groundLayer) > 0 ||
-                   Physics2D.OverlapCircleNonAlloc(groundCheckRight.position, groundCheckRadius, results, (int)groundLayer) > 0;
+        if(!dartRigidBody.isKinematic)
+        {
+            grounded = Physics2D.OverlapCircleNonAlloc(groundCheck.position, groundCheckRadius, results, (int)groundLayer) > 0 ||
+            Physics2D.OverlapCircleNonAlloc(groundCheckLeft.position, groundCheckRadius, results, (int)groundLayer) > 0 ||
+            Physics2D.OverlapCircleNonAlloc(groundCheckRight.position, groundCheckRadius, results, (int)groundLayer) > 0;
+        }
 
         var h = Input.GetAxis("Horizontal");
 
