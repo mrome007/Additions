@@ -36,7 +36,6 @@ public class DartBattlePlayer : BattlePlayer
         finalAttackDelayTime = new WaitForSeconds(1.5f);
         delayEndAction = new WaitForSeconds(1.5f);
         originalPosition = transform.position;
-
     }
     
     public override void PlayerAttack(BattlePlayer target)

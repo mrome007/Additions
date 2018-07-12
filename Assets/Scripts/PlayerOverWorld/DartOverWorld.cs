@@ -13,9 +13,6 @@ public class DartOverWorld : PlayerOverWorld
     private DartOverWorldAnimation shadowAnimation;
 
     [SerializeField]
-    private ShadowMovement shadowMovement;
-
-    [SerializeField]
     private Rigidbody2D dartRigidBody;
 
     [SerializeField]
@@ -39,11 +36,6 @@ public class DartOverWorld : PlayerOverWorld
     private bool grounded = false;
     private Collider2D []results;
     private Vector2 jumpForce;
-    private bool shadowLeftInputStart = false;
-    private float shadowLeftInputTimer = 0f;
-    private bool shadowRightInputStart = false;
-    private float shadowRightInputTimer = 0f;
-    private float shadowTimerCap = 0.35f;
     private bool stopMovement = false;
     private bool jumped = false;
     private WaitForSeconds jumpDelayTime;
@@ -70,8 +62,6 @@ public class DartOverWorld : PlayerOverWorld
             StartCoroutine(DelayJump());
             dartRigidBody.AddForce(jumpForce);
         }
-         
-        GetShadowInput();
     }
 
     private void FixedUpdate()
@@ -130,57 +120,6 @@ public class DartOverWorld : PlayerOverWorld
         {
             BattleSequenceTransition.Instance.LoadBattleSequence(other.gameObject);
         }
-    }
-
-    private void GetShadowInput()
-    {
-        if(shadowMovement.Moving)
-        {
-            shadowLeftInputStart = false;
-            shadowLeftInputTimer = 0f;
-            shadowRightInputStart = false;
-            shadowRightInputTimer = 0f;
-            return;
-        }
-        
-        if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            if(shadowRightInputStart && shadowRightInputTimer <= shadowTimerCap)
-            {
-                shadowMovement.MoveShadow(Vector2.right);
-            }
-            shadowRightInputStart = true;
-        }
-
-        if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            if(shadowLeftInputStart && shadowLeftInputTimer <= shadowTimerCap)
-            {
-                shadowMovement.MoveShadow(Vector2.left);
-            }
-            shadowLeftInputStart = true;
-        }
-
-        if(shadowRightInputStart)
-        {
-            shadowRightInputTimer += Time.deltaTime;
-            if(shadowRightInputTimer > shadowTimerCap)
-            {
-                shadowRightInputStart = false;
-                shadowRightInputTimer = 0;
-            }
-        }
-
-        if(shadowLeftInputStart)
-        {
-            shadowLeftInputTimer += Time.deltaTime;
-            if(shadowLeftInputTimer > shadowTimerCap)
-            {
-                shadowLeftInputStart = false;
-                shadowLeftInputTimer = 0;
-            }
-        }
-
     }
 
     private void HandleStoryDialogueEnded(object sender, EventArgs e)

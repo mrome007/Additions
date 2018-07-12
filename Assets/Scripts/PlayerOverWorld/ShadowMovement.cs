@@ -8,10 +8,13 @@ public class ShadowMovement : MonoBehaviour
     private Transform dartTransform;
 
     [SerializeField]
-    private float maxDistance;
+    private float shadowMovementTime;
 
     [SerializeField]
     private float shadowSpeed;
+
+    [SerializeField]
+    private DartOverWorldAnimation shadowAnimation;
 
     [SerializeField]
     private Collider2D shadowCollider;
@@ -20,10 +23,7 @@ public class ShadowMovement : MonoBehaviour
 
     public bool Moving { get; set; }
 
-    private void Start()
-    {
-        FollowDart();
-    }
+    private Vector3 movementVector;
 
     private void OnDisable()
     {
@@ -33,24 +33,28 @@ public class ShadowMovement : MonoBehaviour
     private void OnEnable()
     {
         FollowDart();
+        movementVector = Vector3.zero;
     }
 
-    public void MoveShadow(Vector2 direction)
+    public void MoveShadow()
     {
         StopFollowing();
-        StartCoroutine(MoveShadowCoroutine(direction));
+        StartCoroutine(MoveShadowCoroutine());
     }
 
-    private IEnumerator MoveShadowCoroutine(Vector2 direction)
+    private IEnumerator MoveShadowCoroutine()
     {
         Moving = true;
         shadowCollider.enabled = true;
+        var timer = 0f;
 
-        var distance = 0f;
-        while(distance < maxDistance)
+        while(timer < shadowMovementTime)
         {
-            distance += shadowSpeed * Time.deltaTime;
-            transform.Translate(direction * shadowSpeed * Time.deltaTime);
+            var shadowH = Input.GetAxis("ShadowHorizontal");
+            shadowAnimation.DartWalk(shadowH);
+            movementVector.x = shadowH;
+            transform.Translate(movementVector * shadowSpeed * Time.deltaTime);
+            timer += Time.deltaTime;
             yield return null;
         }
 
@@ -81,7 +85,14 @@ public class ShadowMovement : MonoBehaviour
         while(true)
         {
             transform.position = dartTransform.position;
+            var shadowH = Input.GetAxis("ShadowHorizontal");
+            if(shadowH != 0)
+            {
+                break;
+            }
             yield return null;
         }
+
+        MoveShadow();
     }
 }
