@@ -19,6 +19,9 @@ public class DartBattlePlayer : BattlePlayer
     [SerializeField]
     private Animator dartAdditionAnimator;
 
+    [SerializeField]
+    private Camera BattleCamera;
+
     private Additions currentAdditions;
     private const int additionExecuteOffset = 6;
     private WaitForSeconds delayShowAdditionBoxTime;
@@ -28,6 +31,8 @@ public class DartBattlePlayer : BattlePlayer
     private Vector3 originalPosition;
     private float enemyPositionOffset = 1.25f;
 
+    private Vector3 cameraMovementVector;
+
     private void Start()
     {
         currentAdditions = additions[0];
@@ -36,6 +41,7 @@ public class DartBattlePlayer : BattlePlayer
         finalAttackDelayTime = new WaitForSeconds(1.5f);
         delayEndAction = new WaitForSeconds(1.5f);
         originalPosition = transform.position;
+        cameraMovementVector = Vector3.zero;
     }
     
     public override void PlayerAttack(BattlePlayer target)
@@ -154,6 +160,10 @@ public class DartBattlePlayer : BattlePlayer
         additionBox.ShowAdditionBox(false);
         additionBox.Reset();
         transform.position = originalPosition;
+        BattleCamera.orthographicSize = 5f;
+        cameraMovementVector.x = 4f;
+        cameraMovementVector.y = 2f;
+        BattleCamera.transform.localPosition = cameraMovementVector;
 
         yield return additionDelayTime;
 
@@ -179,10 +189,24 @@ public class DartBattlePlayer : BattlePlayer
         var rate = distance / numberOfFrames;
         var count = 0;
 
+        var xCamRate = 3f / numberOfFrames;
+        var yCamRate = 1f / numberOfFrames;
+        var orthRate = 2.5f / numberOfFrames;
+        cameraMovementVector = BattleCamera.transform.localPosition;
+
         while(count < numberOfFrames)
         {
             transform.Translate(direction * rate);
             count++;
+            BattleCamera.orthographicSize -= orthRate;
+            cameraMovementVector.x -= xCamRate;
+            cameraMovementVector.y -= yCamRate;
+
+            cameraMovementVector.x = Mathf.Clamp(cameraMovementVector.x, 1f, 4f);
+            cameraMovementVector.y = Mathf.Clamp(cameraMovementVector.y, 1f, 2f);
+
+            BattleCamera.transform.localPosition = cameraMovementVector;
+
             yield return null;
         }
     }
