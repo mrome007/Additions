@@ -40,6 +40,8 @@ public class DartOverWorld : PlayerOverWorld
     private bool jumped = false;
     private WaitForSeconds jumpDelayTime;
 
+    public bool Grounded { get { return grounded; } }
+
     protected override void Awake()
     {
         base.Awake();

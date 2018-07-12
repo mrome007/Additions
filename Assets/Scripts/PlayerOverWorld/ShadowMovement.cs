@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShadowMovement : MonoBehaviour 
 {
     [SerializeField]
-    private Transform dartTransform;
+    private DartOverWorld dartOverworld;
 
     [SerializeField]
     private float shadowMovementTime;
@@ -84,9 +84,10 @@ public class ShadowMovement : MonoBehaviour
         shadowCollider.enabled = false;
         while(true)
         {
-            transform.position = dartTransform.position;
+            transform.position = dartOverworld.transform.position;
             var shadowH = Input.GetAxis("ShadowHorizontal");
-            if(shadowH != 0)
+
+            if(shadowH != 0 && dartOverworld.Grounded)
             {
                 break;
             }
