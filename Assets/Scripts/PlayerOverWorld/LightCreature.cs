@@ -7,72 +7,29 @@ public class LightCreature : MonoBehaviour
     [SerializeField]
     private SpriteRenderer lightSprite;
 
-    [SerializeField]
-    private float alertTime;
+    private const float lightColor = 255f;
+    private const float darkColor = 25f;
 
-    [SerializeField]
-    private LayerMask darkness;
-    
-    public LightCreatureState CurrentState { get; private set; }
+    private Color currentColor;
 
-    private Vector2 direction;
-
-
-    private void Awake()
+    public void FadeLight(float incr)
     {
-        CurrentState = LightCreatureState.Oblivious;
-        direction = lightSprite.flipX ? Vector2.right : Vector2.left;
-    }
-
-    private void Start()
-    {
-        StartCoroutine(KeepChecking());
-    }
-
-    private void CheckForShadow()
-    {
-        var hit = Physics2D.Raycast(transform.position, direction, 4f, (int)darkness);
-        if(hit.collider != null)
+        var colorMultiplier = lightSprite.color.r;
+        var currentColorVal = colorMultiplier * lightColor;
+        currentColor = lightSprite.color;
+        currentColorVal -= incr * 70f * Time.deltaTime;
+        if(currentColorVal <= darkColor)
         {
-            var shadow = hit.collider.GetComponent<ShadowIntimidate>();
-            if(shadow != null)
-            {
-                CurrentState = LightCreatureState.Alert;
-                //temporary just to show me.
-                lightSprite.color = Color.red;
-            }
+            currentColorVal = darkColor;
+            //For now set object off. In the future return it to an object pool.
+            gameObject.SetActive(false);
         }
-        else
-        {
-            CurrentState = LightCreatureState.Oblivious;
-            lightSprite.color = Color.white;
-        }
-    }
 
-    private IEnumerator CheckForShadowRoutine()
-    {
-        var timer = 0f;
-        while(timer < 5f)
-        {
-            CheckForShadow();
-            timer += Time.deltaTime;
-            yield return null;
-        }
-    }
+        colorMultiplier = currentColorVal / lightColor;
+        currentColor.r = colorMultiplier;
+        currentColor.g = colorMultiplier;
+        currentColor.b = colorMultiplier;
 
-    private IEnumerator KeepChecking()
-    {
-        while(true)
-        {
-            lightSprite.flipX = !lightSprite.flipX;
-            direction = lightSprite.flipX ? Vector2.right : Vector2.left;
-            yield return StartCoroutine(CheckForShadowRoutine());
-        }
+        lightSprite.color = currentColor;
     }
-}
-
-public enum LightCreatureState
-{
-    Oblivious,
-    Alert
 }

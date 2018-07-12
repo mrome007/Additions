@@ -6,13 +6,17 @@ public class ShadowIntimidate : MonoBehaviour
 {
     [SerializeField]
     private DartPlayer player;
+
+    [SerializeField]
+    private float intimidateIncrement;
+
     private Vector3 scaleVector;
     private float scaleIncrement;
 
     private void Awake()
     {
         scaleVector = transform.localScale;
-        scaleIncrement = 1f / player.ShadowCap;
+        scaleIncrement = 2f / player.ShadowCap;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -20,27 +24,30 @@ public class ShadowIntimidate : MonoBehaviour
         var lightCreature = other.GetComponent<LightCreature>();
         if(lightCreature != null)
         {
-            //TODO temporary. Will probably make a pool of these in the future.
-            if(lightCreature.CurrentState == LightCreatureState.Oblivious)
+            lightCreature.FadeLight(intimidateIncrement);
+            if(player.Shadow < player.ShadowCap)
             {
-                Destroy(other.gameObject);
-                if(player.Shadow < player.ShadowCap)
-                {
-                    player.Shadow++;
-                    scaleVector.x += scaleIncrement;
-                    scaleVector.y += scaleIncrement;
-                    transform.localScale = scaleVector;
-                }
+                player.Shadow++;
+                scaleVector.x += scaleIncrement;
+                scaleVector.y += scaleIncrement;
+                transform.localScale = scaleVector;
             }
-            else
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        var lightCreature = other.GetComponent<LightCreature>();
+        if(lightCreature != null)
+        {
+            lightCreature.FadeLight(intimidateIncrement);
+
+            if(player.Shadow < player.ShadowCap)
             {
-                if(player.Shadow > 0)
-                {
-                    player.Shadow--;
-                    scaleVector.x -= scaleIncrement;
-                    scaleVector.y -= scaleIncrement;
-                    transform.localScale = scaleVector;
-                }
+                player.Shadow++;
+                scaleVector.x += scaleIncrement;
+                scaleVector.y += scaleIncrement;
+                transform.localScale = scaleVector;
             }
         }
     }
