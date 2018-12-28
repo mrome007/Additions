@@ -16,8 +16,6 @@ public class DartBattlePlayer : BattlePlayer
 
     [SerializeField]
     private Animator dartPlayerAnimator;
-    [SerializeField]
-    private Animator dartAdditionAnimator;
 
     [SerializeField]
     private Camera BattleCamera;
@@ -154,11 +152,13 @@ public class DartBattlePlayer : BattlePlayer
             damage += PlayerStats.Strength;
             yield return finalAttackDelayTime;
         }
+        else
+        {
+            yield return delayEndAction;
+        }
 
-        yield return delayEndAction;
-
-        additionBox.ShowAdditionBox(false);
         additionBox.Reset();
+        additionBox.ShowAdditionBox(true);
         transform.position = originalPosition;
         BattleCamera.orthographicSize = 5f;
         cameraMovementVector.x = 4f;

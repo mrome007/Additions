@@ -21,9 +21,8 @@ public class AdditionSuccessBox : MonoBehaviour
         scaleVector = new Vector3(originalScale, originalScale, 1f);
         transform.localScale = scaleVector;
         boxScale = originalScale;
-        ShowAdditionBox(false);
-        var origColor = 100f / 255f; 
-        originalColor = new Color(origColor, origColor, origColor, 30f / 100f);
+        ShowAdditionBox(true);
+        originalColor = successBox.color;
     }
 
     public void ShowAdditionBox(bool show)
