@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DartOverWorld : PlayerOverWorld 
-{   
+{  
+	[SerializeField]
+	private BattleSequenceTransition battleSequenceTransition;
+
     [SerializeField]
     private DartOverWorldAnimation dartOverWorldAnimation;
 
@@ -123,7 +126,7 @@ public class DartOverWorld : PlayerOverWorld
         var enemy = other.GetComponent<EnemyPlayer>();
         if(enemy != null)
         {
-            BattleSequenceTransition.Instance.LoadBattleSequence(other.gameObject);
+            battleSequenceTransition.LoadBattleSequence(other.gameObject);
         }
     }
 
