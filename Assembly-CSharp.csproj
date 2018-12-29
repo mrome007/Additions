@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\BattleSequence\BattleSequenceIndicator.cs" />
      <Compile Include="Assets\Scripts\BattleSequence\BattleSequenceTransition.cs" />
      <Compile Include="Assets\Scripts\BattleSequence\BattleWonArgs.cs" />
+     <Compile Include="Assets\Scripts\BattleSequence\LoadUnloadBattleSequence.cs" />
      <Compile Include="Assets\Scripts\BattleSequence\Party.cs" />
      <Compile Include="Assets\Scripts\BattleSequence\PlayerActionButton.cs" />
      <Compile Include="Assets\Scripts\BattleSequence\PlayerActionButtonController.cs" />
@@ -183,6 +184,9 @@
  </Reference>
  <Reference Include="UnityEngine.StandardEvents">
  <HintPath>/Users/mrome007unity/Library/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
+ </Reference>
+ <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
+ <HintPath>/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/AddIns/MonoDevelop.Unity/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BattleWonArgs : EventArgs 
 {
-    public bool Win { get; private set; }
+    public bool Win { get; set; }
 
     public BattleWonArgs(bool win)
     {

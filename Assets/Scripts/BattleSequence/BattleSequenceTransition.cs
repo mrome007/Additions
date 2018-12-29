@@ -25,9 +25,6 @@ public class BattleSequenceTransition : MonoBehaviour
 
     #endregion
 
-    public event EventHandler<BattleWonArgs> BattleSequenceLoadComplete;
-    public event EventHandler<BattleWonArgs> BattleSequenceUnloadComplete;
-
     public DartPlayer MainPlayer
     {
         get
@@ -55,51 +52,19 @@ public class BattleSequenceTransition : MonoBehaviour
     public void LoadBattleSequence(GameObject other)
     {
         enemyContact = other;
-        BattleSequenceLoadComplete += HandleLoadBattleSequenceComplete;
-        StartCoroutine(LoadBattleSequenceAsyncCoroutine());
+		LoadUnloadBattleSequence.BattleSequenceLoadComplete += HandleLoadBattleSequenceComplete;
+		LoadUnloadBattleSequence.LoadBattleSequence();
     }
 
     public void UnloadBattleSequence(bool win)
     {
-        BattleSequenceUnloadComplete += HandleUnloadBattleSequenceComplete;
+		LoadUnloadBattleSequence.BattleSequenceUnloadComplete += HandleUnloadBattleSequenceComplete;
         if(win)
         {
             Destroy(enemyContact);
             enemyContact = null;
         }
-        StartCoroutine(UnloadBattleSequenceAsyncCoroutine(win));
-    }
-
-    private IEnumerator LoadBattleSequenceAsyncCoroutine()
-    {
-        var asyncLoad = SceneManager.LoadSceneAsync("BattleSequence", LoadSceneMode.Additive);
-
-        while(!asyncLoad.isDone)
-        {
-            yield return null;
-        }
-
-        var handler = BattleSequenceLoadComplete;
-        if(handler != null)
-        {
-            handler(this, null);
-        }
-    }
-
-    private IEnumerator UnloadBattleSequenceAsyncCoroutine(bool win)
-    {
-        var asyncLoad = SceneManager.UnloadSceneAsync("BattleSequence");
-
-        while(!asyncLoad.isDone)
-        {
-            yield return null;
-        }
-
-        var handler = BattleSequenceUnloadComplete;
-        if(handler != null)
-        {
-            handler(this, new BattleWonArgs(win));
-        }
+		LoadUnloadBattleSequence.UnloadBattleSequence(win);
     }
 
     private void ShowOverWorldElements(bool show)
@@ -157,14 +122,14 @@ public class BattleSequenceTransition : MonoBehaviour
 
     private void HandleLoadBattleSequenceComplete(object sender, EventArgs e)
     {
-        BattleSequenceLoadComplete -= HandleLoadBattleSequenceComplete;
+		LoadUnloadBattleSequence.BattleSequenceLoadComplete -= HandleLoadBattleSequenceComplete;
         ShowOverWorldElements(false);
         StartBattleSequence();
     }
 
     private void HandleUnloadBattleSequenceComplete(object sender, EventArgs e)
     {
-        BattleSequenceUnloadComplete -= HandleUnloadBattleSequenceComplete;
+		LoadUnloadBattleSequence.BattleSequenceUnloadComplete -= HandleUnloadBattleSequenceComplete;
         ShowOverWorldElements(true);
     }
 
