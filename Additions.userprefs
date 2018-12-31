@@ -1,0 +1,18 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BattleSequence/BattleSequenceStates/BattleSequenceState.cs">
+    <Files>
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceTransition.cs" Line="109" Column="9" />
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequence.cs" Line="53" Column="12" />
+      <File FileName="Assets/Scripts/PlayerOverWorld/DartOverWorld.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BattleSequence/BattlePlayerCreator.cs" Line="51" Column="36" />
+      <File FileName="Assets/Scripts/PlayerScripts/BattlePlayer.cs" Line="80" Column="30" />
+      <File FileName="Assets/Scripts/BattleSequence/ActionEventArgs.cs" Line="22" Column="7" />
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceStates/BattleSequenceState.cs" Line="9" Column="20" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
