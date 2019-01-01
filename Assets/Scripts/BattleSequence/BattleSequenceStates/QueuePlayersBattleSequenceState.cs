@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class QueuePlayersBattleSequenceState : BattleSequenceState
 {
+    //Use DefaultNextState as the player action state and the state below
+    //for enemy action state.
+    [SerializeField]
+    private BattleSequenceState enemyActionBattleSequenceState;
+    
     private Queue<BattlePlayer> playerBattleQueue;
     private List<int> playersTurnPoints;
     private int turnPointsLimit = 9;
 
     public override void EnterState(BattleSequenceStateArgs enterArgs = null)
     {
+        #if UNITY_EDITOR
         Debug.Log("Entering Queue Players Battle Sequence State");
+        #endif
+
         base.EnterState(enterArgs);
 
         if(stateArgs == null)
@@ -35,7 +43,12 @@ public class QueuePlayersBattleSequenceState : BattleSequenceState
 
     public override void ExitState(BattleSequenceStateArgs exitArgs = null)
     {
+        #if UNITY_EDITOR
         Debug.Log("Exiting Queue Players Battle Sequence State");
+        #endif
+
+        var enemy = exitArgs.CurrentPlayer.GetComponent<EnemyBattlePlayer>() != null;
+        nextState = enemy ? enemyActionBattleSequenceState : defaultNextState;
         base.ExitState(exitArgs);
     }
 
