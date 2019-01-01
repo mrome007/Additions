@@ -13,7 +13,7 @@ public class BattleSequenceState : MonoBehaviour
 
     protected BattleSequenceState nextState;
 
-	public virtual void EnterState()
+    public virtual void EnterState(BattleSequenceStateArgs enterArgs = null)
 	{
         PostEnteredState();
         
@@ -21,7 +21,7 @@ public class BattleSequenceState : MonoBehaviour
 	    RegisterEvents();	
 	}
 
-	public virtual void ExitState()
+    public virtual void ExitState(BattleSequenceStateArgs exitArgs = null)
 	{
 	    UnRegisterEvents();
         nextState.EnterState();

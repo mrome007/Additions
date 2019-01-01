@@ -8,7 +8,7 @@
       <File FileName="Assets/Scripts/BattleSequence/BattlePlayerCreator.cs" Line="51" Column="36" />
       <File FileName="Assets/Scripts/PlayerScripts/BattlePlayer.cs" Line="80" Column="30" />
       <File FileName="Assets/Scripts/BattleSequence/ActionEventArgs.cs" Line="22" Column="7" />
-      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceStates/BattleSequenceState.cs" Line="9" Column="20" />
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceStates/BattleSequenceState.cs" Line="29" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

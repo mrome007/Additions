@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{00CAB66E-5260-F077-2E33-255D4AC1672F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Additions", "Assembly-CSharp.csproj", "{00CAB66E-5260-F077-2E33-255D4AC1672F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +13,9 @@ Global
 		{00CAB66E-5260-F077-2E33-255D4AC1672F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00CAB66E-5260-F077-2E33-255D4AC1672F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00CAB66E-5260-F077-2E33-255D4AC1672F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
@@ -60,8 +63,5 @@ Global
 		$2.inheritsSet = Mono
 		$2.inheritsScope = text/x-csharp
 		$2.scope = text/x-csharp
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
