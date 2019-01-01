@@ -6,7 +6,7 @@ public class BattleSequenceStateArgs
 {
     public Party PlayerParty { get; private set; }
     public Party EnemyParty { get; private set; }
-    public BattlePlayer CurrentPlayer { get; }
+    public BattlePlayer CurrentPlayer { get; set; }
 
     public BattleSequenceStateArgs(Party player = null, Party enemy = null, BattlePlayer current = null)
     {

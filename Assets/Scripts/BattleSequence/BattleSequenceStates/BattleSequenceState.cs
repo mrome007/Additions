@@ -12,6 +12,12 @@ public class BattleSequenceState : MonoBehaviour
     protected BattleSequenceState defaultNextState;
 
     protected BattleSequenceState nextState;
+    protected BattleSequenceStateArgs stateArgs;
+
+    protected virtual void Awake()
+    {
+        stateArgs = null;
+    }
 
     public virtual void EnterState(BattleSequenceStateArgs enterArgs = null)
 	{
@@ -24,7 +30,7 @@ public class BattleSequenceState : MonoBehaviour
     public virtual void ExitState(BattleSequenceStateArgs exitArgs = null)
 	{
 	    UnRegisterEvents();
-        nextState.EnterState();
+        nextState.EnterState(exitArgs);
 
         PostExitedState();
 	}

@@ -11,7 +11,12 @@ public class QueuePlayersBattleSequenceState : BattleSequenceState
     public override void EnterState(BattleSequenceStateArgs enterArgs = null)
     {
         Debug.Log("Entering Queue Players Battle Sequence State");
-        base.EnterState();
+        base.EnterState(enterArgs);
+
+        if(stateArgs == null)
+        {
+            stateArgs = new BattleSequenceStateArgs(enterArgs.PlayerParty, enterArgs.EnemyParty);
+        }
 
         if(playerBattleQueue == null)
         {
@@ -24,12 +29,14 @@ public class QueuePlayersBattleSequenceState : BattleSequenceState
             }
         }
         QueuePlayers(enterArgs.PlayerParty, enterArgs.EnemyParty);
+        stateArgs.CurrentPlayer = playerBattleQueue.Dequeue();
+        ExitState(stateArgs);
     }
 
     public override void ExitState(BattleSequenceStateArgs exitArgs = null)
     {
         Debug.Log("Exiting Queue Players Battle Sequence State");
-        base.ExitState();
+        base.ExitState(exitArgs);
     }
 
     private void QueuePlayers(Party players, Party enemies)
