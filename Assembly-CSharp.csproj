@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\BattleSequence\BattleSequenceStates\BattleSequenceState.cs" />
      <Compile Include="Assets\Scripts\BattleSequence\BattleSequenceStates\BattleSequenceStateArgs.cs" />
      <Compile Include="Assets\Scripts\BattleSequence\BattleSequenceStates\EnemyActionBattleSequenceState.cs" />
+     <Compile Include="Assets\Scripts\BattleSequence\BattleSequenceStates\PlayerActionBattleSequenceState.cs" />
      <Compile Include="Assets\Scripts\BattleSequence\BattleSequenceStates\QueuePlayersBattleSequenceState.cs" />
      <Compile Include="Assets\Scripts\BattleSequence\BattleSequenceTransition.cs" />
      <Compile Include="Assets\Scripts\BattleSequence\BattleWonArgs.cs" />
