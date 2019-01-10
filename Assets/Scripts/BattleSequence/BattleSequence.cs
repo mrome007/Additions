@@ -24,7 +24,13 @@ public class BattleSequence : MonoBehaviour
 
     #endregion
 
+    [SerializeField]
+    private BattleSequenceState initialState;
+
+    [SerializeField]
     private Party darts;
+
+    [SerializeField]
     private Party enemies;
 
     private void Awake()
@@ -44,7 +50,7 @@ public class BattleSequence : MonoBehaviour
     public void StartBattleSequence(List<BattlePlayer> goodGuys, List<BattlePlayer> badGuys)
     {
         PopulateParties(goodGuys, badGuys);
-
+        initialState.EnterState(new BattleSequenceStateArgs(darts, enemies));
     }
         
     public void PopulateParties(List<BattlePlayer> dts, List<BattlePlayer> enm)

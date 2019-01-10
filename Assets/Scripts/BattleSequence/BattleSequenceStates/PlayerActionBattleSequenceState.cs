@@ -54,6 +54,7 @@ public class PlayerActionBattleSequenceState : BattleSequenceState
     private void HandlePlayerActionEnd(object sender, ActionEventArgs e)
     {
         player.ActionEnd -= HandlePlayerActionEnd;
+        ExitState(stateArgs);
     }
 
     private void HandleEnemyTargetSelectionFinished(object sender, ActionEventArgs e)

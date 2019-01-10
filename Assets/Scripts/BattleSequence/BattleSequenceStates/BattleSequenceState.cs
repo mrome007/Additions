@@ -45,11 +45,17 @@ public class BattleSequenceState : MonoBehaviour
 
     protected virtual void PostEnteredState()
     {
-        EnteredState.Invoke();
+        if(EnteredState != null)
+        {
+            EnteredState.Invoke();
+        }
     }
 
     protected virtual void PostExitedState()
     {
-        ExitedState.Invoke();
+        if(ExitedState != null)
+        {
+            ExitedState.Invoke();
+        }
     }
 }

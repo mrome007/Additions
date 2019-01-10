@@ -30,6 +30,8 @@ public class BattleSequenceInput : MonoBehaviour
         selectionIndicator.MoveBattleSequenceIndicator(currentTarget.transform.position);
         selectionIndicator.ShowBattleSequenceIndicator(true);
 
+        yield return new WaitForSeconds(0.25f);
+
         var enemySelect = true;
         while(true)
         {
