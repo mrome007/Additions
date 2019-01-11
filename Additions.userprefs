@@ -1,22 +1,33 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BattleSequence/BattleSequenceStates/PlayerActionBattleSequenceState.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BattleSequence/BattleSequenceStates/QueuePlayersBattleSequenceState.cs">
     <Files>
-      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceStates/PlayerActionBattleSequenceState.cs" Line="6" Column="2" />
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceStates/BattleSequenceInput.cs" Line="33" Column="48" />
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceStates/PlayerActionBattleSequenceState.cs" Line="51" Column="44" />
       <File FileName="Assets/Scripts/BattleSequence/BattleSequenceStates/BattleSequenceStateArgs.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/BattleSequence/BattleSequence.cs" Line="34" Column="34" />
-      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceStates/EnemyActionBattleSequenceState.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PlayerScripts/DartBattlePlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/BattleSequence/Party.cs" Line="62" Column="5" />
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequence.cs" Line="34" Column="16" />
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceStates/EnemyActionBattleSequenceState.cs" Line="29" Column="23" />
+      <File FileName="Assets/Scripts/PlayerScripts/DartBattlePlayer.cs" Line="64" Column="23" />
+      <File FileName="Assets/Scripts/BattleSequence/Party.cs" Line="21" Column="28" />
       <File FileName="Assets/Scripts/BattleSequence/AdditionButtonController.cs" Line="13" Column="5" />
       <File FileName="Assets/Scripts/BattleSequence/AdditionButton.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/BattleSequence/PlayerActionButton.cs" Line="7" Column="17" />
-      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceStates/BattleSequenceInput.cs" Line="114" Column="63" />
       <File FileName="Assets/Scripts/BattleSequence/PlayerActionButtonController.cs" Line="5" Column="1" />
+      <File FileName="Assets/Scripts/PlayerScripts/BattlePlayer.cs" Line="69" Column="36" />
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceStates/BattleSequenceState.cs" Line="59" Column="10" />
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceStates/QueuePlayersBattleSequenceState.cs" Line="54" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/mrome007unity/Additions/Assets/Scripts/BattleSequence/BattleSequenceStates/EnemyActionBattleSequenceState.cs" line="43" column="1" />
+      <Breakpoint file="/Users/mrome007unity/Additions/Assets/Scripts/BattleSequence/BattleSequenceStates/EnemyActionBattleSequenceState.cs" line="49" column="1" />
+      <Breakpoint file="/Users/mrome007unity/Additions/Assets/Scripts/BattleSequence/BattleSequenceStates/EnemyActionBattleSequenceState.cs" line="29" column="1" />
+      <Breakpoint file="/Users/mrome007unity/Additions/Assets/Scripts/PlayerScripts/EnemyBattlePlayer.cs" line="17" column="1" />
+      <Breakpoint file="/Users/mrome007unity/Additions/Assets/Scripts/BattleSequence/BattleSequenceStates/QueuePlayersBattleSequenceState.cs" line="52" column="1" />
+      <Breakpoint file="/Users/mrome007unity/Additions/Assets/Scripts/BattleSequence/BattleSequenceStates/PlayerActionBattleSequenceState.cs" line="35" column="1" />
+      <Breakpoint file="/Users/mrome007unity/Additions/Assets/Scripts/BattleSequence/BattleSequenceStates/PlayerActionBattleSequenceState.cs" line="69" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

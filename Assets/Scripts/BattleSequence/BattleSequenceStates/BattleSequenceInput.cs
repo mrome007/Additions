@@ -30,8 +30,6 @@ public class BattleSequenceInput : MonoBehaviour
         selectionIndicator.MoveBattleSequenceIndicator(currentTarget.transform.position);
         selectionIndicator.ShowBattleSequenceIndicator(true);
 
-        yield return new WaitForSeconds(0.25f);
-
         var enemySelect = true;
         while(true)
         {
@@ -63,6 +61,7 @@ public class BattleSequenceInput : MonoBehaviour
 
         if(enemySelect)
         {
+            yield return new WaitForSeconds(0.25f);
             PostPlayerEnemyTargetSelectionFinished(currentTarget);
         }
         else
@@ -108,6 +107,7 @@ public class BattleSequenceInput : MonoBehaviour
                 PostPlayerActionSelectionFinished(currentAction.Action);
                 break;
             case ActionType.Attack:
+                yield return new WaitForSeconds(0.25f);
                 StartEnemyTargetSelection(enemies);
                 break;
             default:
