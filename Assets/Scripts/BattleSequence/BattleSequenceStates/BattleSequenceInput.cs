@@ -26,6 +26,7 @@ public class BattleSequenceInput : MonoBehaviour
 
     private IEnumerator EnemyTargetSelection(Party enemies)
     {
+        enemies.Reset();
         var currentTarget = enemies.GetNextPlayer();
         selectionIndicator.MoveBattleSequenceIndicator(currentTarget.transform.position);
         selectionIndicator.ShowBattleSequenceIndicator(true);
