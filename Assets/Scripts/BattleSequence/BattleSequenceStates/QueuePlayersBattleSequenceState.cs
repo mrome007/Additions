@@ -36,8 +36,9 @@ public class QueuePlayersBattleSequenceState : BattleSequenceState
                 playersTurnPoints.Add(0);
             }
         }
+
         QueuePlayers(enterArgs.PlayerParty, enterArgs.EnemyParty);
-        stateArgs.CurrentPlayer = playerBattleQueue.Dequeue();
+        stateArgs.CurrentPlayer = GetNextAlivePlayer();
         ExitState(stateArgs);
     }
 
@@ -80,5 +81,15 @@ public class QueuePlayersBattleSequenceState : BattleSequenceState
                 }
             }
         }
+    }
+
+    private BattlePlayer GetNextAlivePlayer()
+    {
+        while(playerBattleQueue.Count > 0 && !playerBattleQueue.Peek().Alive)
+        {
+            playerBattleQueue.Dequeue();
+        }
+
+        return playerBattleQueue.Count > 0 ? playerBattleQueue.Dequeue() : null;
     }
 }
