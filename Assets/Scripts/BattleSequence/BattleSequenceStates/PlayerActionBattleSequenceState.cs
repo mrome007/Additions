@@ -61,6 +61,7 @@ public class PlayerActionBattleSequenceState : BattleSequenceState
     {
         player.ActionEnd += HandlePlayerActionEnd;
 
+        player.ChangeAddition(e.DataPoints);
         player.PlayerAttack(e.Target);
     }
 

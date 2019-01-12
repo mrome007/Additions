@@ -172,15 +172,15 @@ public abstract class BattlePlayer : MonoBehaviour
         switch(actArgs.ActionType)
         {
             case ActionType.Attack:
-                ApplyDamage(actArgs.HitPoints, actArgs.Target);
+                ApplyDamage(actArgs.DataPoints, actArgs.Target);
                 break;
 
             case ActionType.Defend:
-                ApplyDefense(actArgs.HitPoints, actArgs.Target);
+                ApplyDefense(actArgs.DataPoints, actArgs.Target);
                 break;
 
             case ActionType.Heal:
-                ApplyHealth(actArgs.HitPoints, actArgs.Target);
+                ApplyHealth(actArgs.DataPoints, actArgs.Target);
                 break;
             
             case ActionType.Idle:

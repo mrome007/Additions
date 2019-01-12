@@ -6,13 +6,13 @@ using UnityEngine;
 public class ActionEventArgs : EventArgs
 {
     public ActionType ActionType { get; private set; }
-    public int HitPoints { get; private set; }
+    public int DataPoints { get; private set; }
     public BattlePlayer Target { get; private set; }
 
-    public ActionEventArgs(ActionType act, int hp, BattlePlayer targ)
+    public ActionEventArgs(ActionType act, int dat, BattlePlayer targ)
     {
         this.ActionType = act;
-        this.HitPoints = hp;
+        this.DataPoints = dat;
         this.Target = targ;
     }
 }

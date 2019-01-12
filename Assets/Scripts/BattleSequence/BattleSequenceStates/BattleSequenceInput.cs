@@ -63,7 +63,7 @@ public class BattleSequenceInput : MonoBehaviour
         if(enemySelect)
         {
             yield return new WaitForSeconds(0.25f);
-            PostPlayerEnemyTargetSelectionFinished(currentTarget);
+            PostPlayerEnemyTargetSelectionFinished(currentTarget, (playerActionButtonController.GetCurrentActionButton() as AdditionButton).AdditionIndex);
         }
         else
         {
@@ -126,12 +126,12 @@ public class BattleSequenceInput : MonoBehaviour
         }
     }
 
-    private void PostPlayerEnemyTargetSelectionFinished(BattlePlayer target)
+    private void PostPlayerEnemyTargetSelectionFinished(BattlePlayer target, int additionIndex)
     {
         var handler = PlayerEnemyTargetSelectionFinished;
         if(handler != null)
         {
-            handler(this, new ActionEventArgs(ActionType.Attack, 0, target));
+            handler(this, new ActionEventArgs(ActionType.Attack, additionIndex, target));
         }
     }
 }
