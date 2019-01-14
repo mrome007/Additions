@@ -158,7 +158,7 @@ public class DartBattlePlayer : BattlePlayer
         }
 
         additionBox.Reset();
-        additionBox.ShowAdditionBox(true);
+        additionBox.ShowAdditionBox(false);
         transform.position = originalPosition;
         BattleCamera.orthographicSize = 5f;
         cameraMovementVector.x = 4f;

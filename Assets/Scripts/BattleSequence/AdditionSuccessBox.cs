@@ -5,59 +5,83 @@ using UnityEngine.UI;
 
 public class AdditionSuccessBox : MonoBehaviour 
 {
-    //This may change in the future depending on how I indicate success.
     [SerializeField]
-    private SpriteRenderer successBox;
+    private Transform additionBox;
 
     [SerializeField]
-    private float originalScale;
+    private Transform additionLineTop;
+    [SerializeField]
+    private Transform additionLineBottom;
+    [SerializeField]
+    private Transform additionLineLeft;
+    [SerializeField]
+    private Transform additionLineRight;
 
-    private Vector3 scaleVector;
-    private float boxScale;
-    private Color originalColor;
+    private readonly Vector2 originalTopLeftPoint = new Vector2(-3f, 3f);
+    private readonly Vector2 originalBottomRightPoint = new Vector2(3f, -3f);
+    private const float originalScale = 3f;
+    private const float scaleFactor = 25f;
+
+    private Vector2 topLeftPoint;
+    private Vector2 bottomRightPoint;
 
     private void Awake()
     {
-        scaleVector = new Vector3(originalScale, originalScale, 1f);
-        transform.localScale = scaleVector;
-        boxScale = originalScale;
-        ShowAdditionBox(true);
-        originalColor = successBox.color;
+        Reset();
+        ShowAdditionBox(false);
     }
 
     public void ShowAdditionBox(bool show)
     {
-        successBox.gameObject.SetActive(show);
+        additionBox.gameObject.SetActive(show);
+        additionLineTop.gameObject.SetActive(show);
+        additionLineBottom.gameObject.SetActive(show);
+        additionLineLeft.gameObject.SetActive(show);
+        additionLineRight.gameObject.SetActive(show);
     }
 
     public void ScaleAdditionBox(int numFrames)
     {
-        var scaleRate = (originalScale - 1f) / numFrames;
-        if(boxScale > 1f)
-        {
-            boxScale -= scaleRate;
-        }
-        else
-        {
-            boxScale = 1f;
-        }
-        scaleVector.x = boxScale;
-        scaleVector.y = boxScale;
-
-        transform.localScale = scaleVector;
+        var scaleFactor = originalScale / numFrames;
+        topLeftPoint -= new Vector2(-scaleFactor, scaleFactor);
+        bottomRightPoint -= new Vector2(scaleFactor, -scaleFactor);
+        ScaleAdditionBox();
     }
 
     public void AdditionSuccess(bool success)
     {
-        successBox.color = success ? Color.green : Color.red;
     }
 
     public void Reset()
     {
-        scaleVector.x = originalScale;
-        scaleVector.y = originalScale;
-        boxScale = originalScale;
-        successBox.color = originalColor;
-        transform.localScale = scaleVector;
+        topLeftPoint = originalTopLeftPoint;
+        bottomRightPoint = originalBottomRightPoint;
+        ScaleAdditionBox();
+    }
+
+    private void ScaleAdditionBox()
+    {
+        var dummyPoint = -1f * topLeftPoint;
+        var difference = topLeftPoint - dummyPoint;
+        var scale = Mathf.Abs(difference.x) * scaleFactor;
+
+        var verticalScale = new Vector3(1f, scale, 1f);
+        var horizontalScale = new Vector3(scale, 1f, 1f);
+        var leftPosition = new Vector3(topLeftPoint.x, 0f, 0f);
+        var rightPosition = new Vector3(bottomRightPoint.x, 0f, 0f);
+        var topPosition = new Vector3(0f, topLeftPoint.y, 0f);
+        var bottomPosition = new Vector3(0f, bottomRightPoint.y, 0f);
+
+        additionLineTop.localPosition = topPosition;
+        additionLineTop.localScale = horizontalScale;
+
+        additionLineBottom.localPosition = bottomPosition;
+        additionLineBottom.localScale = horizontalScale;
+
+        additionLineLeft.localPosition = leftPosition;
+        additionLineLeft.localScale = verticalScale;
+
+        additionLineRight.localPosition = rightPosition;
+        additionLineRight.localScale = verticalScale;
     }
 }
