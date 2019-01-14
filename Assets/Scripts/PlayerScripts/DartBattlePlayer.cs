@@ -21,7 +21,8 @@ public class DartBattlePlayer : BattlePlayer
     private Camera BattleCamera;
 
     private Additions currentAdditions;
-    private const int additionExecuteOffset = 6;
+    private const int additionUpperExecuteOffset = 2;
+    private const int additionLowerExecuteOffset = 4;
     private WaitForSeconds delayShowAdditionBoxTime;
     private WaitForSeconds additionDelayTime;
     private WaitForSeconds finalAttackDelayTime;
@@ -79,8 +80,8 @@ public class DartBattlePlayer : BattlePlayer
             additionBox.ShowAdditionBox(true);
             
             var addition = currentAdditions.Addition[index];
-            var numFrames = addition.NumFramesToExecute + additionExecuteOffset;
-            var numFrameLowerLimit = addition.NumFramesToExecute - additionExecuteOffset;
+            var numFrames = addition.NumFramesToExecute - additionUpperExecuteOffset;
+            var numFrameLowerLimit = addition.NumFramesToExecute - additionLowerExecuteOffset;
             var numFrameUpperLimit = numFrames;
             var additionSuccess = true;
             var frameCount = 0;
@@ -92,7 +93,7 @@ public class DartBattlePlayer : BattlePlayer
                 StartCoroutine(MovePlayerToTarget(numFrameLowerLimit - 1, distance, direction));
             }
 
-            while(frameCount < numFrames)
+            while(frameCount < addition.NumFramesToExecute)
             {
                 if(frameCount == numFrameLowerLimit)
                 {
@@ -102,12 +103,12 @@ public class DartBattlePlayer : BattlePlayer
                 
                 if(Input.GetKeyDown(KeyCode.Space))
                 {
-                    additionSuccess = (frameCount >= numFrameLowerLimit && frameCount < numFrameUpperLimit);
+                    additionSuccess = (frameCount >= numFrameLowerLimit && frameCount <= numFrameUpperLimit);
                     break;
                 }
 
                 frameCount++;
-                additionBox.ScaleAdditionBox(numFrames);
+                additionBox.ScaleAdditionBox(addition.NumFramesToExecute);
                 yield return null;
             }
 
@@ -130,12 +131,11 @@ public class DartBattlePlayer : BattlePlayer
                         dartPlayerAnimator.SetTrigger(addition.AttackTrigger);
                     }
                     frameCount++;
-                    additionBox.ScaleAdditionBox(numFrames);
                     yield return null;
                 }
                 break;
             }
-
+           
             yield return delayShowAdditionBoxTime;
 
             additionBox.Reset();

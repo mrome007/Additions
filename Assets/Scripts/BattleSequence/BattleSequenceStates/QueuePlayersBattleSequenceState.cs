@@ -90,6 +90,8 @@ public class QueuePlayersBattleSequenceState : BattleSequenceState
             playerBattleQueue.Dequeue();
         }
 
+        QueuePlayers(stateArgs.PlayerParty, stateArgs.EnemyParty);
+
         return playerBattleQueue.Count > 0 ? playerBattleQueue.Dequeue() : null;
     }
 }
