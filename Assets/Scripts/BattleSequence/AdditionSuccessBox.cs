@@ -17,6 +17,9 @@ public class AdditionSuccessBox : MonoBehaviour
     [SerializeField]
     private Transform additionLineRight;
 
+    [SerializeField]
+    private SpriteRenderer additionSuccessBox;
+
     private readonly Vector2 originalTopLeftPoint = new Vector2(-3f, 3f);
     private readonly Vector2 originalBottomRightPoint = new Vector2(3f, -3f);
     private const float originalScale = 3f;
@@ -24,6 +27,7 @@ public class AdditionSuccessBox : MonoBehaviour
 
     private Vector2 topLeftPoint;
     private Vector2 bottomRightPoint;
+    private Color successColor = Color.white;
 
     private void Awake()
     {
@@ -50,10 +54,14 @@ public class AdditionSuccessBox : MonoBehaviour
 
     public void AdditionSuccess(bool success)
     {
+        successColor.a = success ? 1f : 0.2f;
+        additionSuccessBox.color = successColor;
     }
 
     public void Reset()
     {
+        successColor.a = 0f;
+        additionSuccessBox.color = successColor;
         topLeftPoint = originalTopLeftPoint;
         bottomRightPoint = originalBottomRightPoint;
         ScaleAdditionBox();
@@ -83,5 +91,7 @@ public class AdditionSuccessBox : MonoBehaviour
 
         additionLineRight.localPosition = rightPosition;
         additionLineRight.localScale = verticalScale;
+
+        additionSuccessBox.transform.localScale = new Vector3(scale, scale, 1f);
     }
 }
