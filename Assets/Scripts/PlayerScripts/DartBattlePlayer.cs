@@ -31,7 +31,7 @@ public class DartBattlePlayer : BattlePlayer
     private void HandlePerformAdditionsComplete(object sender, ActionEventArgs e)
     {
         performAdditions.AdditionComplete -= HandlePerformAdditionsComplete;
-        EndAction(e.ActionType, e.DataPoints, e.Target);
+        EndAction(e);
     }
 
     public override void PlayerDefend(BattlePlayer target)

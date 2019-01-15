@@ -75,6 +75,15 @@ public abstract class BattlePlayer : MonoBehaviour
         }
     }
 
+    protected virtual void EndAction(ActionEventArgs e)
+    {
+        var handler = ActionEnd;
+        if(handler != null)
+        {
+            handler(this, e);
+        }
+    }
+
     public virtual void PlayerAttack(BattlePlayer target)
     {
         currentAction = ActionType.Attack;
