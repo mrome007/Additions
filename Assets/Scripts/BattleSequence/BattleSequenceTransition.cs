@@ -34,6 +34,8 @@ public class BattleSequenceTransition : MonoBehaviour
     }
 
     [SerializeField]
+    private BattlePlayerCreator battlePlayerCreator;
+    [SerializeField]
     private GameObject overWorldElementsContainer;
     [SerializeField]
     private DartPlayer mainPlayerContainer;
@@ -87,7 +89,7 @@ public class BattleSequenceTransition : MonoBehaviour
         foreach(var member in dartOverWorld.PlayerTeam)
         {
             //local variable to assign stats in the future.
-            var teamMate = BattlePlayerCreator.Instance.CreateDartBattlePlayer(member.GetComponent<DartPlayer>().DartType);
+            var teamMate = battlePlayerCreator.CreateDartBattlePlayer(member.GetComponent<DartPlayer>().DartType);
             mainPlayerContainer.ApplyBoosts((DartBattlePlayer)teamMate);
             teamMate.PlayerStats.Initialize(member);
             goodGuys.Add(teamMate);
@@ -95,7 +97,7 @@ public class BattleSequenceTransition : MonoBehaviour
 
         foreach(var member in enemyOverWorld.PlayerTeam)
         {
-            var teamMate = BattlePlayerCreator.Instance.CreateEnemyBattlePlayer(member.GetComponent<EnemyPlayer>().EnemyType);
+            var teamMate = battlePlayerCreator.CreateEnemyBattlePlayer(member.GetComponent<EnemyPlayer>().EnemyType);
             teamMate.PlayerStats.Initialize(member);
             badGuys.Add(teamMate);
         }

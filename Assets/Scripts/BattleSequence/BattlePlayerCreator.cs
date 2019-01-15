@@ -4,24 +4,6 @@ using UnityEngine;
 
 public class BattlePlayerCreator : MonoBehaviour 
 {
-    #region Instance
-
-    public static BattlePlayerCreator Instance
-    {
-        get
-        {
-            if(instance == null)
-            {
-                instance = (BattlePlayerCreator)FindObjectOfType(typeof(BattlePlayerCreator));
-            }
-            return instance;
-        }
-    }
-
-    private static BattlePlayerCreator instance;
-
-    #endregion
-
     #region Inspector elements
 
     [SerializeField]
@@ -58,13 +40,5 @@ public class BattlePlayerCreator : MonoBehaviour
     {
         var newEnemy = Instantiate(enemyBattlePlayers[(int)enemyType], Vector2.zero, Quaternion.identity);
         return newEnemy;
-    }
-
-    private void Awake()
-    {
-        if(instance == null)
-        {
-            instance = (BattlePlayerCreator)FindObjectOfType(typeof(BattlePlayerCreator));
-        }
     }
 }
