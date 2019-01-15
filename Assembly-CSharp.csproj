@@ -91,6 +91,7 @@
      <Compile Include="Assets\Scripts\PlayerScripts\DartPlayer.cs" />
      <Compile Include="Assets\Scripts\PlayerScripts\EnemyBattlePlayer.cs" />
      <Compile Include="Assets\Scripts\PlayerScripts\EnemyPlayer.cs" />
+     <Compile Include="Assets\Scripts\PlayerScripts\PerformAdditions.cs" />
      <Compile Include="Assets\Scripts\PlayerScripts\Player.cs" />
      <Compile Include="Assets\Scripts\PlayerStateUiController.cs" />
  <Reference Include="UnityEngine.UI">

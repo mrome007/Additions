@@ -12,54 +12,38 @@ public class DartBattlePlayer : BattlePlayer
     private List<Additions> additions;
 
     [SerializeField]
-    private AdditionSuccessBox additionBox;
-
-    [SerializeField]
-    private Animator dartPlayerAnimator;
-
-    [SerializeField]
-    private Camera BattleCamera;
+    private PerformAdditions performAdditions;
 
     private Additions currentAdditions;
-    private const int additionUpperExecuteOffset = 2;
-    private const int additionLowerExecuteOffset = 4;
-    private WaitForSeconds delayShowAdditionBoxTime;
-    private WaitForSeconds additionDelayTime;
-    private WaitForSeconds finalAttackDelayTime;
-    private WaitForSeconds delayEndAction;
-    private Vector3 originalPosition;
-    private float enemyPositionOffset = 1.25f;
-
-    private Vector3 cameraMovementVector;
 
     private void Start()
     {
         currentAdditions = additions[0];
-        delayShowAdditionBoxTime = new WaitForSeconds(0.15f);
-        additionDelayTime = new WaitForSeconds(0.5f);
-        finalAttackDelayTime = new WaitForSeconds(1.5f);
-        delayEndAction = new WaitForSeconds(1.5f);
-        originalPosition = transform.position;
-        cameraMovementVector = Vector3.zero;
     }
     
     public override void PlayerAttack(BattlePlayer target)
     {
         base.PlayerAttack(target);
-        additionBox.Reset();
-        StartCoroutine(ExecuteAddition(target));
+        performAdditions.AdditionComplete += HandlePerformAdditionsComplete;
+        performAdditions.StartPerformAddition(target, currentAdditions, PlayerStats.Strength);
+    }
+
+    private void HandlePerformAdditionsComplete(object sender, ActionEventArgs e)
+    {
+        performAdditions.AdditionComplete -= HandlePerformAdditionsComplete;
+        EndAction(e.ActionType, e.DataPoints, e.Target);
     }
 
     public override void PlayerDefend(BattlePlayer target)
     {
         base.PlayerDefend(target);
-        StartCoroutine(ExecuteDefense(target));
+        ExecuteDefense(target);
     }
 
     public override void PlayerHeal(BattlePlayer target)
     {
         base.PlayerHeal(target);
-        StartCoroutine(ExecuteHeal(target));
+        ExecuteHeal(target);
     }
 
     public void ChangeAddition(int index)
@@ -70,145 +54,15 @@ public class DartBattlePlayer : BattlePlayer
         }
     }
 
-    private IEnumerator ExecuteAddition(BattlePlayer target)
+    private void ExecuteHeal(BattlePlayer target)
     {
-        var damage = 0;
-        var index = 0;
-
-        for(; index < currentAdditions.Addition.Count; index++)
-        {
-            additionBox.ShowAdditionBox(true);
-            
-            var addition = currentAdditions.Addition[index];
-            var numFrames = addition.NumFramesToExecute - additionUpperExecuteOffset;
-            var numFrameLowerLimit = addition.NumFramesToExecute - additionLowerExecuteOffset;
-            var numFrameUpperLimit = numFrames;
-            var additionSuccess = true;
-            var frameCount = 0;
-
-            if(index == 0)
-            {
-                var direction = (target.transform.position - transform.position).normalized;
-                var distance = Vector3.Distance(transform.position, target.transform.position) - enemyPositionOffset;
-                StartCoroutine(MovePlayerToTarget(numFrameLowerLimit - 1, distance, direction));
-            }
-
-            while(frameCount < addition.NumFramesToExecute)
-            {
-                if(frameCount == numFrameLowerLimit)
-                {
-                    //dartAdditionAnimator.SetTrigger(addition.AttackTrigger);
-                    dartPlayerAnimator.SetTrigger(addition.AttackTrigger);
-                }
-                
-                if(Input.GetKeyDown(KeyCode.Space))
-                {
-                    additionSuccess = (frameCount >= numFrameLowerLimit && frameCount <= numFrameUpperLimit);
-                    break;
-                }
-
-                frameCount++;
-                additionBox.ScaleAdditionBox(addition.NumFramesToExecute);
-                yield return null;
-            }
-
-            if(frameCount >= numFrames)
-            {
-                additionSuccess = false;
-            }
-
-            additionBox.AdditionSuccess(additionSuccess);
-
-            damage += addition.ApplyDamage(additionSuccess);
-
-            if(!additionSuccess)
-            {
-                while(frameCount < numFrameLowerLimit)
-                {
-                    if(frameCount == numFrameLowerLimit - 1)
-                    {
-                        //dartAdditionAnimator.SetTrigger(addition.AttackTrigger);
-                        dartPlayerAnimator.SetTrigger(addition.AttackTrigger);
-                    }
-                    frameCount++;
-                    yield return null;
-                }
-                break;
-            }
-           
-            yield return delayShowAdditionBoxTime;
-
-            additionBox.Reset();
-            additionBox.ShowAdditionBox(false);
-
-            yield return additionDelayTime;
-        }
-
-        if(index == currentAdditions.Addition.Count)
-        {
-            currentAdditions.Count++;
-            currentAdditions.Count %= 500;
-            dartPlayerAnimator.SetTrigger(currentAdditions.FinalAttackTrigger);
-            damage += PlayerStats.Strength;
-            yield return finalAttackDelayTime;
-        }
-        else
-        {
-            yield return delayEndAction;
-        }
-
-        additionBox.Reset();
-        additionBox.ShowAdditionBox(false);
-        transform.position = originalPosition;
-        BattleCamera.orthographicSize = 5f;
-        cameraMovementVector.x = 4f;
-        cameraMovementVector.y = 2f;
-        BattleCamera.transform.localPosition = cameraMovementVector;
-
-        yield return additionDelayTime;
-
-        EndAction(currentAction, damage, target);
-    }
-
-    private IEnumerator ExecuteHeal(BattlePlayer target)
-    {
-        yield return delayEndAction;
         var hp = UnityEngine.Random.Range(1, target.PlayerStats.HealthCap / 4);
         EndAction(currentAction, hp, target);
     }
 
-    private IEnumerator ExecuteDefense(BattlePlayer target)
+    private void ExecuteDefense(BattlePlayer target)
     {
-        yield return delayEndAction;
-
         EndAction(currentAction, 1, target);
-    }
-
-    private IEnumerator MovePlayerToTarget(int numberOfFrames, float distance, Vector3 direction)
-    {
-        var rate = distance / numberOfFrames;
-        var count = 0;
-
-        var xCamRate = 3f / numberOfFrames;
-        var yCamRate = 1f / numberOfFrames;
-        var orthRate = 2.5f / numberOfFrames;
-        cameraMovementVector = BattleCamera.transform.localPosition;
-
-        while(count < numberOfFrames)
-        {
-            transform.Translate(direction * rate);
-            count++;
-            BattleCamera.orthographicSize -= orthRate;
-            cameraMovementVector.x -= xCamRate;
-            cameraMovementVector.y -= yCamRate;
-
-            cameraMovementVector.x = Mathf.Clamp(cameraMovementVector.x, 1f, 4f);
-            cameraMovementVector.y = Mathf.Clamp(cameraMovementVector.y, 1f, 2f);
-
-            BattleCamera.transform.localPosition = cameraMovementVector;
-
-            yield return null;
-        }
     }
 
     //For now pick a random addition to apply boost to.
