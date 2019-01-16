@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class BattleSequenceTransition : MonoBehaviour 
 {
+    public static event EventHandler<BattleSequenceStartEventArgs> BattleSequenceStart;
+    
     #region Instance
 
     public static BattleSequenceTransition Instance
@@ -109,7 +111,16 @@ public class BattleSequenceTransition : MonoBehaviour
         var badGuys = new List<BattlePlayer>();
 
         SpawnBattleSequencePlayers(ref goodGuys, ref badGuys);
-        BattleSequence.Instance.StartBattleSequence(goodGuys, badGuys);
+        PostBattleSequenceStart(goodGuys, badGuys);
+    }
+
+    private void PostBattleSequenceStart(List<BattlePlayer> players, List<BattlePlayer> enemies)
+    {
+        var handler = BattleSequenceStart;
+        if(handler != null)
+        {
+            handler(Instance, new BattleSequenceStartEventArgs(players, enemies));
+        }
     }
 
     public void UpdateAdditionsInformation(Dictionary<string, int> additions)

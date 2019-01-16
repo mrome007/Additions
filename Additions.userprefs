@@ -1,10 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BattleSequence/AdditionSuccessBox.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BattleSequence/BattleSequenceTransition.cs">
     <Files>
-      <File FileName="Assets/Scripts/BattleSequence/AdditionSuccessBox.cs" Line="57" Column="44" />
-      <File FileName="Assets/Scripts/PlayerScripts/DartBattlePlayer.cs" Line="141" Column="25" />
-      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceStates/QueuePlayersBattleSequenceState.cs" Line="93" Column="67" />
+      <File FileName="Assets/Scripts/PlayerScripts/DartBattlePlayer.cs" Line="34" Column="22" />
+      <File FileName="Assets/Scripts/PlayerScripts/PerformAdditions.cs" Line="14" Column="41" />
+      <File FileName="Assets/Scripts/PlayerScripts/BattlePlayer.cs" Line="78" Column="22" />
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceTransition.cs" Line="11" Column="44" />
+      <File FileName="Assets/Scripts/BattleSequence/BattlePlayerCreator.cs" Line="43" Column="6" />
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequence.cs" Line="11" Column="37" />
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceStates/PartyStatusBattleSequenceState.cs" Line="18" Column="42" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -55,6 +55,18 @@ public class DartPlayer : Player
 
     public BattlePlayerCreator.Darts DartType { get { return dartType; } }
 
+    public override void Initialize(Player player)
+    {
+        this.health = player.Health;
+        this.level = player.Level;
+        this.experience = player.Experience;
+        this.experienceCap = player.ExperienceCap;
+        this.strength = player.Strength;
+        this.defense = player.Defense;
+        this.speed = player.Speed;
+        this.shadow = player.Shadow;
+    }
+
     public void IncrementExperiencePoints(int exp)
     {
         experience += exp;

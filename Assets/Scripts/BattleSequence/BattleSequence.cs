@@ -6,24 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class BattleSequence : MonoBehaviour 
 {
-    #region Instance
-
-    public static BattleSequence Instance
-    {
-        get
-        {
-            if(instance == null)
-            {
-                instance = (BattleSequence)FindObjectOfType(typeof(BattleSequence));
-            }
-            return instance;
-        }
-    }
-
-    private static BattleSequence instance = null;
-
-    #endregion
-
     [SerializeField]
     private BattleSequenceState initialState;
 
@@ -35,25 +17,27 @@ public class BattleSequence : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
-        {
-            instance = (BattleSequence)FindObjectOfType(typeof(BattleSequence));
-        }
+        BattleSequenceTransition.BattleSequenceStart += HandleBattleSequenceStart;
     }
 
-    public void EndBattleSequence()
+    private void OnDestroy()
     {
-        darts.ClearPlayersFromParty();
-        enemies.ClearPlayersFromParty();
+        BattleSequenceTransition.BattleSequenceStart -= HandleBattleSequenceStart;
     }
 
-    public void StartBattleSequence(List<BattlePlayer> goodGuys, List<BattlePlayer> badGuys)
+    private void HandleBattleSequenceStart(object sender, BattleSequenceStartEventArgs e)
+    {
+        BattleSequenceTransition.BattleSequenceStart -= HandleBattleSequenceStart;
+        StartBattleSequence(e.Players, e.Enemies);
+    }
+
+    private void StartBattleSequence(List<BattlePlayer> goodGuys, List<BattlePlayer> badGuys)
     {
         PopulateParties(goodGuys, badGuys);
         initialState.EnterState(new BattleSequenceStateArgs(darts, enemies));
     }
         
-    public void PopulateParties(List<BattlePlayer> dts, List<BattlePlayer> enm)
+    private void PopulateParties(List<BattlePlayer> dts, List<BattlePlayer> enm)
     {
         dts.ForEach(goodGuys => darts.AddPlayerToParty(goodGuys));
         enm.ForEach(badGuys => enemies.AddPlayerToParty(badGuys));

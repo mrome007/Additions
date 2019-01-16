@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\BattleSequence\BattlePlayerCreator.cs" />
      <Compile Include="Assets\Scripts\BattleSequence\BattleSequence.cs" />
      <Compile Include="Assets\Scripts\BattleSequence\BattleSequenceIndicator.cs" />
+     <Compile Include="Assets\Scripts\BattleSequence\BattleSequenceStartEventArgs.cs" />
      <Compile Include="Assets\Scripts\BattleSequence\BattleSequenceStates\BattleSequenceInput.cs" />
      <Compile Include="Assets\Scripts\BattleSequence\BattleSequenceStates\BattleSequenceState.cs" />
      <Compile Include="Assets\Scripts\BattleSequence\BattleSequenceStates\BattleSequenceStateArgs.cs" />
