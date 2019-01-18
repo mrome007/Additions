@@ -1,18 +1,18 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BattleSequence/BattleSequenceTransition.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerScripts/PerformAdditions.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerScripts/DartBattlePlayer.cs" Line="34" Column="22" />
-      <File FileName="Assets/Scripts/PlayerScripts/PerformAdditions.cs" Line="14" Column="41" />
-      <File FileName="Assets/Scripts/PlayerScripts/BattlePlayer.cs" Line="78" Column="22" />
-      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceTransition.cs" Line="11" Column="44" />
-      <File FileName="Assets/Scripts/BattleSequence/BattlePlayerCreator.cs" Line="43" Column="6" />
-      <File FileName="Assets/Scripts/BattleSequence/BattleSequence.cs" Line="11" Column="37" />
+      <File FileName="Assets/Scripts/PlayerOverWorld/AdditionMilestones.cs" Line="28" Column="28" />
+      <File FileName="Assets/Scripts/PlayerOverWorld/DartOverWorld.cs" Line="129" Column="38" />
+      <File FileName="Assets/Scripts/BattleSequence/BattleSequenceTransition.cs" Line="122" Column="21" />
       <File FileName="Assets/Scripts/BattleSequence/BattleSequenceStates/PartyStatusBattleSequenceState.cs" Line="18" Column="42" />
+      <File FileName="Assets/Scripts/PlayerScripts/PerformAdditions.cs" Line="20" Column="53" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/mrome007unity/Additions/Assets/Scripts/PlayerScripts/PerformAdditions.cs" line="70" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
